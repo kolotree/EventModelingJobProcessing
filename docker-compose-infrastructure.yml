@@ -1,0 +1,10 @@
+version: '3.3'
+
+services:
+    event_store:
+        container_name: eventstore
+        image: eventstore/eventstore:release-5.0.8
+        restart: unless-stopped
+        ports:
+          - 1113:1113
+          - 2113:2113
