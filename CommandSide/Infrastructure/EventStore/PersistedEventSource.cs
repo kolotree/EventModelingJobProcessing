@@ -23,17 +23,19 @@ namespace Infrastructure.EventStore
             Func<T, Task> eventHandler,
             CancellationToken cancellationToken = default) where T : IEvent
         {
-            _connection.CreatePersistentSubscriptionAsync(
-                $"$et-{typeof(T).Name}",
-                "test", 
-                PersistentSubscriptionSettings.Create(),
-                null).Wait(cancellationToken);
-
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             var subscription = await _connection.ConnectToPersistentSubscriptionAsync(
                 $"$et-{typeof(T).Name}",
                 "test",
-                (_, recordedEvent) => eventHandler((T)recordedEvent.Event.ToEvent()),
+                async (s, resolvedEvent) =>
+                {
+                    if (resolvedEvent.IsResolved)
+                    {
+                        await eventHandler((T) resolvedEvent.Event.ToEvent());
+                    }
+                    
+                    s.Acknowledge(resolvedEvent);
+                },
                 (_, __, ___) => subscriptionDroppedCancellationTokenSource.Cancel());
 
             try

@@ -17,7 +17,7 @@ namespace DetectMachineStop
             switch (e)
             {
                 case MachineStopped machineStopped:
-                    SetIdentity(StreamId.Assemble(
+                    SetIdentity(StreamId.AssembleFor<MachineStoppage>(
                         machineStopped.FactoryId,
                         machineStopped.RemoteId,
                         machineStopped.MachineId,

@@ -1,6 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Abstractions;
-using DetectMachineStop;
 using CommandsWireUp;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,6 +13,14 @@ namespace WebApplication.Controllers
         public Commands(ExternalCommandHandlers externalCommandHandlers)
         {
             _externalCommandHandlers = externalCommandHandlers;
+        }
+        
+        [HttpPost]
+        [Route(nameof(CreateMachine))]
+        public async Task<IActionResult> CreateMachine([FromBody] CreateMachineDto commandDto)
+        {
+            await _externalCommandHandlers.Handle(commandDto.ToCommand());
+            return Ok();
         }
 
         [HttpPost]

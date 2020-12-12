@@ -15,9 +15,9 @@ namespace Abstractions
         
         public static StreamId GenerateUnique() => new StreamId(Guid.NewGuid().ToString());
 
-        public static StreamId Assemble(params string[] parts) => 
-            new StreamId(string.Join("|", parts));
-        
+        public static StreamId AssembleFor<T>(params string[] parts) => 
+            new StreamId($"{typeof(T).Name}-{string.Join("|", parts)}");
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return _id;
