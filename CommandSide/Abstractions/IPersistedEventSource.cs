@@ -7,7 +7,7 @@ namespace Abstractions
 {
     public interface IPersistedEventSource
     {
-        Task SubscribeTo<T>(
+        Task SubscribeToEventType<T>(
             Func<T, Task> eventHandler,
             CancellationToken cancellationToken = default) where T : IEvent;
         
