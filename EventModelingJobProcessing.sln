@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SingleEventReactions", "Sin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAddedReactionApp", "CommandSide\SingleEventReactions\EventAddedReactionApp\EventAddedReactionApp.csproj", "{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectMachineStart", "CommandSide\ExternalCommands\DetectMachineStart\DetectMachineStart.csproj", "{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,6 +36,7 @@ Global
 		{0B9A9AB0-D9C6-4BDB-B164-D68BD8BE2C34} = {5AF489A8-5FD8-410D-8AD1-CD4C28A2C701}
 		{6A9185DC-FAC5-4743-A90C-23254E282CE0} = {5AF489A8-5FD8-410D-8AD1-CD4C28A2C701}
 		{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A} = {6A9185DC-FAC5-4743-A90C-23254E282CE0}
+		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A1830134-E600-4B5D-BCBC-E4FA43C5036A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -64,5 +67,9 @@ Global
 		{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

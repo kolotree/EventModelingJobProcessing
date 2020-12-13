@@ -1,15 +1,18 @@
 ﻿using Abstractions;
 using Shared;
 
-namespace DetectMachineStop
+namespace DetectMachineStart
 {
     internal sealed class MachineStoppage : AggregateRoot
     {
-        public static MachineStoppage NewOf(DetectMachineStopCommand c)
+        private bool _isStarted;
+        
+        public void Apply(DetectMachineStartCommand c)
         {
-            var machineStoppage = new MachineStoppage();
-            machineStoppage.ApplyChange(c.ToMachineStopped());
-            return machineStoppage;
+            if (!_isStarted)
+            {
+                ApplyChange(c.ToMachineStarted());
+            }
         }
         
         protected override void When(IEvent e)
@@ -21,6 +24,10 @@ namespace DetectMachineStop
                         machineStopped.FactoryId,
                         machineStopped.MachineId,
                         machineStopped.StoppedAt.Ticks.ToString()));
+                    _isStarted = false;
+                    break;
+                case MachineStarted _:
+                    _isStarted = true;
                     break;
             }
         }
