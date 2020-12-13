@@ -37,8 +37,9 @@ namespace Infrastructure.EventStore
                 {
                     if (resolvedEvent.IsResolved)
                     {
-                        var deserializedView = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data));
-                        await viewHandler(deserializedView);
+                        var deserializeObject = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data));
+                        await viewHandler(deserializeObject);
+                        Console.WriteLine($"Object '{deserializeObject}' handled.");
                     }
                     
                     s.Acknowledge(resolvedEvent);

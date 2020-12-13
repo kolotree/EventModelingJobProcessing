@@ -4,27 +4,28 @@ using Shared;
 
 namespace MachineJobProcessor
 {
-    public sealed class StartNewMachineJobCommand : ICommand
+    internal sealed class StartNewMachineJobCommand : ICommand
     {
-        public string FactoryId { get; }
-        public string MachineId { get; }
-        public DateTime StartedAt { get; }
+        public MachineJobProcessingView MachineJobProcessingView { get; }
 
-        public StartNewMachineJobCommand(
-            string factoryId,
-            string machineId,
-            DateTime startedAt)
+        public StartNewMachineJobCommand(MachineJobProcessingView machineJobProcessingView)
         {
-            FactoryId = factoryId;
-            MachineId = machineId;
-            StartedAt = startedAt;
+            MachineJobProcessingView = machineJobProcessingView;
         }
         
-        public NewMachineJobStarted ToNewMachineJobStarted() =>
-            new NewMachineJobStarted(
-                FactoryId,
-                MachineId,
-                StartedAt.Ticks.ToString(),
-                StartedAt);
+        public Optional<NewMachineJobStarted> ToNewMachineJobStarted()
+        {
+            if (MachineJobProcessingView.MachineStartedTime.HasValue &&
+                !MachineJobProcessingView.JobState.HasValue)
+            {
+                return new NewMachineJobStarted(
+                    MachineJobProcessingView.FactoryId,
+                    MachineJobProcessingView.MachineId,
+                    MachineJobProcessingView.MachineStartedTime.Value.Ticks.ToString(),
+                    MachineJobProcessingView.MachineStartedTime.Value);
+            }
+            
+            return Optional<NewMachineJobStarted>.None;
+        }
     }
 }

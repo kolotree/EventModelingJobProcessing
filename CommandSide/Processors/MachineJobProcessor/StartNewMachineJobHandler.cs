@@ -3,7 +3,7 @@ using Abstractions;
 
 namespace MachineJobProcessor
 {
-    public sealed class StartNewMachineJobHandler : ICommandHandler<StartNewMachineJobCommand>
+    internal sealed class StartNewMachineJobHandler : ICommandHandler<StartNewMachineJobCommand>
     {
         private readonly IStore _store;
 
@@ -12,9 +12,9 @@ namespace MachineJobProcessor
             _store = store;
         }
         
-        public Task Handle(StartNewMachineJobCommand c)
-        {
-            return _store.SaveChanges(MachineJob.NewStartedJobFrom(c));
-        }
+        public Task Handle(StartNewMachineJobCommand c) =>
+            MachineJob.NewStartedJobFrom(c)
+                .Map(machineJob => _store.SaveChanges(machineJob))
+                .Unwrap(Task.CompletedTask);
     }
 }

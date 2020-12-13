@@ -18,10 +18,7 @@ namespace MachineJobProcessor
                     switch (view.LastAppliedEventType)
                     {
                         case nameof(MachineStarted):
-                            return new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(
-                                view.FactoryId,
-                                view.MachineId,
-                                view.MachineStartedTime.Value));
+                            return new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(view));
                     }
                     
                     return Task.CompletedTask;
