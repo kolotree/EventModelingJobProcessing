@@ -28,7 +28,7 @@ namespace Infrastructure.EventStore
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
-            Optional<Exception> optionalException;
+            Optional<Exception> optionalException = Optional<Exception>.None;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             var subscription = await _connection.ConnectToPersistentSubscriptionAsync(
                 typeof(T).Name,

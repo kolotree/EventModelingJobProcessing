@@ -8,29 +8,35 @@ fromAll()
 .when({
     $init: function(){
         return {
-            MachineState: null,
-            JobId: null,
-            JobState: null,
-            LastAppliedEventType: null
+			FactoryId: null,
+			MachineId: null,
+			MachineStartedTime: null,
+			JobId: null
         }
     },
     MachineStopped: function(s,e){
-        s.MachineState = "Stopped";
+		s.FactoryId = e.body.FactoryId;
+		s.MachineId = e.body.MachineId;
+		s.MachineStartedTime = null;
         s.LastAppliedEventType = e.eventType;
     },
     MachineStarted: function(s,e){
-        s.MachineState = "Started";
+        s.FactoryId = e.body.FactoryId;
+		s.MachineId = e.body.MachineId;
+		s.MachineStartedTime = e.body.StartedAt;
         s.LastAppliedEventType = e.eventType;
     },
-    NewJobStarted: function(s,e){
-        s.JobId = e.JobId;
-        s.JobState = "Started";
-        s.lastAppliedEventType = e.eventType;
+    NewMachineJobStarted: function(s,e){
+		s.FactoryId = e.body.FactoryId;
+		s.MachineId = e.body.MachineId;
+		s.JobId = e.body.JobId;
+        s.LastAppliedEventType = e.eventType;
     },
     JobCompleted: function(s,e){
-        s.JobId = e.JobId;
-        s.JobState = "Completed";
-        s.lastAppliedEventType = e.eventType;
+        s.FactoryId = e.body.FactoryId;
+		s.MachineId = e.body.MachineId;
+		s.JobId = null;
+        s.LastAppliedEventType = e.eventType;
     }
 })
 .outputState();

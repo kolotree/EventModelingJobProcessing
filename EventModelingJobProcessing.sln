@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventAddedReactionApp", "Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectMachineStart", "CommandSide\ExternalCommands\DetectMachineStart\DetectMachineStart.csproj", "{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Processors", "Processors", "{380022FD-4AD6-40D0-83E1-2637E5F0F1A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineJobProcessor", "CommandSide\Processors\MachineJobProcessor\MachineJobProcessor.csproj", "{189B860F-BAF3-4464-8F02-99980C084FFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,8 @@ Global
 		{6A9185DC-FAC5-4743-A90C-23254E282CE0} = {5AF489A8-5FD8-410D-8AD1-CD4C28A2C701}
 		{67F7E180-9B5A-450D-BCDB-7FD9AE7AD23A} = {6A9185DC-FAC5-4743-A90C-23254E282CE0}
 		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
+		{380022FD-4AD6-40D0-83E1-2637E5F0F1A4} = {5AF489A8-5FD8-410D-8AD1-CD4C28A2C701}
+		{189B860F-BAF3-4464-8F02-99980C084FFF} = {380022FD-4AD6-40D0-83E1-2637E5F0F1A4}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A1830134-E600-4B5D-BCBC-E4FA43C5036A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -71,5 +77,9 @@ Global
 		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F5D76C8-4BD2-4228-8F84-62FD1D0FA3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{189B860F-BAF3-4464-8F02-99980C084FFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{189B860F-BAF3-4464-8F02-99980C084FFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{189B860F-BAF3-4464-8F02-99980C084FFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{189B860F-BAF3-4464-8F02-99980C084FFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
