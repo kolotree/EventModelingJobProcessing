@@ -7,7 +7,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
-      <ProjectReference Include="..\ExternalCommands\CreateMachine\CreateMachine.csproj" />
       <ProjectReference Include="..\ExternalCommands\DetectMachineStop\DetectMachineStop.csproj" />
     </ItemGroup>
 

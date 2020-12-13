@@ -14,14 +14,6 @@ namespace WebApplication.Controllers
         {
             _externalCommandHandlers = externalCommandHandlers;
         }
-        
-        [HttpPost]
-        [Route(nameof(CreateMachine))]
-        public async Task<IActionResult> CreateMachine([FromBody] CreateMachineDto commandDto)
-        {
-            await _externalCommandHandlers.Handle(commandDto.ToCommand());
-            return Ok();
-        }
 
         [HttpPost]
         [Route(nameof(DetectMachineStop))]
