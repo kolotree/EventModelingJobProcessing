@@ -10,5 +10,9 @@ namespace Abstractions
         Task SubscribeTo<T>(
             Func<T, Task> eventHandler,
             CancellationToken cancellationToken = default) where T : IEvent;
+        
+        Task SubscribeToView<T>(
+            Func<T, Task> viewHandler,
+            CancellationToken cancellationToken = default) where T : IView;
     }
 }

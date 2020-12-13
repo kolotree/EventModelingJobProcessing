@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Infrastructure.EventStore;
-using Shared;
 
 namespace EventAddedReactionApp
 {
@@ -11,10 +10,10 @@ namespace EventAddedReactionApp
         {
             using var storeBuilder = EventStoreBuilder.NewUsing("tcp://admin:changeit@localhost:1113");
 
-            await storeBuilder.NewPersistedEventSource().SubscribeTo<MachineStopped>(
-                machineStopped =>
+            await storeBuilder.NewPersistedEventSource().SubscribeToView<MachineJobProcessingView>(
+                view =>
                 {
-                    Console.WriteLine($"New Machine Stoppage detected at '{machineStopped.StoppedAt}' for machine {machineStopped.MachineId}.");
+                    Console.WriteLine($"New {nameof(MachineJobProcessingView)} received: {view}");
                     return Task.CompletedTask;
                 });
         }
