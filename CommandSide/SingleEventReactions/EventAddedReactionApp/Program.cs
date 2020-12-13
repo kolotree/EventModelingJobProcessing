@@ -10,7 +10,7 @@ namespace EventAddedReactionApp
         {
             using var storeBuilder = EventStoreBuilder.NewUsing("tcp://admin:changeit@localhost:1113");
 
-            await storeBuilder.NewPersistedEventSource().SubscribeToView<MachineJobProcessingView>(
+            await storeBuilder.NewPersistedSubscriptionSource().SubscribeToView<MachineJobProcessingView>(
                 view =>
                 {
                     Console.WriteLine($"New {nameof(MachineJobProcessingView)} received: {view}");

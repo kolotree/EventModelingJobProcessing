@@ -5,7 +5,7 @@ using Shared;
 
 namespace Abstractions
 {
-    public interface IPersistedEventSource
+    public interface IPersistedSubscriptionSource
     {
         Task SubscribeToEventType<T>(
             Func<T, Task> eventHandler,

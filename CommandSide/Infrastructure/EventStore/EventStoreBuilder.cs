@@ -29,7 +29,8 @@ namespace Infrastructure.EventStore
 
         public IStore NewStore() => new Store(_eventStoreConnection);
         
-        public IPersistedEventSource NewPersistedEventSource() => new PersistedEventSource(_eventStoreConnection);
+        public IPersistedSubscriptionSource NewPersistedSubscriptionSource() 
+            => new PersistedSubscriptionSource(_eventStoreConnection);
         
         public void Dispose()
         {

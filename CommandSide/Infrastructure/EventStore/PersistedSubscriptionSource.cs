@@ -9,11 +9,11 @@ using static Newtonsoft.Json.JsonConvert;
 
 namespace Infrastructure.EventStore
 {
-    internal sealed class PersistedEventSource : IPersistedEventSource
+    internal sealed class PersistedSubscriptionSource : IPersistedSubscriptionSource
     {
         private readonly IEventStoreConnection _connection;
 
-        public PersistedEventSource(IEventStoreConnection connection)
+        public PersistedSubscriptionSource(IEventStoreConnection connection)
         {
             _connection = connection;
         }
