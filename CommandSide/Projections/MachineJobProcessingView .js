@@ -3,43 +3,34 @@ options({
 })
 fromAll()
 .partitionBy(function(e){
-	return e.body.FactoryId;
+	return e.body.FactoryId + "|" + e.body.MachineId;
 })
 .when({
     $init: function(){
         return {
-            table: new Map(),
-            lastAppliedEventType: null,
-            lastAffectedMachineId: null
+            MachineState: null,
+            JobId: null,
+            JobState: null,
+            LastAppliedEventType: null
         }
     },
-    MachineCreated: function(s,e){
-        s.table[e.body.MachineId] = {};
-        s.lastAppliedEventType = e.eventType;
-        s.lastAffectedMachineId = e.body.MachineId;
-    },
     MachineStopped: function(s,e){
-        s.table[e.body.MachineId].MachineStatus = "Stopped";
-        s.lastAppliedEventType = e.eventType;
-        s.lastAffectedMachineId = e.body.MachineId;
+        s.MachineState = "Stopped";
+        s.LastAppliedEventType = e.eventType;
     },
     MachineStarted: function(s,e){
-        s.table[e.body.MachineId].MachineStatus = "Started";
-        s.lastAppliedEventType = e.eventType;
-        s.lastAffectedMachineId = e.body.MachineId;
+        s.MachineState = "Started";
+        s.LastAppliedEventType = e.eventType;
     },
     NewJobStarted: function(s,e){
-        row = s.table[e.body.MachineId];
-        row.JobId = e.JobId;
-        row.JobState = "Started";
+        s.JobId = e.JobId;
+        s.JobState = "Started";
         s.lastAppliedEventType = e.eventType;
-        s.lastAffectedMachineId = e.body.MachineId;
     },
     JobCompleted: function(s,e){
-        row = s.table[e.body.MachineId];
-        row.JobState = "Completed";
+        s.JobId = e.JobId;
+        s.JobState = "Completed";
         s.lastAppliedEventType = e.eventType;
-        s.lastAffectedMachineId = e.body.MachineId;
     }
 })
 .outputState();
