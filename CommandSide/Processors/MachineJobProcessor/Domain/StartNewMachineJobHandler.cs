@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Abstractions;
 
-namespace MachineJobProcessor
+namespace MachineJobProcessor.Domain
 {
     internal sealed class StartNewMachineJobHandler : ICommandHandler<StartNewMachineJobCommand>
     {

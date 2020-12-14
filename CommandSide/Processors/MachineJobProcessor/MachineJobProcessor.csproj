@@ -15,7 +15,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="MachineJobProcessorViewProjection.js">
+      <Content Include="Domain\MachineJobProcessorViewProjection.js">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

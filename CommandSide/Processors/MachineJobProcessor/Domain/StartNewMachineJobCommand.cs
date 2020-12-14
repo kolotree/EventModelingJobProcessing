@@ -2,7 +2,7 @@
 using Abstractions;
 using Shared;
 
-namespace MachineJobProcessor
+namespace MachineJobProcessor.Domain
 {
     internal sealed class StartNewMachineJobCommand : ICommand
     {

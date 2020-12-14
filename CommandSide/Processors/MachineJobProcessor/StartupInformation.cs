@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using Abstractions;
+using MachineJobProcessor.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 

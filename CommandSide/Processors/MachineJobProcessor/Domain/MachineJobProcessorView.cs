@@ -1,7 +1,7 @@
 ﻿using System;
 using Shared;
 
-namespace MachineJobProcessor
+namespace MachineJobProcessor.Domain
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     internal sealed class MachineJobProcessorView : IView
