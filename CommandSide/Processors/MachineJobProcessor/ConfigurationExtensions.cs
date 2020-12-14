@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Abstractions;
+﻿using Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace MachineJobProcessor
@@ -13,7 +12,6 @@ namespace MachineJobProcessor
             new SubscriptionRequest(
                 configuration["StreamName"],
                 configuration["SubscriptionGroupName"],
-                long.Parse(configuration["ProjectStartingFromEventPosition"]),
-                File.ReadAllText("MachineJobProcessorViewProjection.js").Replace("STREAM_NAME_TEMPLATE", configuration["StreamName"]));
+                long.Parse(configuration["ProjectStartingFromEventPosition"]));
     }
 }

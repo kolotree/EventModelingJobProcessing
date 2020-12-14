@@ -20,18 +20,15 @@ namespace Abstractions
         public string StreamName { get; }
         public string SubscriptionGroupName { get; }
         public long ProjectStartingFromEventPosition { get; }
-        public string ProjectionCode { get; }
 
         public SubscriptionRequest(
             string streamName,
             string subscriptionGroupName,
-            long projectStartingFromEventPosition,
-            string projectionCode)
+            long projectStartingFromEventPosition)
         {
             StreamName = streamName;
             SubscriptionGroupName = subscriptionGroupName;
             ProjectStartingFromEventPosition = projectStartingFromEventPosition;
-            ProjectionCode = projectionCode;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
@@ -39,7 +36,6 @@ namespace Abstractions
             yield return StreamName;
             yield return SubscriptionGroupName;
             yield return ProjectStartingFromEventPosition;
-            yield return ProjectionCode;
         }
 
         public override string ToString()
@@ -49,7 +45,6 @@ namespace Abstractions
             stringBuilder.AppendLine($"{nameof(SubscriptionGroupName)}: {SubscriptionGroupName}");
             stringBuilder.AppendLine($"{nameof(ProjectStartingFromEventPosition)}: {ProjectStartingFromEventPosition}");
             stringBuilder.AppendLine();
-            stringBuilder.AppendLine(ProjectionCode);
             return stringBuilder.ToString();
         }
     }
