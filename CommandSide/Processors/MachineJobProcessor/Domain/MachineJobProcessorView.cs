@@ -1,4 +1,5 @@
 ﻿using System;
+using Abstractions;
 using Shared;
 
 namespace MachineJobProcessor.Domain
@@ -27,6 +28,31 @@ namespace MachineJobProcessor.Domain
             JobId = jobId;
             RequestedJobTime = requestedJobTime;
             LastAppliedEventType = lastAppliedEventType;
+        }
+        
+        public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStartedUsing(Guid newJobGuid)
+        {
+            if (MachineStartedTime.HasValue &&
+                string.IsNullOrWhiteSpace(JobId))
+            {
+                return new NewMachineJobStarted(
+                    FactoryId,
+                    MachineId,
+                    newJobGuid.ToString("N"),
+                    MachineStartedTime.Value);
+            }
+
+            if (!MachineStartedTime.HasValue &&
+                RequestedJobTime.HasValue)
+            {
+                return new NewMachineJobStarted(
+                    FactoryId,
+                    MachineId,
+                    newJobGuid.ToString("N"),
+                    RequestedJobTime.Value);
+            }
+            
+            return Optional<NewMachineJobStarted>.None;
         }
 
         public override string ToString()
