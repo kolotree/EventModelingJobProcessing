@@ -4,6 +4,7 @@ using Abstractions;
 using CompleteMachineStoppage;
 using DetectMachineStart;
 using DetectMachineStop;
+using RequestNewMachineJob;
 
 namespace CommandsWireUp
 {
@@ -28,6 +29,8 @@ namespace CommandsWireUp
                     return new DetectMachineStartHandler(_store).Handle(detectMachineStartCommand);
                 case CompleteMachineJobCommand completeMachineJobCommand:
                     return new CompleteMachineJobHandler(_store).Handle(completeMachineJobCommand);
+                case RequestNewMachineJobCommand requestNewMachineJobCommand:
+                    return new RequestNewMachineJobHandler(_store).Handle(requestNewMachineJobCommand);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(c));
             }

@@ -24,6 +24,16 @@ namespace MachineJobProcessor
                     MachineJobProcessingView.MachineStartedTime.Value.Ticks.ToString(),
                     MachineJobProcessingView.MachineStartedTime.Value);
             }
+
+            if (!MachineJobProcessingView.MachineStartedTime.HasValue &&
+                MachineJobProcessingView.RequestedJobTime.HasValue)
+            {
+                return new NewMachineJobStarted(
+                    MachineJobProcessingView.FactoryId,
+                    MachineJobProcessingView.MachineId,
+                    MachineJobProcessingView.RequestedJobTime.Value.Ticks.ToString(),
+                    MachineJobProcessingView.RequestedJobTime.Value);
+            }
             
             return Optional<NewMachineJobStarted>.None;
         }

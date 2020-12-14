@@ -2,6 +2,7 @@
 using CompleteMachineStoppage;
 using DetectMachineStart;
 using DetectMachineStop;
+using RequestNewMachineJob;
 
 namespace WebApplication.Controllers
 {
@@ -31,7 +32,7 @@ namespace WebApplication.Controllers
             StartedAt);
     }
     
-    public sealed class CompleteMachineJob
+    public sealed class CompleteMachineJobDto
     {
         public string FactoryId { get; set;}
         public string MachineId { get; set;}
@@ -41,5 +42,15 @@ namespace WebApplication.Controllers
             FactoryId,
             MachineId,
             JobId);
+    }
+    
+    public sealed class RequestNewMachineJobDto
+    {
+        public string FactoryId { get; set;}
+        public string MachineId { get; set;}
+        
+        internal RequestNewMachineJobCommand ToCommand() => new RequestNewMachineJobCommand(
+            FactoryId,
+            MachineId);
     }
 }

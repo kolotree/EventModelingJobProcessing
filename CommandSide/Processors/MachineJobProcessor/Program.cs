@@ -19,6 +19,7 @@ namespace MachineJobProcessor
                     {
                         case nameof(MachineStarted):
                         case nameof(MachineJobCompleted):
+                        case nameof(NewMachineJobRequested):
                             return new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(view));
                     }
                     

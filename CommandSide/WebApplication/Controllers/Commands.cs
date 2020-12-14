@@ -33,7 +33,15 @@ namespace WebApplication.Controllers
         
         [HttpPost]
         [Route(nameof(CompleteMachineJob))]
-        public async Task<IActionResult> CompleteMachineJob([FromBody] CompleteMachineJob commandDto)
+        public async Task<IActionResult> CompleteMachineJob([FromBody] CompleteMachineJobDto commandDto)
+        {
+            await _externalCommandHandlers.Handle(commandDto.ToCommand());
+            return Ok();
+        }
+        
+        [HttpPost]
+        [Route(nameof(RequestNewMachineJob))]
+        public async Task<IActionResult> RequestNewMachineJob([FromBody] RequestNewMachineJobDto commandDto)
         {
             await _externalCommandHandlers.Handle(commandDto.ToCommand());
             return Ok();
