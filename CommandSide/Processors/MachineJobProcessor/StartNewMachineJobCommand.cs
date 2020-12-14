@@ -13,7 +13,7 @@ namespace MachineJobProcessor
             MachineJobProcessingView = machineJobProcessingView;
         }
         
-        public Optional<NewMachineJobStarted> ToNewMachineJobStarted()
+        public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStarted()
         {
             if (MachineJobProcessingView.MachineStartedTime.HasValue &&
                 string.IsNullOrWhiteSpace(MachineJobProcessingView.JobId))

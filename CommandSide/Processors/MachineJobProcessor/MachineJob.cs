@@ -5,8 +5,8 @@ namespace MachineJobProcessor
 {
     internal sealed class MachineJob : AggregateRoot
     {
-        public static Optional<MachineJob> NewStartedJobFrom(StartNewMachineJobCommand c) =>
-            c.ToNewMachineJobStarted()
+        public static Optional<MachineJob> OptionalNewStartedJobFrom(StartNewMachineJobCommand c) =>
+            c.ToOptionalNewMachineJobStarted()
                 .Map(newMachineJobStarted =>
                 {
                     var machineJob = new MachineJob();

@@ -13,7 +13,7 @@ namespace MachineJobProcessor
         }
         
         public Task Handle(StartNewMachineJobCommand c) =>
-            MachineJob.NewStartedJobFrom(c)
+            MachineJob.OptionalNewStartedJobFrom(c)
                 .Map(machineJob => _store.SaveChanges(machineJob))
                 .Unwrap(Task.CompletedTask);
     }
