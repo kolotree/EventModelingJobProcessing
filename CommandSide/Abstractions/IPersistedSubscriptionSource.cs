@@ -20,20 +20,17 @@ namespace Abstractions
         public string StreamName { get; }
         public string SubscriptionGroupName { get; }
         public long ProjectStartingFromEventPosition { get; }
-        public string ProjectionName { get; }
         public string ProjectionCode { get; }
 
         public SubscriptionRequest(
             string streamName,
             string subscriptionGroupName,
             long projectStartingFromEventPosition,
-            string projectionName,
             string projectionCode)
         {
             StreamName = streamName;
             SubscriptionGroupName = subscriptionGroupName;
             ProjectStartingFromEventPosition = projectStartingFromEventPosition;
-            ProjectionName = projectionName;
             ProjectionCode = projectionCode;
         }
 
@@ -42,7 +39,6 @@ namespace Abstractions
             yield return StreamName;
             yield return SubscriptionGroupName;
             yield return ProjectStartingFromEventPosition;
-            yield return ProjectionName;
             yield return ProjectionCode;
         }
 
@@ -52,7 +48,6 @@ namespace Abstractions
             stringBuilder.AppendLine($"{nameof(StreamName)}: {StreamName}");
             stringBuilder.AppendLine($"{nameof(SubscriptionGroupName)}: {SubscriptionGroupName}");
             stringBuilder.AppendLine($"{nameof(ProjectStartingFromEventPosition)}: {ProjectStartingFromEventPosition}");
-            stringBuilder.AppendLine($"{nameof(ProjectionName)}: {ProjectionName}");
             stringBuilder.AppendLine();
             stringBuilder.AppendLine(ProjectionCode);
             return stringBuilder.ToString();

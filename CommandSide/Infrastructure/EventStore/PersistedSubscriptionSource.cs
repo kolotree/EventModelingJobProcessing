@@ -12,23 +12,18 @@ namespace Infrastructure.EventStore
     internal sealed class PersistedSubscriptionSource : IPersistedSubscriptionSource
     {
         private readonly IEventStoreConnection _connection;
-        private readonly ProjectionCreator _projectionCreator;
 
-        public PersistedSubscriptionSource(
-            IEventStoreConnection connection,
-            ProjectionsManager projectionsManager)
+        public PersistedSubscriptionSource(IEventStoreConnection connection)
         {
             _connection = connection;
-            _projectionCreator = new ProjectionCreator(projectionsManager);
         }
 
-        public async Task SubscribeTo<T>(
+        public Task SubscribeTo<T>(
             SubscriptionRequest subscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
-            await _projectionCreator.CreateProjectionFrom(subscriptionRequest);
-            await SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
+            return  SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
         }
 
         private async Task SubscribeToStream<T>(
