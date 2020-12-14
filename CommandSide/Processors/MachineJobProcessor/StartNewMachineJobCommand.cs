@@ -16,7 +16,7 @@ namespace MachineJobProcessor
         public Optional<NewMachineJobStarted> ToNewMachineJobStarted()
         {
             if (MachineJobProcessingView.MachineStartedTime.HasValue &&
-                !MachineJobProcessingView.JobState.HasValue)
+                string.IsNullOrWhiteSpace(MachineJobProcessingView.JobId))
             {
                 return new NewMachineJobStarted(
                     MachineJobProcessingView.FactoryId,
