@@ -6,37 +6,37 @@ namespace MachineJobProcessor
 {
     internal sealed class StartNewMachineJobCommand : ICommand
     {
-        public MachineJobProcessingView MachineJobProcessingView { get; }
+        public MachineJobProcessorView MachineJobProcessorView { get; }
         public Guid NewJobGuid { get; }
 
         public StartNewMachineJobCommand(
-            MachineJobProcessingView machineJobProcessingView,
+            MachineJobProcessorView machineJobProcessorView,
             Guid newJobGuid)
         {
-            MachineJobProcessingView = machineJobProcessingView;
+            MachineJobProcessorView = machineJobProcessorView;
             NewJobGuid = newJobGuid;
         }
         
         public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStarted()
         {
-            if (MachineJobProcessingView.MachineStartedTime.HasValue &&
-                string.IsNullOrWhiteSpace(MachineJobProcessingView.JobId))
+            if (MachineJobProcessorView.MachineStartedTime.HasValue &&
+                string.IsNullOrWhiteSpace(MachineJobProcessorView.JobId))
             {
                 return new NewMachineJobStarted(
-                    MachineJobProcessingView.FactoryId,
-                    MachineJobProcessingView.MachineId,
+                    MachineJobProcessorView.FactoryId,
+                    MachineJobProcessorView.MachineId,
                     NewJobGuid.ToString("N"),
-                    MachineJobProcessingView.MachineStartedTime.Value);
+                    MachineJobProcessorView.MachineStartedTime.Value);
             }
 
-            if (!MachineJobProcessingView.MachineStartedTime.HasValue &&
-                MachineJobProcessingView.RequestedJobTime.HasValue)
+            if (!MachineJobProcessorView.MachineStartedTime.HasValue &&
+                MachineJobProcessorView.RequestedJobTime.HasValue)
             {
                 return new NewMachineJobStarted(
-                    MachineJobProcessingView.FactoryId,
-                    MachineJobProcessingView.MachineId,
+                    MachineJobProcessorView.FactoryId,
+                    MachineJobProcessorView.MachineId,
                     NewJobGuid.ToString("N"),
-                    MachineJobProcessingView.RequestedJobTime.Value);
+                    MachineJobProcessorView.RequestedJobTime.Value);
             }
             
             return Optional<NewMachineJobStarted>.None;

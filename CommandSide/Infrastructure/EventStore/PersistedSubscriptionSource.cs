@@ -18,21 +18,24 @@ namespace Infrastructure.EventStore
             _connection = connection;
         }
 
-        public Task SubscribeToEventType<T>(Func<T, Task> eventHandler, CancellationToken cancellationToken = default) 
-            where T : IEvent => SubscribeTo(eventHandler, cancellationToken);
+        public Task SubscribeTo<T>(
+            SubscriptionRequest subscriptionRequest,
+            Func<T, Task> viewHandler,
+            CancellationToken cancellationToken = default)
+        {   
+            return SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
+        }
 
-        public Task SubscribeToView<T>(Func<T, Task> viewHandler, CancellationToken cancellationToken = default) 
-            where T : IView => SubscribeTo(viewHandler, cancellationToken);
-
-        private async Task SubscribeTo<T>(
+        private async Task SubscribeToStream<T>(
+            SubscriptionRequest subscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
             Optional<Exception> optionalException = Optional<Exception>.None;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             var subscription = await _connection.ConnectToPersistentSubscriptionAsync(
-                typeof(T).Name,
-                "test",
+                subscriptionRequest.StreamName,
+                subscriptionRequest.SubscriptionGroupName,
                 async (s, resolvedEvent) =>
                 {
                     if (resolvedEvent.IsResolved)

@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "MachineJobProcessor": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

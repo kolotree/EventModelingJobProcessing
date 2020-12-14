@@ -3,7 +3,8 @@ using Shared;
 
 namespace MachineJobProcessor
 {
-    internal sealed class MachineJobProcessingView : IView
+    // ReSharper disable once ClassNeverInstantiated.Global
+    internal sealed class MachineJobProcessorView : IView
     {
         public string FactoryId { get; }
         public string MachineId { get; }
@@ -12,7 +13,7 @@ namespace MachineJobProcessor
         public DateTime? RequestedJobTime { get; }
         public string LastAppliedEventType { get; }
 
-        public MachineJobProcessingView(
+        public MachineJobProcessorView(
             string factoryId,
             string machineId,
             DateTime? machineStartedTime,
