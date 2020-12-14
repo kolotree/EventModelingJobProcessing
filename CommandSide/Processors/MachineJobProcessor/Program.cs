@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Infrastructure.EventStore;
 using Shared;
 // ReSharper disable PossibleInvalidOperationException
@@ -20,7 +21,9 @@ namespace MachineJobProcessor
                         case nameof(MachineStarted):
                         case nameof(MachineJobCompleted):
                         case nameof(NewMachineJobRequested):
-                            return new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(view));
+                            return new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(
+                                view,
+                                Guid.NewGuid()));
                     }
                     
                     return Task.CompletedTask;

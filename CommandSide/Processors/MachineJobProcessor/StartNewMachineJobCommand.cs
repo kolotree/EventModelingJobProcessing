@@ -7,10 +7,14 @@ namespace MachineJobProcessor
     internal sealed class StartNewMachineJobCommand : ICommand
     {
         public MachineJobProcessingView MachineJobProcessingView { get; }
+        public Guid NewJobGuid { get; }
 
-        public StartNewMachineJobCommand(MachineJobProcessingView machineJobProcessingView)
+        public StartNewMachineJobCommand(
+            MachineJobProcessingView machineJobProcessingView,
+            Guid newJobGuid)
         {
             MachineJobProcessingView = machineJobProcessingView;
+            NewJobGuid = newJobGuid;
         }
         
         public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStarted()
@@ -21,7 +25,7 @@ namespace MachineJobProcessor
                 return new NewMachineJobStarted(
                     MachineJobProcessingView.FactoryId,
                     MachineJobProcessingView.MachineId,
-                    MachineJobProcessingView.MachineStartedTime.Value.Ticks.ToString(),
+                    NewJobGuid.ToString("N"),
                     MachineJobProcessingView.MachineStartedTime.Value);
             }
 
@@ -31,7 +35,7 @@ namespace MachineJobProcessor
                 return new NewMachineJobStarted(
                     MachineJobProcessingView.FactoryId,
                     MachineJobProcessingView.MachineId,
-                    MachineJobProcessingView.RequestedJobTime.Value.Ticks.ToString(),
+                    NewJobGuid.ToString("N"),
                     MachineJobProcessingView.RequestedJobTime.Value);
             }
             
