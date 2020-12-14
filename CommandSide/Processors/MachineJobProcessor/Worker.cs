@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Infrastructure.EventStore;
@@ -22,6 +23,21 @@ namespace MachineJobProcessor
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogStartupInformation(_configuration);
+            
+            try
+            {
+                await ProcessSubscription(stoppingToken);
+            }
+            catch (Exception e)
+            {
+                _logger.LogCritical(e, $"[{nameof(MachineJobProcessor)}] Unhandled exception.");
+                Environment.Exit(-1);
+            }
+        }
+
+        private async Task ProcessSubscription(CancellationToken stoppingToken)
+        {
             using var storeBuilder = EventStoreBuilder.NewUsing(_configuration.EventStoreConnectionString());
             var store = storeBuilder.NewStore();
             var persistedSubscriptionSource = storeBuilder.NewPersistedSubscriptionSource();
@@ -30,7 +46,7 @@ namespace MachineJobProcessor
                 _configuration.SubscriptionRequest(),
                 HandleSingleViewChange,
                 stoppingToken);
-
+            
             async Task HandleSingleViewChange(MachineJobProcessorView view)
             {
                 _logger.LogDebug($"[{nameof(MachineJobProcessor)}] Received new view: {view}.");
@@ -41,6 +57,9 @@ namespace MachineJobProcessor
                     case nameof(NewMachineJobRequested):
                         await new StartNewMachineJobHandler(store).Handle(new StartNewMachineJobCommand(view,NewGuid()));
                         _logger.LogInformation($"[{nameof(MachineJobProcessor)}] View successfully handled: {view}.");
+                        break;
+                    default:
+                        _logger.LogDebug($"[{nameof(MachineJobProcessor)}] Ignoring received view: {view}.");
                         break;
                 }
             }

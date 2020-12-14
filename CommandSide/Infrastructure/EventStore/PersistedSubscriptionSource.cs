@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Abstractions;
 using EventStore.ClientAPI;
-using Shared;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Infrastructure.EventStore
@@ -42,7 +41,6 @@ namespace Infrastructure.EventStore
                     {
                         var deserializeObject = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data));
                         await viewHandler(deserializeObject);
-                        Console.WriteLine($"Object '{deserializeObject}' handled.");
                     }
                     
                     s.Acknowledge(resolvedEvent);
@@ -63,7 +61,7 @@ namespace Infrastructure.EventStore
 
                 if (optionalException.HasValue)
                 {
-                    throw optionalException.Value;
+                    throw new PersistedSubscriptionSourceException(optionalException.Value);
                 }
             }
             finally
