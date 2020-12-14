@@ -1,5 +1,5 @@
 options({
-    resultStreamName: "STREAM_NAME_TEMPLATE"
+    resultStreamName: "MachineJobProcessorView"
 })
 fromAll()
 .partitionBy(function(e){
