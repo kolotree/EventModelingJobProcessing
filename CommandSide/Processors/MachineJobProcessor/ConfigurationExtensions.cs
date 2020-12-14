@@ -14,6 +14,7 @@ namespace MachineJobProcessor
                 configuration["StreamName"],
                 configuration["SubscriptionGroupName"],
                 long.Parse(configuration["ProjectStartingFromEventPosition"]),
-                File.ReadAllText("MachineJobProcessorViewProjection.js"));
+                configuration["ProjectionName"],
+                File.ReadAllText("MachineJobProcessorViewProjection.js").Replace("STREAM_NAME_TEMPLATE", configuration["StreamName"]));
     }
 }

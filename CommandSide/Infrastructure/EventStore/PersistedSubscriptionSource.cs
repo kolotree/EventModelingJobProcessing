@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Abstractions;
 using EventStore.ClientAPI;
+using EventStore.ClientAPI.Projections;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Infrastructure.EventStore
@@ -11,18 +12,23 @@ namespace Infrastructure.EventStore
     internal sealed class PersistedSubscriptionSource : IPersistedSubscriptionSource
     {
         private readonly IEventStoreConnection _connection;
+        private readonly ProjectionCreator _projectionCreator;
 
-        public PersistedSubscriptionSource(IEventStoreConnection connection)
+        public PersistedSubscriptionSource(
+            IEventStoreConnection connection,
+            ProjectionsManager projectionsManager)
         {
             _connection = connection;
+            _projectionCreator = new ProjectionCreator(projectionsManager);
         }
 
-        public Task SubscribeTo<T>(
+        public async Task SubscribeTo<T>(
             SubscriptionRequest subscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
-        {   
-            return SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
+        {
+            await _projectionCreator.CreateProjectionFrom(subscriptionRequest);
+            await SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
         }
 
         private async Task SubscribeToStream<T>(

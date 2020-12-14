@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Net;
 using Abstractions;
 using EventStore.ClientAPI;
+using EventStore.ClientAPI.Common.Log;
+using EventStore.ClientAPI.Projections;
 
 namespace Infrastructure.EventStore
 {
@@ -30,7 +33,12 @@ namespace Infrastructure.EventStore
         public IStore NewStore() => new Store(_eventStoreConnection);
         
         public IPersistedSubscriptionSource NewPersistedSubscriptionSource() 
-            => new PersistedSubscriptionSource(_eventStoreConnection);
+            => new PersistedSubscriptionSource(
+                _eventStoreConnection,
+                new ProjectionsManager(
+                    new ConsoleLogger(),
+                    new IPEndPoint(IPAddress.Parse("127.0.0.1"), 2113),
+                    TimeSpan.FromMilliseconds(5000)));
         
         public void Dispose()
         {
