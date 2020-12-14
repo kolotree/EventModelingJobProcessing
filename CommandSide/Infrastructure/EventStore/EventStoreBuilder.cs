@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Net;
 using Abstractions;
 using EventStore.ClientAPI;
-using EventStore.ClientAPI.Common.Log;
-using EventStore.ClientAPI.Projections;
 
 namespace Infrastructure.EventStore
 {

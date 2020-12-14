@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Abstractions;
 using EventStore.ClientAPI;
-using EventStore.ClientAPI.Projections;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Infrastructure.EventStore
