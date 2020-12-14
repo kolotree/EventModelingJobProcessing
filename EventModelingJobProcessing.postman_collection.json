@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "88c364c4-cf3b-42fc-951d-207b3d6c5cdb",
+		"name": "EventModelingJobProcessing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "DetectMachineStop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"StoppedAt\": \"2021-12-01T20:00:00Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/Commands/DetectMachineStop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Commands",
+						"DetectMachineStop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DetectMachineStart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"LastStoppedAt\": \"2021-12-01T20:00:00Z\",\r\n    \"StartedAt\": \"2021-12-01T20:30:00Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/Commands/DetectMachineStart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Commands",
+						"DetectMachineStart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CompleteMachineJob",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"JobId\": \"6bb8af73c5c747c59141e9c7a0732c68\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/Commands/CompleteMachineJob",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Commands",
+						"CompleteMachineJob"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RequestNewMachineJob",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/Commands/RequestNewMachineJob",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Commands",
+						"RequestNewMachineJob"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
