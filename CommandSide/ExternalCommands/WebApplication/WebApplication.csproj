@@ -6,9 +6,9 @@
 
     <ItemGroup>
       
-      <ProjectReference Include="..\ExternalCommands\RequestNewMachineJob\RequestNewMachineJob.csproj" />
+      <ProjectReference Include="..\RequestNewMachineJob\RequestNewMachineJob.csproj" />
       
-      <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
       <ProjectReference Include="..\WireUp\WireUp.csproj" />
     </ItemGroup>
 

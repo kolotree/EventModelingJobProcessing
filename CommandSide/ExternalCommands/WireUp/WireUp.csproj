@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>CommandsWireUp</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\Abstractions.csproj" />
+      <ProjectReference Include="..\CompleteMachineJob\CompleteMachineJob.csproj" />
+      <ProjectReference Include="..\DetectMachineStart\DetectMachineStart.csproj" />
+      <ProjectReference Include="..\DetectMachineStop\DetectMachineStop.csproj" />
+      <ProjectReference Include="..\RequestNewMachineJob\RequestNewMachineJob.csproj" />
+    </ItemGroup>
+
+</Project>
