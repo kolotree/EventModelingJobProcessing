@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -14,7 +15,8 @@ namespace MachineJobProcessor
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine($"[{nameof(MachineJobProcessorView)}] Starting worker ...");
             stringBuilder.AppendLine($"[{nameof(MachineJobProcessorView)}] Version: {Version}");
-            stringBuilder.AppendLine($"[{nameof(MachineJobProcessorView)}] {nameof(SubscriptionRequest)}: {configuration.SubscriptionRequest()}");
+            stringBuilder.AppendLine($"[{nameof(MachineJobProcessorView)}] {nameof(SubscriptionRequest)}:");
+            stringBuilder.AppendLine(configuration.SubscriptionRequest().ToString());
             
             logger.LogInformation(stringBuilder.ToString());
         }

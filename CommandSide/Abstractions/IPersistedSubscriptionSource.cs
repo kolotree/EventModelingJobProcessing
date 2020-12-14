@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Shared;
@@ -19,15 +20,18 @@ namespace Abstractions
         public string StreamName { get; }
         public string SubscriptionGroupName { get; }
         public long ProjectStartingFromEventPosition { get; }
+        public string ProjectionCode { get; }
 
         public SubscriptionRequest(
             string streamName,
             string subscriptionGroupName,
-            long projectStartingFromEventPosition)
+            long projectStartingFromEventPosition,
+            string projectionCode)
         {
             StreamName = streamName;
             SubscriptionGroupName = subscriptionGroupName;
             ProjectStartingFromEventPosition = projectStartingFromEventPosition;
+            ProjectionCode = projectionCode;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
@@ -35,6 +39,16 @@ namespace Abstractions
             yield return StreamName;
             yield return SubscriptionGroupName;
             yield return ProjectStartingFromEventPosition;
+        }
+
+        public override string ToString()
+        {
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine($"{nameof(StreamName)}: {StreamName}");
+            stringBuilder.AppendLine($"{nameof(SubscriptionGroupName)}: {SubscriptionGroupName}");
+            stringBuilder.AppendLine($"{nameof(ProjectStartingFromEventPosition)}: {ProjectStartingFromEventPosition}");
+            stringBuilder.AppendLine($"{nameof(ProjectionCode)}: {ProjectionCode}");
+            return stringBuilder.ToString();
         }
     }
 }
