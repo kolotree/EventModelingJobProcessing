@@ -7,9 +7,9 @@ fromAll()
         return {}
     },
     MachineStopped: function(s,e){
-        s[e.body.StoppedAt] = e.body.MachineId;
+        s[`${e.body.MachineId}|${e.body.StoppedAt}`] = true;
     },
     MachineStarted: function(s,e){
-        delete s[e.body.LastStoppedAt];
+        delete s[`${e.body.MachineId}|${e.body.LastStoppedAt}`];
     }
 })
