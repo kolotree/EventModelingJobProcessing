@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Abstractions;
+using CompleteMachineStoppage;
 using DetectMachineStart;
 using DetectMachineStop;
 
@@ -25,6 +26,8 @@ namespace CommandsWireUp
                     return new DetectMachineStopHandler(_store).Handle(detectMachineStopCommand);
                 case DetectMachineStartCommand detectMachineStartCommand:
                     return new DetectMachineStartHandler(_store).Handle(detectMachineStartCommand);
+                case CompleteMachineJobCommand completeMachineJobCommand:
+                    return new CompleteMachineJobHandler(_store).Handle(completeMachineJobCommand);
                 default:
                     throw new ArgumentOutOfRangeException(nameof(c));
             }

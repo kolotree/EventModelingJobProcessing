@@ -30,5 +30,13 @@ namespace WebApplication.Controllers
             await _externalCommandHandlers.Handle(commandDto.ToCommand());
             return Ok();
         }
+        
+        [HttpPost]
+        [Route(nameof(CompleteMachineJob))]
+        public async Task<IActionResult> CompleteMachineJob([FromBody] CompleteMachineJob commandDto)
+        {
+            await _externalCommandHandlers.Handle(commandDto.ToCommand());
+            return Ok();
+        }
     }
 }

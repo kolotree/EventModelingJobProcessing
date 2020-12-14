@@ -32,7 +32,7 @@ fromAll()
 		s.JobId = e.body.JobId;
         s.LastAppliedEventType = e.eventType;
     },
-    JobCompleted: function(s,e){
+    MachineJobCompleted: function(s,e){
         s.FactoryId = e.body.FactoryId;
 		s.MachineId = e.body.MachineId;
 		s.JobId = null;

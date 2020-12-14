@@ -1,4 +1,5 @@
 ﻿using System;
+using CompleteMachineStoppage;
 using DetectMachineStart;
 using DetectMachineStop;
 
@@ -28,5 +29,17 @@ namespace WebApplication.Controllers
             MachineId,
             LastStoppedAt,
             StartedAt);
+    }
+    
+    public sealed class CompleteMachineJob
+    {
+        public string FactoryId { get; set;}
+        public string MachineId { get; set;}
+        public string JobId  { get; set;}
+        
+        internal CompleteMachineJobCommand ToCommand() => new CompleteMachineJobCommand(
+            FactoryId,
+            MachineId,
+            JobId);
     }
 }
