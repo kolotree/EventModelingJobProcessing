@@ -4,6 +4,7 @@
         <TargetFramework>netstandard2.1</TargetFramework>
         <RootNamespace>CommandsWireUp</RootNamespace>
         <LangVersion>9</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>

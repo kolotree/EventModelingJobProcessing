@@ -22,7 +22,7 @@ namespace WebApplication
         {
             services.AddControllers();
             services.AddSingleton(EventStoreBuilder.NewUsing(Configuration.EventStoreConnectionString()));
-            services.AddScoped(provider => ExternalCommandHandlers.NewWith(provider.GetService<EventStoreBuilder>().NewStore()));
+            services.AddScoped(provider => ExternalCommandHandlers.NewWith(provider.GetService<EventStoreBuilder>()!.NewStore()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
