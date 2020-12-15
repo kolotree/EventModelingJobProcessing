@@ -6,12 +6,10 @@ using MachineJobProcessor.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Shared;
-using static System.Guid;
 
 namespace MachineJobProcessor
 {
-    public class Worker : BackgroundService
+    internal class Worker : BackgroundService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<Worker> _logger;
