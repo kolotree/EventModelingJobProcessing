@@ -28,7 +28,7 @@ namespace DetectMachineStart
             MachineId,
             LastStoppedAt.Ticks.ToString());
         
-        internal MachineStarted ToMachineStarted() => new MachineStarted(
+        internal MachineStarted ToMachineStarted() => new(
             FactoryId,
             MachineId,
             LastStoppedAt,

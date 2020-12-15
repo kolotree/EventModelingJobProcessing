@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Shared;
 
 namespace Abstractions
@@ -12,11 +11,9 @@ namespace Abstractions
         {
             _id = id;
         }
-        
-        public static StreamId GenerateUnique() => new StreamId(Guid.NewGuid().ToString());
 
         public static StreamId AssembleFor<T>(params string[] parts) => 
-            new StreamId($"{typeof(T).Name}-{string.Join("|", parts)}");
+            new($"{typeof(T).Name}-{string.Join("|", parts)}");
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

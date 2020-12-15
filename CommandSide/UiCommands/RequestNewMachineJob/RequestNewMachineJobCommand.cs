@@ -16,7 +16,7 @@ namespace RequestNewMachineJob
             MachineId = machineId;
         }
 
-        public NewMachineJobRequested ToNewMachineJobRequestedUsing(DateTime jobStartTime) => new NewMachineJobRequested(
+        public NewMachineJobRequested ToNewMachineJobRequestedUsing(DateTime jobStartTime) => new(
             FactoryId,
             MachineId,
             jobStartTime.Ticks.ToString(),

@@ -9,7 +9,7 @@ namespace MachineJobProcessor
             configuration["EventStore:ConnectionString"];
 
         public static SubscriptionRequest SubscriptionRequest(this IConfiguration configuration) =>
-            new SubscriptionRequest(
+            new(
                 configuration["StreamName"],
                 configuration["SubscriptionGroupName"],
                 long.Parse(configuration["ProjectStartingFromEventPosition"]));

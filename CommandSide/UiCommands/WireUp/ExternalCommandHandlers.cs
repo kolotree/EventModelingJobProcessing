@@ -17,7 +17,7 @@ namespace CommandsWireUp
             _store = store;
         }
         
-        public static ExternalCommandHandlers NewWith(IStore store) => new ExternalCommandHandlers(store);
+        public static ExternalCommandHandlers NewWith(IStore store) => new(store);
 
         public Task Handle(ICommand c)
         {

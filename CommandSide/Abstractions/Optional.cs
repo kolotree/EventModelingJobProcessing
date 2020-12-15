@@ -17,7 +17,7 @@
             }
         }
 
-        public static Optional<T> None => new Optional<T>(default(T));
+        public static Optional<T> None => new(default(T));
 
         public bool HasValue => _value != null;
 
@@ -30,12 +30,12 @@
 
         public static implicit operator Optional<T>(T value)
         {
-            return new Optional<T>(value);
+            return new(value);
         }
 
         public static Optional<T> From(T obj)
         {
-            return new Optional<T>(obj);
+            return new(obj);
         }
 
         public static bool operator ==(Optional<T> optional, T value)

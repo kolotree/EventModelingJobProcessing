@@ -18,7 +18,7 @@ namespace CompleteMachineStoppage
         
         public StreamId JobStream => StreamId.AssembleFor<MachineJob>(FactoryId, MachineId, JobId);
         
-        public MachineJobCompleted ToMachineJobComplete() => new MachineJobCompleted(
+        public MachineJobCompleted ToMachineJobComplete() => new(
             FactoryId,
             MachineId,
             JobId);

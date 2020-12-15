@@ -9,7 +9,7 @@ namespace Infrastructure.EventStore.Serialization
     internal static class EventExtensions
     {
         public static EventData ToEventData(this IEvent e) =>
-            new EventData(
+            new(
                 Guid.NewGuid(), 
                 e.GetType().Name,
                 true,

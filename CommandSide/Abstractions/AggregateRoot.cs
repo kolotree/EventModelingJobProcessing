@@ -17,7 +17,7 @@ namespace Abstractions
 
         public long OriginalVersion => Version - UncommittedEvents.Count;
         
-        private readonly List<IEvent> _uncommittedEvents = new List<IEvent>();
+        private readonly List<IEvent> _uncommittedEvents = new();
         public IReadOnlyList<IEvent> UncommittedEvents => _uncommittedEvents;
 
         protected void SetIdentity(StreamId streamId) =>

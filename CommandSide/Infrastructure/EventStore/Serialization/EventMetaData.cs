@@ -16,7 +16,7 @@ namespace Infrastructure.EventStore.Serialization
         }
         
         public static EventMetaData Of(IEvent e) =>
-            new EventMetaData(e.GetType().AssemblyQualifiedName);
+            new(e.GetType().AssemblyQualifiedName);
 
         public static EventMetaData EventMetaDataFrom(RecordedEvent recordedEvent)
         {

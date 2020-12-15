@@ -20,7 +20,7 @@ namespace DetectMachineStop
             StoppedAt = stoppedAt;
         }
         
-        internal MachineStopped ToMachineStopped() => new MachineStopped(
+        internal MachineStopped ToMachineStopped() => new(
             FactoryId,
             MachineId,
             StoppedAt);
