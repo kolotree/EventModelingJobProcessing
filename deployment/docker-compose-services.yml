@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  ui-commands:
+    image: ui-commands:1.0
+    build:
+      context: ../
+      dockerfile: ./CommandSide/UiCommands/WebApplication/Dockerfile
+    restart: unless-stopped
+    environment:
+      - 'ASPNETCORE_URLS=http://+:5000'
+      - 'EventStore__ConnectionString=tcp://admin:changeit@event-store:1113'
+    ports:
+      - 5000:5000
+    networks:
+      - main-network
+  machine-job-processor:
+    image: machine-job-processor:1.0
+    build:
+      context: ../
+      dockerfile: ./CommandSide/Processors/MachineJobProcessor/Dockerfile
+    restart: unless-stopped
+    environment:
+      - 'EventStore__ConnectionString=tcp://admin:changeit@event-store:1113'
+      - 'StreamName=MachineJobProcessorView'
+      - 'SubscriptionGroupName=MachineJobProcessor'
+      - 'ProjectionName=MachineJobProcessorViewProjection'
+      - 'ProjectStartingFromEventPosition=0'
+    networks:
+      - main-network
+networks:
+  main-network:
+    external:
+      name: main-network
