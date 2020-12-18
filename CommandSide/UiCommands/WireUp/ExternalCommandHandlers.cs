@@ -19,21 +19,18 @@ namespace CommandsWireUp
         
         public static ExternalCommandHandlers NewWith(IStore store) => new(store);
 
-        public Task Handle(ICommand c)
-        {
-            switch (c)
+        public Task Handle(ICommand c) =>
+            c switch
             {
-                case DetectMachineStopCommand detectMachineStopCommand: 
-                    return new DetectMachineStopHandler(_store).Handle(detectMachineStopCommand);
-                case DetectMachineStartCommand detectMachineStartCommand:
-                    return new DetectMachineStartHandler(_store).Handle(detectMachineStartCommand);
-                case CompleteMachineJobCommand completeMachineJobCommand:
-                    return new CompleteMachineJobHandler(_store).Handle(completeMachineJobCommand);
-                case RequestNewMachineJobCommand requestNewMachineJobCommand:
-                    return new RequestNewMachineJobHandler(_store).Handle(requestNewMachineJobCommand);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(c));
-            }
-        }
+                DetectMachineStopCommand detectMachineStopCommand => new DetectMachineStopHandler(_store).Handle(
+                    detectMachineStopCommand),
+                DetectMachineStartCommand detectMachineStartCommand => new DetectMachineStartHandler(_store).Handle(
+                    detectMachineStartCommand),
+                CompleteMachineJobCommand completeMachineJobCommand => new CompleteMachineJobHandler(_store).Handle(
+                    completeMachineJobCommand),
+                RequestNewMachineJobCommand requestNewMachineJobCommand => new RequestNewMachineJobHandler(_store)
+                    .Handle(requestNewMachineJobCommand),
+                _ => throw new ArgumentOutOfRangeException(nameof(c))
+            };
     }
 }

@@ -6,12 +6,11 @@ namespace Abstractions
 {
     public abstract class AggregateRoot
     {
-        private Optional<StreamId> _optionalStreamId = Optional<StreamId>.None;
+        private StreamId? _optionalStreamId;
 
-        public StreamId StreamId => _optionalStreamId
-            .Ensure(m => m.HasValue,
-                () => throw new InvalidOperationException("Aggregate Id needs to be set during object creation in order to use the aggregate."))
-            .Value;
+        public StreamId StreamId => _optionalStreamId == null
+            ? throw new InvalidOperationException("Aggregate Id needs to be set during object creation in order to use the aggregate.")
+            : _optionalStreamId;
         
         public long Version { get; private set; } = -1;
 
@@ -20,8 +19,7 @@ namespace Abstractions
         private readonly List<IEvent> _uncommittedEvents = new();
         public IReadOnlyList<IEvent> UncommittedEvents => _uncommittedEvents;
 
-        protected void SetIdentity(StreamId streamId) =>
-            _optionalStreamId = Optional<StreamId>.From(streamId);
+        protected void SetIdentity(StreamId streamId) => _optionalStreamId = streamId;
 
         protected abstract void When(IEvent e);
         

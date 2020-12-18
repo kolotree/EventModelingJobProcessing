@@ -17,7 +17,7 @@ namespace MachineJobProcessor.Domain
             NewJobGuid = newJobGuid;
         }
 
-        public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStarted() =>
+        public NewMachineJobStarted? ToOptionalNewMachineJobStarted() =>
             MachineJobProcessorView.ToOptionalNewMachineJobStartedUsing(NewJobGuid);
     }
 }

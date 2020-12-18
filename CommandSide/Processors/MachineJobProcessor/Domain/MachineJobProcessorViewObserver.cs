@@ -21,7 +21,7 @@ namespace MachineJobProcessor.Domain
                 case nameof(MachineStarted):
                 case nameof(MachineJobCompleted):
                 case nameof(NewMachineJobRequested):
-                    await _startNewMachineJobHandler.Handle(new StartNewMachineJobCommand(view,NewGuid()));
+                    await _startNewMachineJobHandler.Handle(new StartNewMachineJobCommand(view, NewGuid()));
                     break;
             }
         }

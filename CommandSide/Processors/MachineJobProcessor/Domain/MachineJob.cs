@@ -5,14 +5,18 @@ namespace MachineJobProcessor.Domain
 {
     internal sealed class MachineJob : AggregateRoot
     {
-        public static Optional<MachineJob> OptionalNewStartedJobFrom(StartNewMachineJobCommand c) =>
-            c.ToOptionalNewMachineJobStarted()
-                .Map(newMachineJobStarted =>
-                {
-                    var machineJob = new MachineJob();
-                    machineJob.ApplyChange(newMachineJobStarted);
-                    return machineJob;
-                });
+        public static MachineJob? OptionalNewStartedJobFrom(StartNewMachineJobCommand c)
+        {
+            var optionalMachineJobStarted = c.ToOptionalNewMachineJobStarted();
+            if (optionalMachineJobStarted != null)
+            {
+                var machineJob = new MachineJob();
+                machineJob.ApplyChange(optionalMachineJobStarted);
+                return machineJob;
+            }
+
+            return null;
+        }
 
         protected override void When(IEvent e)
         {

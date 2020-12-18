@@ -26,7 +26,7 @@ namespace CompleteMachineStoppage
                         newMachineJobStarted.JobId));
                     _isCompleted = false;
                     break;
-                case  MachineJobCompleted machineJobComplete:
+                case  MachineJobCompleted:
                     _isCompleted = true;
                     break;
             }

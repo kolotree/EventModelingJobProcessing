@@ -30,7 +30,7 @@ namespace MachineJobProcessor.Domain
             LastAppliedEventType = lastAppliedEventType;
         }
         
-        public Optional<NewMachineJobStarted> ToOptionalNewMachineJobStartedUsing(Guid newJobGuid)
+        public NewMachineJobStarted? ToOptionalNewMachineJobStartedUsing(Guid newJobGuid)
         {
             if (MachineStartedTime.HasValue &&
                 string.IsNullOrWhiteSpace(JobId))
@@ -52,7 +52,7 @@ namespace MachineJobProcessor.Domain
                     RequestedJobTime.Value);
             }
             
-            return Optional<NewMachineJobStarted>.None;
+            return null;
         }
 
         public override string ToString()

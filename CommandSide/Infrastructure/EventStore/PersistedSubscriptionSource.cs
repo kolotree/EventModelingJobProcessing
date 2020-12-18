@@ -30,7 +30,7 @@ namespace Infrastructure.EventStore
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
-            Optional<Exception> optionalException = Optional<Exception>.None;
+            Exception? optionalException = null;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             var subscription = await _connection.ConnectToPersistentSubscriptionAsync(
                 subscriptionRequest.StreamName,
@@ -59,9 +59,9 @@ namespace Infrastructure.EventStore
                     subscriptionDroppedCancellationTokenSource.Token.WaitHandle
                 });
 
-                if (optionalException.HasValue)
+                if (optionalException != null)
                 {
-                    throw new PersistedSubscriptionSourceException(optionalException.Value);
+                    throw new PersistedSubscriptionSourceException(optionalException);
                 }
             }
             finally

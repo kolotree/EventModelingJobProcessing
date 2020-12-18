@@ -12,9 +12,15 @@ namespace MachineJobProcessor.Domain
             _store = store;
         }
         
-        public Task Handle(StartNewMachineJobCommand c) =>
-            MachineJob.OptionalNewStartedJobFrom(c)
-                .Map(machineJob => _store.SaveChanges(machineJob))
-                .Unwrap(Task.CompletedTask);
+        public Task Handle(StartNewMachineJobCommand c)
+        {
+            var optionalMachineJob = MachineJob.OptionalNewStartedJobFrom(c);
+            if (optionalMachineJob != null)
+            {
+                return _store.SaveChanges(optionalMachineJob);
+            }
+
+            return Task.CompletedTask;
+        }
     }
 }
