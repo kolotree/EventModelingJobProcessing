@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "88c364c4-cf3b-42fc-951d-207b3d6c5cdb",
+		"_postman_id": "d63ac39e-4d13-4ae5-af34-c5b3774e93a5",
 		"name": "EventModelingJobProcessing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -29,6 +29,35 @@
 					"path": [
 						"Commands",
 						"DetectMachineStop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DetectMachineCycles",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"Timestamps\": [\"2021-12-01T20:00:00Z\", \"2021-12-01T20:00:00Z\", \"2021-12-01T20:00:00Z\", \"2021-12-01T20:00:00Z\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/Commands/DetectMachineCycles",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"Commands",
+						"DetectMachineCycles"
 					]
 				}
 			},
@@ -70,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"JobId\": \"6bb8af73c5c747c59141e9c7a0732c68\"\r\n}",
+					"raw": "{\r\n    \"FactoryId\": \"Politeh\",\r\n    \"MachineId\": \"Masina1\",\r\n    \"JobId\": \"a5dc8675062a412d84d624c6a02504d0\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -121,6 +150,5 @@
 			},
 			"response": []
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }
