@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestNewMachineJob", "Com
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineJobProcessor", "CommandSide\Processors\MachineJobProcessor\MachineJobProcessor.csproj", "{01BA0B64-D3E2-4641-9563-D24B861BB40E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineStoppagesTestApp", "CommandSide\UiCommands\PerformanceTests\MachineStoppagesTestApp\MachineStoppagesTestApp.csproj", "{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PerformanceTests", "PerformanceTests", "{BE13D240-E91A-4D87-B37C-3B726313F217}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +47,8 @@ Global
 		{0B9A9AB0-D9C6-4BDB-B164-D68BD8BE2C34} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
 		{10490146-F8FD-42CB-B060-FC4767E87E91} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
 		{01BA0B64-D3E2-4641-9563-D24B861BB40E} = {380022FD-4AD6-40D0-83E1-2637E5F0F1A4}
+		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB} = {BE13D240-E91A-4D87-B37C-3B726313F217}
+		{BE13D240-E91A-4D87-B37C-3B726313F217} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A1830134-E600-4B5D-BCBC-E4FA43C5036A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -85,5 +91,9 @@ Global
 		{01BA0B64-D3E2-4641-9563-D24B861BB40E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01BA0B64-D3E2-4641-9563-D24B861BB40E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01BA0B64-D3E2-4641-9563-D24B861BB40E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
