@@ -10,7 +10,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\Abstractions\Abstractions.csproj" />
       <ProjectReference Include="..\CompleteMachineJob\CompleteMachineJob.csproj" />
-      <ProjectReference Include="..\DetectMachineCycle\DetectMachineCycle.csproj" />
+      <ProjectReference Include="..\DetectMachineCycles\DetectMachineCycles.csproj" />
       <ProjectReference Include="..\DetectMachineStart\DetectMachineStart.csproj" />
       <ProjectReference Include="..\DetectMachineStop\DetectMachineStop.csproj" />
       <ProjectReference Include="..\RequestNewMachineJob\RequestNewMachineJob.csproj" />

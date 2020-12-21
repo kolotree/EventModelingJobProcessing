@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using CommandsWireUp;
-using DetectMachineCycle;
+using DetectMachineCycles;
 using Infrastructure.EventStore;
 
 namespace MachineCyclesTestApp

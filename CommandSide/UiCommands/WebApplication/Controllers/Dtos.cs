@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CompleteMachineStoppage;
-using DetectMachineCycle;
+using DetectMachineCycles;
 using DetectMachineStart;
 using DetectMachineStop;
 using RequestNewMachineJob;

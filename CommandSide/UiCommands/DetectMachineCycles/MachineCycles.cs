@@ -2,7 +2,7 @@
 using Abstractions;
 using Shared;
 
-namespace DetectMachineCycle
+namespace DetectMachineCycles
 {
     internal sealed class MachineCycles : IStream
     {

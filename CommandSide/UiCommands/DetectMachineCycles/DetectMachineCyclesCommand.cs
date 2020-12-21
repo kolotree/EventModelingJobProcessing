@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Abstractions;
 using Shared;
 
-namespace DetectMachineCycle
+namespace DetectMachineCycles
 {
     public sealed class DetectMachineCyclesCommand : ICommand
     {

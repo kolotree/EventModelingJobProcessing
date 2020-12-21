@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Abstractions;
 using CompleteMachineStoppage;
-using DetectMachineCycle;
+using DetectMachineCycles;
 using DetectMachineStart;
 using DetectMachineStop;
 using RequestNewMachineJob;

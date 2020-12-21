@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Abstractions;
 
-namespace DetectMachineCycle
+namespace DetectMachineCycles
 {
     public sealed class DetectMachineCyclesHandler : ICommandHandler<DetectMachineCyclesCommand>
     {
