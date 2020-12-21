@@ -32,6 +32,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PerformanceTests", "Perform
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DetectMachineCycle", "CommandSide\UiCommands\DetectMachineCycle\DetectMachineCycle.csproj", "{7EB5A29A-E362-4828-9684-88B3DD28A172}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachineCyclesTestApp", "CommandSide\UiCommands\PerformanceTests\MachineCyclesTestApp\MachineCyclesTestApp.csproj", "{96805551-E584-4DA4-A284-7FF1A5979810}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,7 @@ Global
 		{10B1EE66-5BDF-4B69-BBCB-C0901D5498DB} = {BE13D240-E91A-4D87-B37C-3B726313F217}
 		{BE13D240-E91A-4D87-B37C-3B726313F217} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
 		{7EB5A29A-E362-4828-9684-88B3DD28A172} = {0C6461DA-8098-40DA-A982-5BCBE4A0C8DF}
+		{96805551-E584-4DA4-A284-7FF1A5979810} = {BE13D240-E91A-4D87-B37C-3B726313F217}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A1830134-E600-4B5D-BCBC-E4FA43C5036A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -102,5 +105,9 @@ Global
 		{7EB5A29A-E362-4828-9684-88B3DD28A172}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7EB5A29A-E362-4828-9684-88B3DD28A172}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7EB5A29A-E362-4828-9684-88B3DD28A172}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96805551-E584-4DA4-A284-7FF1A5979810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96805551-E584-4DA4-A284-7FF1A5979810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96805551-E584-4DA4-A284-7FF1A5979810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96805551-E584-4DA4-A284-7FF1A5979810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
