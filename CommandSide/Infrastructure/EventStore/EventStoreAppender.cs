@@ -25,7 +25,7 @@ namespace Infrastructure.EventStore
             return resolvedEvents.Select(e => e.Event.ToEvent()).ToList();
         }
 
-        public async Task AppendAsync(
+        public async Task ConditionalAppendAsync(
             StreamId streamId,
             IReadOnlyList<IEvent> events,
             long expectedVersion)
@@ -49,6 +49,21 @@ namespace Infrastructure.EventStore
                         throw new ArgumentOutOfRangeException(nameof(results.Status), results.Status.ToString());
                 }
             }
+        }
+        
+        public Task AppendAsync(
+            StreamId streamId,
+            IReadOnlyList<IEvent> events)
+        {
+            if (events.Count > 0)
+            {
+                return _eventStoreConnection.AppendToStreamAsync(
+                    streamId,
+                    ExpectedVersion.Any,
+                    events.Select(e => e.ToEventData()));
+            }
+            
+            return Task.CompletedTask;
         }
     }
 }

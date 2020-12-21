@@ -4,7 +4,7 @@ using Shared;
 
 namespace Abstractions
 {
-    public abstract class AggregateRoot
+    public abstract class AggregateRoot : IStream
     {
         private StreamId? _optionalStreamId;
 

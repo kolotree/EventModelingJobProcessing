@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace WebApplication.Controllers
 {
@@ -12,6 +13,16 @@ namespace WebApplication.Controllers
             }
 
             return nullableString;
+        }
+        
+        public static IReadOnlyList<DateTime> TryUnwrap(this IReadOnlyList<DateTime>? nullableDateTimes, string parameterName)
+        {
+            if (nullableDateTimes == null)
+            {
+                throw new BadRequestException($"Invalid input for parameter '{parameterName}'.");
+            }
+
+            return nullableDateTimes;
         }
     }
 

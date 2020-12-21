@@ -11,8 +11,8 @@ namespace Abstractions
         {
             _id = id;
         }
-
-        public static StreamId AssembleFor<T>(params string[] parts) where T : AggregateRoot =>
+        
+        public static StreamId AssembleFor<T>(params string[] parts) where T : IStream =>
             new($"{typeof(T).Name}-{string.Join("|", parts)}");
 
         protected override IEnumerable<object> GetEqualityComponents()

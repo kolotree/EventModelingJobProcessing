@@ -46,5 +46,13 @@ namespace WebApplication.Controllers
             await _externalCommandHandlers.Handle(commandDto.ToCommand());
             return Ok();
         }
+        
+        [HttpPost]
+        [Route(nameof(DetectMachineCycles))]
+        public async Task<IActionResult> DetectMachineCycles([FromBody] DetectMachineCyclesDto commandDto)
+        {
+            await _externalCommandHandlers.Handle(commandDto.ToCommand());
+            return Ok();
+        }
     }
 }

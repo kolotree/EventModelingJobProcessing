@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Abstractions;
 using CompleteMachineStoppage;
+using DetectMachineCycle;
 using DetectMachineStart;
 using DetectMachineStop;
 using RequestNewMachineJob;
@@ -22,14 +23,11 @@ namespace CommandsWireUp
         public Task Handle(ICommand c) =>
             c switch
             {
-                DetectMachineStopCommand detectMachineStopCommand => new DetectMachineStopHandler(_store).Handle(
-                    detectMachineStopCommand),
-                DetectMachineStartCommand detectMachineStartCommand => new DetectMachineStartHandler(_store).Handle(
-                    detectMachineStartCommand),
-                CompleteMachineJobCommand completeMachineJobCommand => new CompleteMachineJobHandler(_store).Handle(
-                    completeMachineJobCommand),
-                RequestNewMachineJobCommand requestNewMachineJobCommand => new RequestNewMachineJobHandler(_store)
-                    .Handle(requestNewMachineJobCommand),
+                DetectMachineStopCommand detectMachineStopCommand => new DetectMachineStopHandler(_store).Handle(detectMachineStopCommand),
+                DetectMachineStartCommand detectMachineStartCommand => new DetectMachineStartHandler(_store).Handle(detectMachineStartCommand),
+                CompleteMachineJobCommand completeMachineJobCommand => new CompleteMachineJobHandler(_store).Handle(completeMachineJobCommand),
+                RequestNewMachineJobCommand requestNewMachineJobCommand => new RequestNewMachineJobHandler(_store).Handle(requestNewMachineJobCommand),
+                DetectMachineCyclesCommand detectMachineCycleCommand => new DetectMachineCyclesHandler(_store).Handle(detectMachineCycleCommand),
                 _ => throw new ArgumentOutOfRangeException(nameof(c))
             };
     }

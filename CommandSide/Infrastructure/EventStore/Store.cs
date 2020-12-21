@@ -35,8 +35,11 @@ namespace Infrastructure.EventStore
 
         public async Task SaveChanges<T>(T aggregateRoot) where T : AggregateRoot
         {
-            await _eventStoreAppender.AppendAsync(aggregateRoot.StreamId, aggregateRoot.UncommittedEvents, aggregateRoot.OriginalVersion);
+            await _eventStoreAppender.ConditionalAppendAsync(aggregateRoot.StreamId, aggregateRoot.UncommittedEvents, aggregateRoot.OriginalVersion);
             aggregateRoot.ClearUncommittedEvents();
         }
+
+        public Task AppendTo<T>(T stream) where T : IStream => 
+            _eventStoreAppender.AppendAsync(stream.StreamId, stream.UncommittedEvents);
     }
 }

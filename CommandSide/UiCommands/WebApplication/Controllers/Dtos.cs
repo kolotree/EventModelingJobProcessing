@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using CompleteMachineStoppage;
+using DetectMachineCycle;
 using DetectMachineStart;
 using DetectMachineStop;
 using RequestNewMachineJob;
@@ -52,5 +54,18 @@ namespace WebApplication.Controllers
         internal RequestNewMachineJobCommand ToCommand() => new(
             FactoryId.TryUnwrap(nameof(FactoryId)),
             MachineId.TryUnwrap(nameof(MachineId)));
+    }
+    
+    public sealed class DetectMachineCyclesDto
+    {
+        public string? FactoryId { get; set;}
+        public string? MachineId { get; set;}
+        
+        public IReadOnlyList<DateTime>? Timestamps { get; set; }
+        
+        internal DetectMachineCyclesCommand ToCommand() => new(
+            FactoryId.TryUnwrap(nameof(FactoryId)),
+            MachineId.TryUnwrap(nameof(MachineId)),
+            Timestamps.TryUnwrap(nameof(Timestamps)));
     }
 }
