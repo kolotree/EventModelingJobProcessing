@@ -3,18 +3,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Abstractions;
-using EventStore.ClientAPI;
+using EventStore.Client;
 using static Newtonsoft.Json.JsonConvert;
 
 namespace Infrastructure.EventStore
 {
     internal sealed class PersistedSubscriptionSource : IPersistedSubscriptionSource
     {
-        private readonly IEventStoreConnection _connection;
+        private readonly EventStorePersistentSubscriptionsClient _client;
 
-        public PersistedSubscriptionSource(IEventStoreConnection connection)
+        public PersistedSubscriptionSource(EventStorePersistentSubscriptionsClient client)
         {
-            _connection = connection;
+            _client = client;
         }
 
         public Task SubscribeTo<T>(
@@ -32,42 +32,35 @@ namespace Infrastructure.EventStore
         {
             Exception? optionalException = null;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
-            var subscription = await _connection.ConnectToPersistentSubscriptionAsync(
+            using var subscription = await _client.SubscribeAsync(
                 subscriptionRequest.StreamName,
                 subscriptionRequest.SubscriptionGroupName,
-                async (s, resolvedEvent) =>
+                async (s, resolvedEvent, _, _) =>
                 {
                     if (resolvedEvent.IsResolved)
                     {
-                        var deserializeObject = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data));
+                        var deserializeObject = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data.Span));
                         await viewHandler(deserializeObject);
                     }
-                    
-                    s.Acknowledge(resolvedEvent);
+
+                    s?.Ack(resolvedEvent);
                 },
-                (_, __, exception) =>
+                (_, _, exception) =>
                 {
                     optionalException = exception;
                     subscriptionDroppedCancellationTokenSource.Cancel();
                 });
 
-            try
+            WaitHandle.WaitAny(new[]
             {
-                WaitHandle.WaitAny(new[]
-                {
-                    cancellationToken.WaitHandle,
-                    subscriptionDroppedCancellationTokenSource.Token.WaitHandle
-                });
+                cancellationToken.WaitHandle,
+                subscriptionDroppedCancellationTokenSource.Token.WaitHandle
+            });
 
-                if (optionalException != null)
-                {
-                    throw new PersistedSubscriptionSourceException(optionalException);
-                }
-            }
-            finally
+            if (optionalException != null)
             {
-                subscription.Stop(TimeSpan.FromSeconds(10));
-            } 
+                throw new PersistedSubscriptionSourceException(optionalException);
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
-using System;
 using System.Text;
-using EventStore.ClientAPI;
+using EventStore.Client;
 using Newtonsoft.Json;
 using Shared;
 
@@ -10,9 +9,8 @@ namespace Infrastructure.EventStore.Serialization
     {
         public static EventData ToEventData(this IEvent e) =>
             new(
-                Guid.NewGuid(), 
+                Uuid.NewUuid(), 
                 e.GetType().Name,
-                true,
                 Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(e)),
                 EventMetaData.Of(e).ToByteArray());
     }

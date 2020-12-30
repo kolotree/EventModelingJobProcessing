@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Abstractions;
-using EventStore.ClientAPI;
+using EventStore.Client;
 using Shared;
 
 namespace Infrastructure.EventStore
@@ -10,9 +10,9 @@ namespace Infrastructure.EventStore
     {
         private readonly EventStoreAppender _eventStoreAppender;
 
-        public Store(IEventStoreConnection connectionProvider)
+        public Store(EventStoreClient client)
         {
-            _eventStoreAppender = new EventStoreAppender(connectionProvider);
+            _eventStoreAppender = new EventStoreAppender(client);
         }
         
         public async Task<T> Get<T>(StreamId streamId) where T : AggregateRoot, new()

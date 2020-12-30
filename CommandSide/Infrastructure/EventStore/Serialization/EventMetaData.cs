@@ -1,6 +1,6 @@
 using System;
 using System.Text;
-using EventStore.ClientAPI;
+using EventStore.Client;
 using Newtonsoft.Json;
 using Shared;
 
@@ -18,9 +18,9 @@ namespace Infrastructure.EventStore.Serialization
         public static EventMetaData Of(IEvent e) =>
             new(e.GetType().AssemblyQualifiedName);
 
-        public static EventMetaData EventMetaDataFrom(RecordedEvent recordedEvent)
+        public static EventMetaData EventMetaDataFrom(EventRecord eventRecord)
         {
-            var serializedEventMetaDataString = Encoding.UTF8.GetString(recordedEvent.Metadata);
+            var serializedEventMetaDataString = Encoding.UTF8.GetString(eventRecord.Metadata.Span);
             return EventMetaDataFrom(serializedEventMetaDataString);
         }
 

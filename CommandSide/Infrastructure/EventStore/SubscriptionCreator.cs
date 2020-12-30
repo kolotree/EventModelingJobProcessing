@@ -2,18 +2,20 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Abstractions;
-using EventStore.ClientAPI;
+using EventStore.Client;
 
 namespace Infrastructure.EventStore
 {
     internal sealed class SubscriptionCreator : IPersistedSubscriptionSource
     {
-        private readonly IEventStoreConnection _connection;
+        private readonly EventStorePersistentSubscriptionsClient _client;
         private readonly IPersistedSubscriptionSource _next;
 
-        public SubscriptionCreator(IEventStoreConnection connection, IPersistedSubscriptionSource next)
+        public SubscriptionCreator(
+            EventStorePersistentSubscriptionsClient client,
+            IPersistedSubscriptionSource next)
         {
-            _connection = connection;
+            _client = client;
             _next = next;
         }
 
@@ -30,13 +32,12 @@ namespace Infrastructure.EventStore
         {
             try
             {
-                await _connection.CreatePersistentSubscriptionAsync(
+                await _client.CreateAsync(
                     request.StreamName,
                     request.SubscriptionGroupName,
-                    PersistentSubscriptionSettings.Create()
-                        .StartFrom(request.ProjectStartingFromEventPosition)
-                        .ResolveLinkTos(),
-                    null);
+                    new PersistentSubscriptionSettings(
+                        false,
+                        StreamPosition.FromInt64(request.ProjectStartingFromEventPosition)));
             }
             catch (InvalidOperationException ex)
             {

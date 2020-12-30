@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abstractions;
-using EventStore.ClientAPI;
-using EventStore.ClientAPI.Exceptions;
+using EventStore.Client;
 using Infrastructure.EventStore.Serialization;
 using Shared;
 
@@ -12,16 +11,17 @@ namespace Infrastructure.EventStore
 {
     internal sealed class EventStoreAppender
     {
-        private readonly IEventStoreConnection _eventStoreConnection;
+        private readonly EventStoreClient _eventStoreClient;
         
-        public EventStoreAppender(IEventStoreConnection eventStoreConnection)
+        public EventStoreAppender(EventStoreClient eventStoreClient)
         {
-            _eventStoreConnection = eventStoreConnection;
+            _eventStoreClient = eventStoreClient;
         }
         
         public async Task<IReadOnlyList<IEvent>> AsyncLoadAllEventsFor(StreamId streamId)
         {
-            var resolvedEvents = await _eventStoreConnection.ReadAllStreamEventsForward(streamId);
+            var result = _eventStoreClient.ReadStreamAsync(Direction.Forwards, streamId, StreamPosition.Start);
+            var resolvedEvents = await result.ToListAsync();
             return resolvedEvents.Select(e => e.Event.ToEvent()).ToList();
         }
 
@@ -32,9 +32,9 @@ namespace Infrastructure.EventStore
         {
             if (events.Count > 0)
             {
-                var results = await _eventStoreConnection.ConditionalAppendToStreamAsync(
+                var results = await _eventStoreClient.ConditionalAppendToStreamAsync(
                     streamId,
-                    expectedVersion,
+                    StreamRevision.FromInt64(expectedVersion),
                     events.Select(e => e.ToEventData()));
 
                 switch (results.Status)
@@ -57,10 +57,8 @@ namespace Infrastructure.EventStore
         {
             if (events.Count > 0)
             {
-                return _eventStoreConnection.AppendToStreamAsync(
-                    streamId,
-                    ExpectedVersion.Any,
-                    events.Select(e => e.ToEventData()));
+                return _eventStoreClient.AppendToStreamAsync(
+                    streamId, StreamState.Any, events.Select(e => e.ToEventData()));
             }
             
             return Task.CompletedTask;
