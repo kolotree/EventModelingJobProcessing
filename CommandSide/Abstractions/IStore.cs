@@ -4,9 +4,9 @@ namespace Abstractions
 {
     public interface IStore
     {
-        Task<T> Get<T>(StreamId streamId) where T : AggregateRoot, new();
+        Task<T> Get<T>(StreamId streamId) where T : Stream, new();
         
-        Task SaveChanges<T>(T aggregateRoot) where T : AggregateRoot;
+        Task SaveChanges<T>(T stream) where T : Stream;
 
         Task AppendTo<T>(T stream) where T : IStream;
     }

@@ -3,7 +3,7 @@ using Shared;
 
 namespace DetectMachineStop
 {
-    internal sealed class MachineStoppage : AggregateRoot
+    internal sealed class MachineStoppage : Stream
     {
         public static MachineStoppage NewOf(DetectMachineStopCommand c)
         {

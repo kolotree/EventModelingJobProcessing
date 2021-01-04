@@ -3,7 +3,7 @@ using Shared;
 
 namespace MachineJobProcessor.Domain
 {
-    internal sealed class MachineJob : AggregateRoot
+    internal sealed class MachineJob : Stream
     {
         public static MachineJob? OptionalNewStartedJobFrom(StartNewMachineJobCommand c)
         {

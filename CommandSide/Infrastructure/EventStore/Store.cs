@@ -15,7 +15,7 @@ namespace Infrastructure.EventStore
             _eventStoreAppender = new EventStoreAppender(client);
         }
         
-        public async Task<T> Get<T>(StreamId streamId) where T : AggregateRoot, new()
+        public async Task<T> Get<T>(StreamId streamId) where T : Stream, new()
         {
             var events = await _eventStoreAppender.AsyncLoadAllEventsFor(streamId);
             if (events.Count == 0)
@@ -23,20 +23,20 @@ namespace Infrastructure.EventStore
                 throw new StreamDoesntExist(streamId);
             }
             
-            return ReconstructAggregateFrom<T>(events);
+            return ReconstructStreamFrom<T>(events);
         }
         
-        private static T ReconstructAggregateFrom<T>(IReadOnlyList<IEvent> events) where T : AggregateRoot, new()
+        private static T ReconstructStreamFrom<T>(IReadOnlyList<IEvent> events) where T : Stream, new()
         {
-            var aggregateRoot = new T();
-            aggregateRoot.ApplyAll(events);
-            return aggregateRoot;
+            var stream = new T();
+            stream.ApplyAll(events);
+            return stream;
         }
 
-        public async Task SaveChanges<T>(T aggregateRoot) where T : AggregateRoot
+        public async Task SaveChanges<T>(T stream) where T : Stream
         {
-            await _eventStoreAppender.ConditionalAppendAsync(aggregateRoot.StreamId, aggregateRoot.UncommittedEvents, aggregateRoot.OriginalVersion);
-            aggregateRoot.ClearUncommittedEvents();
+            await _eventStoreAppender.ConditionalAppendAsync(stream.StreamId, stream.UncommittedEvents, stream.OriginalVersion);
+            stream.ClearUncommittedEvents();
         }
 
         public Task AppendTo<T>(T stream) where T : IStream => 

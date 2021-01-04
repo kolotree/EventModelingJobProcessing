@@ -3,7 +3,7 @@ using Shared;
 
 namespace CompleteMachineStoppage
 {
-    internal sealed class MachineJob : AggregateRoot
+    internal sealed class MachineJob : Stream
     {
         private bool _isCompleted;
         

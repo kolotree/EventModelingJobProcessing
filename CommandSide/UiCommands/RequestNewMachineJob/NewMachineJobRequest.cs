@@ -4,7 +4,7 @@ using Shared;
 
 namespace RequestNewMachineJob
 {
-    internal sealed class NewMachineJobRequest : AggregateRoot
+    internal sealed class NewMachineJobRequest : Stream
     {
         public static NewMachineJobRequest From(RequestNewMachineJobCommand c, DateTime jobStartTime)
         {

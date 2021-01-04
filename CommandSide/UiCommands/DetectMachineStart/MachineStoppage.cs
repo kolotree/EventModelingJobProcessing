@@ -3,7 +3,7 @@ using Shared;
 
 namespace DetectMachineStart
 {
-    internal sealed class MachineStoppage : AggregateRoot
+    internal sealed class MachineStoppage : Stream
     {
         private bool _isStarted;
         

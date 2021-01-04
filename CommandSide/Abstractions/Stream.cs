@@ -4,12 +4,12 @@ using Shared;
 
 namespace Abstractions
 {
-    public abstract class AggregateRoot : IStream
+    public abstract class Stream : IStream
     {
         private StreamId? _optionalStreamId;
 
         public StreamId StreamId => _optionalStreamId == null
-            ? throw new InvalidOperationException("Aggregate Id needs to be set during object creation in order to use the aggregate.")
+            ? throw new InvalidOperationException("Stream Id needs to be set during object creation in order to use the instance.")
             : _optionalStreamId;
         
         public long Version { get; private set; } = -1;
@@ -28,7 +28,7 @@ namespace Abstractions
             _uncommittedEvents.Clear();
         }
         
-        public AggregateRoot ApplyAll(IReadOnlyList<IEvent> events)
+        public Stream ApplyAll(IReadOnlyList<IEvent> events)
         {
             foreach (var e in events)
             {
@@ -38,7 +38,7 @@ namespace Abstractions
             return this;
         }
         
-        protected AggregateRoot ApplyChange(IEvent e)
+        protected Stream ApplyChange(IEvent e)
         {
             ApplyChange(e, true);
             return this;
