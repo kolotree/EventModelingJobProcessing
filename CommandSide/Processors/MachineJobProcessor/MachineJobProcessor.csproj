@@ -16,7 +16,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Domain\MachineJobProcessorViewProjection.js">
+      <Content Include="Deployment\MachineJobProcessorViewProjection.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <None Remove="Deployment\CreateProjection.sh" />
+      <Content Include="Deployment\CreateProjection.sh">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

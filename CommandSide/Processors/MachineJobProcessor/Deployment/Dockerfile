@@ -12,4 +12,6 @@ WORKDIR /app
 
 COPY --from=build /app/CommandSide/Processors/MachineJobProcessor/out /app/
 
+RUN sh /app/Deployment/CreateProjection.sh
+
 ENTRYPOINT ["dotnet", "MachineJobProcessor.dll"]
