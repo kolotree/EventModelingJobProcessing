@@ -1,9 +1,9 @@
 #!/bin/sh
 
-EVENT_STORE_URL=$EventStore__ConnectionString
-EVENT_STORE_CREDENTIALS="admin:changeit"
-PROJECTION_NAME="MachineJobProcessorView"
-PROJECTION_PATH="./MachineJobProcessorViewProjection.js"
+EVENT_STORE_URL=$1
+EVENT_STORE_CREDENTIALS=$2
+PROJECTION_NAME=$3
+PROJECTION_PATH=$4
 
 URL=$EVENT_STORE_URL/projections/continuous?name=$PROJECTION_NAME%26type=js%26enabled=true%26emit=true%26trackemittedstreams=true
 
