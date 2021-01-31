@@ -18,8 +18,10 @@ jobs:
       with:
         dotnet-version: 5.0.101
     - name: Install dependencies
+      working-directory: Infrastructure
       run: dotnet restore
     - name: Build
+      working-directory: Infrastructure
       run: dotnet build --configuration Release --no-restore
     - name: Publish JobProcessing.Abstractions
       uses: brandedoutcast/publish-nuget@v2
