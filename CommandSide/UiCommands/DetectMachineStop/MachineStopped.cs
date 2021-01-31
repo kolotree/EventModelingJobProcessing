@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abstractions;
 
-namespace Shared
+namespace DetectMachineStop
 {
-    public sealed class MachineCyclesDetected : ValueObject, IEvent
+    public sealed class MachineStopped : ValueObject, IEvent
     {
         public string FactoryId { get; }
         public string MachineId { get; }
-        public IReadOnlyList<DateTime> Timestamps  { get; }
-        
-        public MachineCyclesDetected(string factoryId, string machineId, IReadOnlyList<DateTime> timestamps)
+        public DateTime StoppedAt { get; }
+
+        public MachineStopped(
+            string factoryId,
+            string machineId,
+            DateTime stoppedAt)
         {
             FactoryId = factoryId;
             MachineId = machineId;
-            Timestamps = timestamps;
+            StoppedAt = stoppedAt;
         }
-        
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return FactoryId;
             yield return MachineId;
-            foreach (var timestamp in Timestamps) yield return timestamp;
+            yield return StoppedAt;
         }
     }
 }

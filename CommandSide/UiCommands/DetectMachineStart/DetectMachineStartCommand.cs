@@ -1,6 +1,5 @@
 ﻿using System;
 using Abstractions;
-using Shared;
 
 namespace DetectMachineStart
 {

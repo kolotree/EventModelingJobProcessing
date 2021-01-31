@@ -1,7 +1,6 @@
 ﻿using System;
 using Abstractions;
 using Infrastructure.Serialization;
-using Shared;
 
 namespace RequestNewMachineJob
 {

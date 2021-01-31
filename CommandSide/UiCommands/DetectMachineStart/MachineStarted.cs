@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abstractions;
 
-namespace Shared
+namespace DetectMachineStart
 {
     public sealed class MachineStarted : ValueObject, IEvent
     {

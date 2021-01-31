@@ -1,33 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abstractions;
 
-namespace Shared
+namespace DetectMachineStart
 {
-    public sealed class NewMachineJobStarted : ValueObject, IEvent
+    public sealed class MachineStopped : ValueObject, IEvent
     {
         public string FactoryId { get; }
         public string MachineId { get; }
-        public string JobId { get; }
-        public DateTime StartedAt { get; }
+        public DateTime StoppedAt { get; }
 
-        public NewMachineJobStarted(
+        public MachineStopped(
             string factoryId,
             string machineId,
-            string jobId,
-            DateTime startedAt)
+            DateTime stoppedAt)
         {
             FactoryId = factoryId;
             MachineId = machineId;
-            JobId = jobId;
-            StartedAt = startedAt;
+            StoppedAt = stoppedAt;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return FactoryId;
             yield return MachineId;
-            yield return JobId;
-            yield return StartedAt;
+            yield return StoppedAt;
         }
     }
 }

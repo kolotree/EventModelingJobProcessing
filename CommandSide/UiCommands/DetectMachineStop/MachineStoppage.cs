@@ -1,6 +1,5 @@
 ﻿using Abstractions;
 using Infrastructure.Serialization;
-using Shared;
 
 namespace DetectMachineStop
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Abstractions;
-using Shared;
 
 namespace DetectMachineCycles
 {

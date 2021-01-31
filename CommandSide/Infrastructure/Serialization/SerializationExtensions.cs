@@ -1,6 +1,5 @@
 using Abstractions;
 using Newtonsoft.Json;
-using Shared;
 
 namespace Infrastructure.Serialization
 {

@@ -1,5 +1,5 @@
 ﻿using System;
-using Shared;
+using Abstractions;
 
 namespace MachineJobProcessor.Domain
 {

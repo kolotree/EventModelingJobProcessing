@@ -1,5 +1,4 @@
 ﻿using Abstractions;
-using Shared;
 
 namespace CompleteMachineStoppage
 {

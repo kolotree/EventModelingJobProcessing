@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Abstractions;
 
-namespace Shared
+namespace RequestNewMachineJob
 {
     public sealed class NewMachineJobRequested : ValueObject, IEvent
     {
