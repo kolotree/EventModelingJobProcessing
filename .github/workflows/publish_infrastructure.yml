@@ -27,7 +27,7 @@ jobs:
         PROJECT_FILE_PATH: Abstractions/Abstractions.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
-        NUGET_SOURCE: https://nuget.pkg.github.com/OWNER/index.json 
+        NUGET_SOURCE: https://nuget.pkg.github.com/Kolotree/index.json 
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
     - name: Publish JobProcessing.Infrastructure
       uses: brandedoutcast/publish-nuget@v2
@@ -35,5 +35,5 @@ jobs:
         PROJECT_FILE_PATH: Infrastructure/Infrastructure.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
-        NUGET_SOURCE: https://nuget.pkg.github.com/OWNER/index.json 
+        NUGET_SOURCE: https://nuget.pkg.github.com/Kolotree/index.json 
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
