@@ -1,0 +1,39 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.101
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Publish JobProcessing.Abstractions
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: Abstractions/Abstractions.csproj
+        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_SOURCE: https://nuget.pkg.github.com/OWNER/index.json 
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+    - name: Publish JobProcessing.Infrastructure
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: Infrastructure/Infrastructure.csproj
+        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_SOURCE: https://nuget.pkg.github.com/OWNER/index.json 
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
