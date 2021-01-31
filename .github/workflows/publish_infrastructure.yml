@@ -1,4 +1,4 @@
-name: .NET Core
+name: .NET
 
 on:
   push:
@@ -12,34 +12,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Setup .NET Core
+    - uses: actions/checkout@v2
+    - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.101
-        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-      env:
-        NUGET_AUTH_TOKEN: '%NUGET_AUTH_TOKEN%'
     - name: Install dependencies
       working-directory: Infrastructure
       run: dotnet restore
     - name: Build
       working-directory: Infrastructure
       run: dotnet build --configuration Release --no-restore
-    - name: Pack Abstractions
-      working-directory: Infrastructure
-      run: dotnet pack --no-build --configuration Release Abstractions/Abstractions.csproj --output .
-    - name: Push Abstractions to Github private package repository
-      working-directory: Infrastructure
-      run: dotnet nuget push *.nupkg --no-symbols --skip-duplicate
-      env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
-    - name: Pack Infrastructure
-      working-directory: Infrastructure
-      run: dotnet pack --no-build --configuration Release Infrastructure/Infrastructure.csproj --output .
-    - name: Push Infrastructure to Github private package repository
-      working-directory: Infrastructure
-      run: dotnet nuget push *.nupkg --no-symbols --skip-duplicate
-      env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
+    - name: Publish JobProcessing.Abstractions
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: Infrastructure/Abstractions/Abstractions.csproj
+        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_SOURCE: https://nuget.pkg.github.com/kolotree
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+    - name: Publish JobProcessing.Infrastructure
+      uses: brandedoutcast/publish-nuget@v2
+      with:
+        PROJECT_FILE_PATH: Infrastructure/Infrastructure/Infrastructure.csproj
+        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_SOURCE: https://nuget.pkg.github.com/kolotree
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}
