@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Shared;
 
 namespace Abstractions
 {
@@ -7,6 +6,6 @@ namespace Abstractions
     {
         public StreamId StreamId { get; }
         
-        public IReadOnlyList<IEvent> UncommittedEvents { get; }
+        public IReadOnlyList<EventEnvelope> UncommittedEventEnvelopes { get; }
     }
 }

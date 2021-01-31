@@ -1,4 +1,5 @@
 ﻿using Abstractions;
+using Infrastructure.Serialization;
 using Shared;
 
 namespace MachineJobProcessor.Domain
@@ -11,18 +12,19 @@ namespace MachineJobProcessor.Domain
             if (optionalMachineJobStarted != null)
             {
                 var machineJob = new MachineJob();
-                machineJob.ApplyChange(optionalMachineJobStarted);
+                machineJob.ApplyChange(optionalMachineJobStarted.ToEventEnvelope());
                 return machineJob;
             }
 
             return null;
         }
 
-        protected override void When(IEvent e)
+        protected override void When(EventEnvelope eventEnvelope)
         {
-            switch (e)
+            switch (eventEnvelope.Type)
             {
-                case NewMachineJobStarted newMachineJobStarted:
+                case nameof(NewMachineJobStarted):
+                    var newMachineJobStarted = eventEnvelope.DeserializeEvent<NewMachineJobStarted>();
                     SetIdentity(StreamId.AssembleFor<MachineJob>(
                         newMachineJobStarted.FactoryId,
                         newMachineJobStarted.MachineId,

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Abstractions;
-using Shared;
+using Infrastructure.Serialization;
 
 namespace DetectMachineCycles
 {
@@ -17,9 +17,9 @@ namespace DetectMachineCycles
 
         public StreamId StreamId => _detectMachineCycleCommand.MachineCyclesGlobalStream;
 
-        public IReadOnlyList<IEvent> UncommittedEvents => new List<IEvent>
+        public IReadOnlyList<EventEnvelope> UncommittedEventEnvelopes => new List<EventEnvelope>
         {
-            _detectMachineCycleCommand.ToMachineCycleDetected()
+            _detectMachineCycleCommand.ToMachineCycleDetected().ToEventEnvelope()
         };
     }
 }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Abstractions;
 using EventStore.Client;
-using Shared;
 
 namespace Infrastructure.EventStore
 {
@@ -17,29 +16,29 @@ namespace Infrastructure.EventStore
         
         public async Task<T> Get<T>(StreamId streamId) where T : Stream, new()
         {
-            var events = await _eventStoreAppender.AsyncLoadAllEventsFor(streamId);
-            if (events.Count == 0)
+            var eventEnvelopes = await _eventStoreAppender.AsyncLoadAllEventEnvelopesFor(streamId);
+            if (eventEnvelopes.Count == 0)
             {
                 throw new StreamDoesntExist(streamId);
             }
             
-            return ReconstructStreamFrom<T>(events);
+            return ReconstructStreamFrom<T>(eventEnvelopes);
         }
         
-        private static T ReconstructStreamFrom<T>(IReadOnlyList<IEvent> events) where T : Stream, new()
+        private static T ReconstructStreamFrom<T>(IReadOnlyList<EventEnvelope> eventEnvelopes) where T : Stream, new()
         {
             var stream = new T();
-            stream.ApplyAll(events);
+            stream.ApplyAll(eventEnvelopes);
             return stream;
         }
 
         public async Task SaveChanges<T>(T stream) where T : Stream
         {
-            await _eventStoreAppender.ConditionalAppendAsync(stream.StreamId, stream.UncommittedEvents, stream.OriginalVersion);
+            await _eventStoreAppender.ConditionalAppendAsync(stream.StreamId, stream.UncommittedEventEnvelopes, stream.OriginalVersion);
             stream.ClearUncommittedEvents();
         }
 
         public Task AppendTo<T>(T stream) where T : IStream => 
-            _eventStoreAppender.AppendAsync(stream.StreamId, stream.UncommittedEvents);
+            _eventStoreAppender.AppendAsync(stream.StreamId, stream.UncommittedEventEnvelopes);
     }
 }

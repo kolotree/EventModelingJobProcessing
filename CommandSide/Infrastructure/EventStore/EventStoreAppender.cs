@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Abstractions;
 using EventStore.Client;
-using Infrastructure.EventStore.Serialization;
-using Shared;
 
 namespace Infrastructure.EventStore
 {
@@ -18,24 +17,31 @@ namespace Infrastructure.EventStore
             _eventStoreClient = eventStoreClient;
         }
         
-        public async Task<IReadOnlyList<IEvent>> AsyncLoadAllEventsFor(StreamId streamId)
+        public async Task<IReadOnlyList<EventEnvelope>> AsyncLoadAllEventEnvelopesFor(StreamId streamId)
         {
             var result = _eventStoreClient.ReadStreamAsync(Direction.Forwards, streamId, StreamPosition.Start);
             var resolvedEvents = await result.ToListAsync();
-            return resolvedEvents.Select(e => e.Event.ToEvent()).ToList();
+            return resolvedEvents.Select(e => 
+                new EventEnvelope(
+                    e.Event.EventType,
+                    Encoding.UTF8.GetString(e.Event.Data.Span),
+                    Encoding.UTF8.GetString(e.Event.Metadata.Span))).ToList();
         }
 
         public async Task ConditionalAppendAsync(
             StreamId streamId,
-            IReadOnlyList<IEvent> events,
+            IReadOnlyList<EventEnvelope> eventEnvelopes,
             long expectedVersion)
         {
-            if (events.Count > 0)
+            if (eventEnvelopes.Count > 0)
             {
                 var results = await _eventStoreClient.ConditionalAppendToStreamAsync(
                     streamId,
                     StreamRevision.FromInt64(expectedVersion),
-                    events.Select(e => e.ToEventData()));
+                    eventEnvelopes.Select(ee => new EventData(
+                        Uuid.NewUuid(), 
+                        ee.Type,
+                        Encoding.UTF8.GetBytes(ee.Data))));
 
                 switch (results.Status)
                 {
@@ -53,12 +59,15 @@ namespace Infrastructure.EventStore
         
         public Task AppendAsync(
             StreamId streamId,
-            IReadOnlyList<IEvent> events)
+            IReadOnlyList<EventEnvelope> eventEnvelopes)
         {
-            if (events.Count > 0)
+            if (eventEnvelopes.Count > 0)
             {
                 return _eventStoreClient.AppendToStreamAsync(
-                    streamId, StreamState.Any, events.Select(e => e.ToEventData()));
+                    streamId, StreamState.Any, eventEnvelopes.Select(ee => new EventData(
+                        Uuid.NewUuid(), 
+                        ee.Type,
+                        Encoding.UTF8.GetBytes(ee.Data))));
             }
             
             return Task.CompletedTask;

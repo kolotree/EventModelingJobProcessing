@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Shared;
 
 namespace Abstractions
 {
@@ -14,43 +13,40 @@ namespace Abstractions
         
         public long Version { get; private set; } = -1;
 
-        public long OriginalVersion => Version - UncommittedEvents.Count;
+        public long OriginalVersion => Version - UncommittedEventEnvelopes.Count;
         
-        private readonly List<IEvent> _uncommittedEvents = new();
-        public IReadOnlyList<IEvent> UncommittedEvents => _uncommittedEvents;
+        private readonly List<EventEnvelope> _uncommittedEventEnvelopes = new();
+        public IReadOnlyList<EventEnvelope> UncommittedEventEnvelopes => _uncommittedEventEnvelopes;
 
         protected void SetIdentity(StreamId streamId) => _optionalStreamId = streamId;
 
-        protected abstract void When(IEvent e);
+        protected abstract void When(EventEnvelope eventEnvelope);
         
         public void ClearUncommittedEvents()
         {
-            _uncommittedEvents.Clear();
+            _uncommittedEventEnvelopes.Clear();
         }
         
-        public Stream ApplyAll(IReadOnlyList<IEvent> events)
+        public void ApplyAll(IReadOnlyList<EventEnvelope> eventEnvelopes)
         {
-            foreach (var e in events)
+            foreach (var eventEnvelope in eventEnvelopes)
             {
-                ApplyChange(e, false);
+                ApplyChange(eventEnvelope, false);
             }
-            
-            return this;
         }
         
-        protected Stream ApplyChange(IEvent e)
+        protected void ApplyChange(EventEnvelope eventEnvelope)
         {
-            ApplyChange(e, true);
-            return this;
+            ApplyChange(eventEnvelope, true);
         }
         
-        private void ApplyChange(IEvent e, bool isNew)
+        private void ApplyChange(EventEnvelope eventEnvelope, bool isNew)
         {
-            When(e);
+            When(eventEnvelope);
             IncrementedVersion();
             if (isNew)
             {
-                _uncommittedEvents.Add(e);
+                _uncommittedEventEnvelopes.Add(@eventEnvelope);
             }
         }
         

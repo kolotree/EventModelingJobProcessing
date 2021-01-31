@@ -1,4 +1,5 @@
 ﻿using Abstractions;
+using Infrastructure.Serialization;
 using Shared;
 
 namespace CompleteMachineStoppage
@@ -11,22 +12,23 @@ namespace CompleteMachineStoppage
         {
             if (!_isCompleted)
             {
-                ApplyChange(c.ToMachineJobComplete());
+                ApplyChange(c.ToMachineJobComplete().ToEventEnvelope());
             }
         }
 
-        protected override void When(IEvent e)
+        protected override void When(EventEnvelope eventEnvelope)
         {
-            switch (e)
+            switch (eventEnvelope.Type)
             {
-                case NewMachineJobStarted newMachineJobStarted:
+                case nameof(NewMachineJobStarted):
+                    var newMachineJobStarted = eventEnvelope.DeserializeEvent<NewMachineJobStarted>();
                     SetIdentity(StreamId.AssembleFor<MachineJob>(
                         newMachineJobStarted.FactoryId,
                         newMachineJobStarted.MachineId,
                         newMachineJobStarted.JobId));
                     _isCompleted = false;
                     break;
-                case  MachineJobCompleted:
+                case nameof(MachineJobCompleted):
                     _isCompleted = true;
                     break;
             }

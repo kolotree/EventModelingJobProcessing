@@ -1,4 +1,5 @@
 ﻿using Abstractions;
+using Infrastructure.Serialization;
 using Shared;
 
 namespace DetectMachineStart
@@ -11,22 +12,23 @@ namespace DetectMachineStart
         {
             if (!_isStarted)
             {
-                ApplyChange(c.ToMachineStarted());
+                ApplyChange(c.ToMachineStarted().ToEventEnvelope());
             }
         }
         
-        protected override void When(IEvent e)
+        protected override void When(EventEnvelope eventEnvelope)
         {
-            switch (e)
+            switch (eventEnvelope.Type)
             {
-                case MachineStopped machineStopped:
+                case nameof(MachineStopped):
+                    var machineStopped = eventEnvelope.DeserializeEvent<MachineStopped>();
                     SetIdentity(StreamId.AssembleFor<MachineStoppage>(
                         machineStopped.FactoryId,
                         machineStopped.MachineId,
                         machineStopped.StoppedAt.Ticks.ToString()));
                     _isStarted = false;
                     break;
-                case MachineStarted _:
+                case nameof(MachineStarted):
                     _isStarted = true;
                     break;
             }

@@ -1,4 +1,5 @@
 ﻿using Abstractions;
+using Infrastructure.Serialization;
 using Shared;
 
 namespace DetectMachineStop
@@ -8,15 +9,16 @@ namespace DetectMachineStop
         public static MachineStoppage NewOf(DetectMachineStopCommand c)
         {
             var machineStoppage = new MachineStoppage();
-            machineStoppage.ApplyChange(c.ToMachineStopped());
+            machineStoppage.ApplyChange(c.ToMachineStopped().ToEventEnvelope());
             return machineStoppage;
         }
         
-        protected override void When(IEvent e)
+        protected override void When(EventEnvelope eventEnvelope)
         {
-            switch (e)
+            switch (eventEnvelope.Type)
             {
-                case MachineStopped machineStopped:
+                case nameof(MachineStopped):
+                    var machineStopped = eventEnvelope.DeserializeEvent<MachineStopped>();
                     SetIdentity(StreamId.AssembleFor<MachineStoppage>(
                         machineStopped.FactoryId,
                         machineStopped.MachineId,
