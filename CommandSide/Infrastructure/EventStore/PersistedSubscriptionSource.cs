@@ -42,8 +42,6 @@ namespace Infrastructure.EventStore
                         var deserializeObject = DeserializeObject<T>(Encoding.UTF8.GetString(resolvedEvent.Event.Data.Span));
                         await viewHandler(deserializeObject);
                     }
-
-                    s?.Ack(resolvedEvent);
                 },
                 (_, _, exception) =>
                 {

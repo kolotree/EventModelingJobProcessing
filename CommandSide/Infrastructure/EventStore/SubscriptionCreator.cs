@@ -36,12 +36,12 @@ namespace Infrastructure.EventStore
                     request.StreamName,
                     request.SubscriptionGroupName,
                     new PersistentSubscriptionSettings(
-                        false,
+                        true,
                         StreamPosition.FromInt64(request.ProjectStartingFromEventPosition)));
             }
             catch (InvalidOperationException ex)
             {
-                if (!ex.Message.Contains("already exists"))
+                if (!ex.Message.Contains("StatusCode=AlreadyExists"))
                 {
                     throw;
                 }
