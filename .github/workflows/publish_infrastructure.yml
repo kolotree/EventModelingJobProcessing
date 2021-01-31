@@ -24,7 +24,7 @@ jobs:
     - name: Publish JobProcessing.Abstractions
       uses: brandedoutcast/publish-nuget@v2
       with:
-        PROJECT_FILE_PATH: Abstractions/Abstractions.csproj
+        PROJECT_FILE_PATH: Infrastructure/Abstractions/Abstractions.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_SOURCE: https://nuget.pkg.github.com/Kolotree/index.json 
@@ -32,7 +32,7 @@ jobs:
     - name: Publish JobProcessing.Infrastructure
       uses: brandedoutcast/publish-nuget@v2
       with:
-        PROJECT_FILE_PATH: Infrastructure/Infrastructure.csproj
+        PROJECT_FILE_PATH: Infrastructure/Infrastructure/Infrastructure.csproj
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_SOURCE: https://nuget.pkg.github.com/Kolotree/index.json 
