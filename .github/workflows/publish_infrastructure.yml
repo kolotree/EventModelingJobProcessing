@@ -21,8 +21,8 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Build solution and generate NuGet package
-      run: |  
-        cd <project>
+      run: |
+        cd Abstractions
         dotnet pack -c Release -o out 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push ./Abstractions/out/*.nupkg --skip-duplicate --no-symbols true
