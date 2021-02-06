@@ -30,7 +30,7 @@ jobs:
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_SOURCE: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        NUGET_KEY: ${{ github.token }}
+        NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
     - name: Publish JobProcessing.Infrastructure
       uses: brandedoutcast/publish-nuget@v2
       with:
@@ -38,4 +38,4 @@ jobs:
         VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
         TAG_FORMAT: '*'
         NUGET_SOURCE: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-        NUGET_KEY: ${{ github.token }}
+        NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
