@@ -9,7 +9,6 @@
         <PackageId>JobProcessing.Abstractions</PackageId>
         <Version>1.0.0</Version>
         <Authors>Stanko Culaja</Authors>
-        <RepositoryUrl>https://github.com/Kolotree/EventModelingJobProcessing</RepositoryUrl>
     </PropertyGroup>
 
 </Project>
