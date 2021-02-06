@@ -17,25 +17,13 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.101
-    - name: Install dependencies
-      working-directory: Infrastructure
-      run: dotnet restore
-    - name: Build
-      working-directory: Infrastructure
-      run: dotnet build --configuration Release --no-restore
-    - name: Publish JobProcessing.Abstractions
-      uses: brandedoutcast/publish-nuget@v2
-      with:
-        PROJECT_FILE_PATH: Infrastructure/Abstractions/Abstractions.csproj
-        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
-        TAG_FORMAT: '*'
-        NUGET_SOURCE: https://nuget.pkg.github.com/
-        NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
-    - name: Publish JobProcessing.Infrastructure
-      uses: brandedoutcast/publish-nuget@v2
-      with:
-        PROJECT_FILE_PATH: Infrastructure/Infrastructure/Infrastructure.csproj
-        VERSION_REGEX: '^\s*<Version>(.*)<\/Version>\s*$'
-        TAG_FORMAT: '*'
-        NUGET_SOURCE: https://nuget.pkg.github.com/
-        NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
+        source-url: https://nuget.pkg.github.com/Kolotree/index.json
+      env:
+      	NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Build solution and generate NuGet package
+        run: |  
+          cd <project>
+          dotnet pack -c Release -o out  
+
+      - name: Push generated package to GitHub registry
+        run: dotnet nuget push ./<project>/out/*.nupkg --skip-duplicate --no-symbols true
