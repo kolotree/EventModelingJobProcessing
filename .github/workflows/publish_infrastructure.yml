@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.101
-        source-url: https://nuget.pkg.github.com/Kolotree/index.json
+        source-url: https://nuget.pkg.github.com/kolotree/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Build solution and generate NuGet package
