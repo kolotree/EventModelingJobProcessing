@@ -26,7 +26,6 @@ namespace CommandsWireUp
                 DetectMachineStopCommand detectMachineStopCommand => new DetectMachineStopHandler(_store).Handle(detectMachineStopCommand),
                 DetectMachineStartCommand detectMachineStartCommand => new DetectMachineStartHandler(_store).Handle(detectMachineStartCommand),
                 CompleteMachineJobCommand completeMachineJobCommand => new CompleteMachineJobHandler(_store).Handle(completeMachineJobCommand),
-                RequestNewMachineJobCommand requestNewMachineJobCommand => new RequestNewMachineJobHandler(_store).Handle(requestNewMachineJobCommand),
                 DetectMachineCyclesCommand detectMachineCycleCommand => new DetectMachineCyclesHandler(_store).Handle(detectMachineCycleCommand),
                 _ => throw new ArgumentOutOfRangeException(nameof(c))
             };

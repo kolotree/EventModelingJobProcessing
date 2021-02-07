@@ -40,14 +40,6 @@ namespace WebApplication.Controllers
         }
         
         [HttpPost]
-        [Route(nameof(RequestNewMachineJob))]
-        public async Task<IActionResult> RequestNewMachineJob([FromBody] RequestNewMachineJobDto commandDto)
-        {
-            await _externalCommandHandlers.Handle(commandDto.ToCommand());
-            return Ok();
-        }
-        
-        [HttpPost]
         [Route(nameof(DetectMachineCycles))]
         public async Task<IActionResult> DetectMachineCycles([FromBody] DetectMachineCyclesDto commandDto)
         {
