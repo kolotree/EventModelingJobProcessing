@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Abstractions
+namespace JobProcessing.Abstractions
 {
     public interface IStore
     {

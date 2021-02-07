@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Abstractions
+namespace JobProcessing.Abstractions
 {
     public sealed class StreamId : ValueObject
     {

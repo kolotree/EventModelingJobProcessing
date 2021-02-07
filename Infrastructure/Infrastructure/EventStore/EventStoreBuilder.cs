@@ -1,8 +1,8 @@
 ﻿using System;
-using Abstractions;
 using EventStore.Client;
+using JobProcessing.Abstractions;
 
-namespace Infrastructure.EventStore
+namespace JobProcessing.Infrastructure.EventStore
 {
     public sealed class EventStoreBuilder : IDisposable
     {

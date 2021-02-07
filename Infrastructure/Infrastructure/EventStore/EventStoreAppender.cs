@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Abstractions;
 using EventStore.Client;
+using JobProcessing.Abstractions;
 
-namespace Infrastructure.EventStore
+namespace JobProcessing.Infrastructure.EventStore
 {
     internal sealed class EventStoreAppender
     {

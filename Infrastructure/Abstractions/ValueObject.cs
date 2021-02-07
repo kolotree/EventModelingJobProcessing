@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Abstractions
+namespace JobProcessing.Abstractions
 {
     public abstract class ValueObject
     {

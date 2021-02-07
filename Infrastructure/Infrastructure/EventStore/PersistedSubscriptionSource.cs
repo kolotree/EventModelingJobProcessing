@@ -2,11 +2,11 @@
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Abstractions;
 using EventStore.Client;
+using JobProcessing.Abstractions;
 using static Newtonsoft.Json.JsonConvert;
 
-namespace Infrastructure.EventStore
+namespace JobProcessing.Infrastructure.EventStore
 {
     internal sealed class PersistedSubscriptionSource : IPersistedSubscriptionSource
     {

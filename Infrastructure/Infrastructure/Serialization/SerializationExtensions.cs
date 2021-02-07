@@ -1,7 +1,7 @@
-using Abstractions;
+using JobProcessing.Abstractions;
 using Newtonsoft.Json;
 
-namespace Infrastructure.Serialization
+namespace JobProcessing.Infrastructure.Serialization
 {
     public static class SerializationExtensions
     {

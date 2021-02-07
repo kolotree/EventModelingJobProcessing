@@ -1,4 +1,4 @@
-﻿namespace Abstractions
+﻿namespace JobProcessing.Abstractions
 {
     public interface IEvent
     {   

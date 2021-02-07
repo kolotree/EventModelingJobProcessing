@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Infrastructure.EventStore
+namespace JobProcessing.Infrastructure.EventStore
 {
     internal sealed class PersistedSubscriptionSourceException : Exception
     {

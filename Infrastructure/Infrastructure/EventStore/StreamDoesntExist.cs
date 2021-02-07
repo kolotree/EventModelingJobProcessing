@@ -1,7 +1,7 @@
 ﻿using System;
-using Abstractions;
+using JobProcessing.Abstractions;
 
-namespace Infrastructure.EventStore
+namespace JobProcessing.Infrastructure.EventStore
 {
     internal sealed class StreamDoesntExist : Exception
     {
