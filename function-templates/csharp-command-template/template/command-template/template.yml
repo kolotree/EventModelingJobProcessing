@@ -1,2 +1,0 @@
-language: csharp-command-template
-fprocess: dotnet ./root.dll
