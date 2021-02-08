@@ -43,7 +43,7 @@ namespace JobProcessing.InMemoryStore
                 _cache.Add(stream.StreamId, streamEvents);
             }
 
-            if (streamEvents.Count != stream.OriginalVersion)
+            if (streamEvents.Count - 1 != stream.OriginalVersion)
             {
                 throw new VersionMismatchException(stream.StreamId, stream.OriginalVersion);
             }
