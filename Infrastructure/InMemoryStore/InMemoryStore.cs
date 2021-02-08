@@ -6,10 +6,10 @@ namespace JobProcessing.InMemoryStore
 {
     public sealed class InMemoryStore : IStore
     {
-        private readonly Dictionary<StreamId, List<EventEnvelope>> _cache = new();
+        private readonly Dictionary<string, List<EventEnvelope>> _cache = new();
         private readonly List<EventEnvelope> _producedEventEnvelopes = new();
         
-        public InMemoryStore Given(StreamId streamId, params EventEnvelope[] newStreamEvents)
+        public InMemoryStore Given(string streamId, params EventEnvelope[] newStreamEvents)
         {
             if (!_cache.TryGetValue(streamId, out var streamEvents))
             {
