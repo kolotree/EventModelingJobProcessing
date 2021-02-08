@@ -7,7 +7,7 @@
         <AssemblyName>JobProcessing.Abstractions</AssemblyName>
         <RootNamespace>JobProcessing.Abstractions</RootNamespace>
         <PackageId>JobProcessing.Abstractions</PackageId>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <Authors>Stanko Culaja</Authors>
         <RepositoryUrl>https://github.com/kolotree/EventModelingJobProcessing</RepositoryUrl>
     </PropertyGroup>
