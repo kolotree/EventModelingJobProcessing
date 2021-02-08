@@ -42,6 +42,11 @@ namespace JobProcessing.InMemoryStore
                 streamEvents = new List<EventEnvelope>();
                 _cache.Add(stream.StreamId, streamEvents);
             }
+
+            if (streamEvents.Count != stream.OriginalVersion)
+            {
+                throw new VersionMismatchException(stream.StreamId, stream.OriginalVersion);
+            }
             
             streamEvents.AddRange(stream.UncommittedEventEnvelopes);
             _producedEventEnvelopes.AddRange(stream.UncommittedEventEnvelopes);
