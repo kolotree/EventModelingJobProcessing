@@ -6,5 +6,7 @@ functions:
   detect-machine-cycles:
     lang: csharp-http-command
     handler: ./detect-machine-cycles
-    image: culaja/detect-machine-cycles:1.0
+    image: culaja/detect-machine-cycles:1.1
+    environment:
+      EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
 
