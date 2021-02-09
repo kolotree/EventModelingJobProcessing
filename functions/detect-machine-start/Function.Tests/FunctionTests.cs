@@ -13,10 +13,8 @@ namespace Function.Tests
         private readonly InMemoryStore _store = new();
         private readonly FunctionHandler _functionHandler;
         
-        private static readonly DateTime MachineStoppedFirstTime = DateTime.UtcNow;
-        private static readonly DateTime MachineStartedFirstTime = MachineStoppedFirstTime.AddSeconds(10);
-        private static readonly DateTime MachineStoppedSecondTime = MachineStartedFirstTime.AddSeconds(10);
-        private static readonly DateTime MachineStartedSecondTime = MachineStoppedSecondTime.AddSeconds(10);
+        private static readonly DateTime MachineStoppedTimestamp = DateTime.UtcNow;
+        private static readonly DateTime MachineStartedTimestamp = MachineStoppedTimestamp.AddSeconds(10);
 
         public FunctionTests()
         {
@@ -30,8 +28,8 @@ namespace Function.Tests
                 new
                 {
                     MachineId = "Machine1",
-                    LastStoppedAt = MachineStoppedFirstTime,
-                    StartedAt = MachineStartedFirstTime
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: FactoryId"));
@@ -44,8 +42,8 @@ namespace Function.Tests
                 new
                 {
                     FactoryId = "AlingConel",
-                    LastStoppedAt = MachineStoppedFirstTime,
-                    StartedAt = MachineStartedFirstTime
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: MachineId"));
@@ -59,7 +57,7 @@ namespace Function.Tests
                 {
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
-                    StartedAt = MachineStartedFirstTime
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: LastStoppedAt"));
@@ -73,7 +71,7 @@ namespace Function.Tests
                 {
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
-                    LastStoppedAt = MachineStoppedFirstTime,
+                    LastStoppedAt = MachineStoppedTimestamp,
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: StartedAt"));
@@ -87,8 +85,8 @@ namespace Function.Tests
                 {
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
-                    LastStoppedAt = MachineStoppedFirstTime,
-                    StartedAt = MachineStartedFirstTime
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Stoppage doesn't exist."));
@@ -98,39 +96,39 @@ namespace Function.Tests
         public async Task success_returned_with_produced_machine_started_event_if_stoppage_is_present()
         {
             _store.Given(
-                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedFirstTime.Ticks}",
-                new MachineStopped("AlingConel", "Machine1", MachineStoppedFirstTime).ToEventEnvelope());
+                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
-                    LastStoppedAt = MachineStoppedFirstTime,
-                    StartedAt = MachineStartedFirstTime
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.Success);
-            _store.ProducedEventEnvelopes.Should().Contain(new MachineStarted("AlingConel", "Machine1", MachineStoppedFirstTime, MachineStartedFirstTime).ToEventEnvelope());
+            _store.ProducedEventEnvelopes.Should().Contain(new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelope());
         }
         
         [Fact]
         public async Task success_returned_without_produced_machine_started_event_if_machine_is_already_started()
         {
             _store.Given(
-                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedFirstTime.Ticks}",
-                new MachineStopped("AlingConel", "Machine1", MachineStoppedFirstTime).ToEventEnvelope());
+                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
             _store.Given(
-                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedFirstTime.Ticks}",
-                new MachineStarted("AlingConel", "Machine1", MachineStoppedFirstTime, MachineStartedFirstTime).ToEventEnvelope());
+                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
+                new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelope());
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
-                    LastStoppedAt = MachineStoppedFirstTime,
-                    StartedAt = MachineStartedFirstTime
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.Success);
