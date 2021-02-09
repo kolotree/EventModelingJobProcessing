@@ -6,7 +6,7 @@ functions:
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
-    image: culaja/request-new-machine-job:1.10
+    image: culaja/request-new-machine-job:1.11
     environment:
         EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
 
