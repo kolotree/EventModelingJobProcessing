@@ -1,0 +1,13 @@
+﻿{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Function.WebApp": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "applicationUrl": "http://localhost:6001",
+      "environmentVariables": {
+        "EventStore_ConnectionString": "esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false"
+      }
+    }
+  }
+}
