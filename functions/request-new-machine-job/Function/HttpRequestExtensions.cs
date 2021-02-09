@@ -1,6 +1,6 @@
 using System.IO;
 using System.Threading.Tasks;
-using Abstractions;
+using JobProcessing.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 

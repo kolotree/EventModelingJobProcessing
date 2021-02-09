@@ -1,12 +1,12 @@
 version: 1.0
 provider:
   name: openfaas
-  gateway: http://127.0.0.1:8080
+  gateway: http://127.0.0.1:31112
 functions:
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
-    image: request-new-machine-job:latest
+    image: culaja/request-new-machine-job:1.10
     environment:
-	  EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
+        EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
 

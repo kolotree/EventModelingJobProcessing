@@ -1,15 +1,14 @@
-﻿using System;
-using Abstractions;
-using Infrastructure.Serialization;
+﻿using JobProcessing.Abstractions;
+using JobProcessing.Infrastructure.Serialization;
 
 namespace Function.Domain
 {
     internal sealed class NewMachineJobRequest : Stream
     {
-        public static NewMachineJobRequest From(RequestNewMachineJob c, DateTime jobStartTime)
+        public static NewMachineJobRequest From(Command c, IDateTimeProvider dateTimeProvider)
         {
             var newMachineJobRequest = new NewMachineJobRequest();
-            newMachineJobRequest.ApplyChange(c.ToNewMachineJobRequestedUsing(jobStartTime).ToEventEnvelope());
+            newMachineJobRequest.ApplyChange(c.ToNewMachineJobRequestedUsing(dateTimeProvider).ToEventEnvelope());
             return newMachineJobRequest;
         }
 

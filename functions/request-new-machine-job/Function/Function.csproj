@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="JobProcessing.Infrastructure" Version="1.0.1" />
+    <PackageReference Include="JobProcessing.Infrastructure" Version="1.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Domain" />
   </ItemGroup>
 </Project>
