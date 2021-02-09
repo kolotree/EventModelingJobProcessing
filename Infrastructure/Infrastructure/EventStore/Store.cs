@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using EventStore.Client;
 using JobProcessing.Abstractions;
@@ -16,7 +17,16 @@ namespace JobProcessing.Infrastructure.EventStore
         
         public async Task<T> Get<T>(StreamId streamId) where T : Stream, new()
         {
-            var eventEnvelopes = await _eventStoreAppender.AsyncLoadAllEventEnvelopesFor(streamId);
+            IReadOnlyList<EventEnvelope> eventEnvelopes;
+            try
+            {
+                eventEnvelopes = await _eventStoreAppender.AsyncLoadAllEventEnvelopesFor(streamId);
+            }
+            catch (StreamNotFoundException)
+            {
+                throw new StreamDoesntExist(streamId);
+            }
+            
             if (eventEnvelopes.Count == 0)
             {
                 throw new StreamDoesntExist(streamId);
