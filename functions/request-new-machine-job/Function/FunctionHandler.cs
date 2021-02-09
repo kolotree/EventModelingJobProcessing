@@ -28,7 +28,7 @@ namespace Function
                 var commandHandler = new CommandHandler(_store, _dateTimeProvider);
                 await commandHandler.Handle(command);
                 
-                return FunctionResult.SuccessWith(command.JobStartTime.ToString(CultureInfo.InvariantCulture));
+                return FunctionResult.SuccessWith(command.JobStartTime.Ticks.ToString());
             }
             catch (Exception ex)
             {
