@@ -1,5 +1,5 @@
-﻿using Abstractions;
-using Infrastructure.Serialization;
+﻿using JobProcessing.Abstractions;
+using JobProcessing.Infrastructure.Serialization;
 
 namespace MachineJobProcessor.Domain
 {
@@ -23,7 +23,7 @@ namespace MachineJobProcessor.Domain
             switch (eventEnvelope.Type)
             {
                 case nameof(NewMachineJobStarted):
-                    var newMachineJobStarted = eventEnvelope.DeserializeEvent<NewMachineJobStarted>();
+                    var newMachineJobStarted = eventEnvelope.Deserialize<NewMachineJobStarted>();
                     SetIdentity(StreamId.AssembleFor<MachineJob>(
                         newMachineJobStarted.FactoryId,
                         newMachineJobStarted.MachineId,

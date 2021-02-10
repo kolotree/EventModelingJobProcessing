@@ -1,4 +1,4 @@
-﻿using Abstractions;
+﻿using JobProcessing.Abstractions;
 using Microsoft.Extensions.Configuration;
 
 namespace MachineJobProcessor

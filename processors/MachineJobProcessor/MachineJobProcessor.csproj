@@ -8,11 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="JobProcessing.Infrastructure" Version="1.0.6" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

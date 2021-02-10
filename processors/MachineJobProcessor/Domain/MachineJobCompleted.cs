@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Abstractions;
+using JobProcessing.Abstractions;
 
 namespace MachineJobProcessor.Domain
 {

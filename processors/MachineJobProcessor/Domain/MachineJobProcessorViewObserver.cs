@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Abstractions;
+using JobProcessing.Abstractions;
 using static System.Guid;
 
 namespace MachineJobProcessor.Domain

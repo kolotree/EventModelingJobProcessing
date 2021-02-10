@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using Abstractions;
+using JobProcessing.Abstractions;
 
 namespace MachineJobProcessor.Domain
 {
-    public sealed class MachineStarted : ValueObject, IEvent
+    public sealed class NewMachineJobStarted : ValueObject, IEvent
     {
         public string FactoryId { get; }
         public string MachineId { get; }
-        public DateTime LastStoppedAt { get; }
+        public string JobId { get; }
         public DateTime StartedAt { get; }
 
-        public MachineStarted(
+        public NewMachineJobStarted(
             string factoryId,
             string machineId,
-            DateTime lastStoppedAt, 
+            string jobId,
             DateTime startedAt)
         {
             FactoryId = factoryId;
             MachineId = machineId;
-            LastStoppedAt = lastStoppedAt;
+            JobId = jobId;
             StartedAt = startedAt;
         }
 
@@ -27,7 +27,7 @@ namespace MachineJobProcessor.Domain
         {
             yield return FactoryId;
             yield return MachineId;
-            yield return LastStoppedAt;
+            yield return JobId;
             yield return StartedAt;
         }
     }

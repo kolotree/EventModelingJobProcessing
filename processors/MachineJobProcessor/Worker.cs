@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Infrastructure.EventStore;
+using JobProcessing.Infrastructure.EventStore;
 using MachineJobProcessor.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;

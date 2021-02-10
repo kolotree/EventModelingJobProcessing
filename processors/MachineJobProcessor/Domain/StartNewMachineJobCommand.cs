@@ -1,5 +1,5 @@
 ﻿using System;
-using Abstractions;
+using JobProcessing.Abstractions;
 
 namespace MachineJobProcessor.Domain
 {
