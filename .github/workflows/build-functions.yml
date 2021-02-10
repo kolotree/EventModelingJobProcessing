@@ -6,9 +6,6 @@ on:
   pull_request:
     branches: [ main ]
 
-defaults:
-  run:
-    working-directory: src/functions
 jobs:
   build:
 
@@ -16,6 +13,9 @@ jobs:
       
     steps:
     - uses: actions/checkout@v2
+    - name: Copy functions to root directory
+      run: |
+        cp -r src/functions/* ./
     - name: Pull csharp-http-command template
       uses: docker://openfaas/faas-cli:latest-root
       with: 
