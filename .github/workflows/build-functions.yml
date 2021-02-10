@@ -13,6 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Pull csharp-http-command template
+      uses: docker://openfaas/faas-cli:latest-root
+      with: 
+        args: template pull https://github.com/kolotree/EventModelingJobProcessingFaasTemplates
     - name: Build all functions
       uses: docker://openfaas/faas-cli:latest-root
       with: 
