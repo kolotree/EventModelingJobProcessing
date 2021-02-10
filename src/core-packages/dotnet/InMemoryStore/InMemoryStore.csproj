@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>9</LangVersion>
+        <Nullable>enable</Nullable>
+        <AssemblyName>JobProcessing.InMemoryStore</AssemblyName>
+        <RootNamespace>JobProcessing.InMemoryStore</RootNamespace>
+        <PackageId>JobProcessing.InMemoryStore</PackageId>
+        <Version>1.0.4</Version>
+        <Authors>Stanko Culaja</Authors>
+        <RepositoryUrl>https://github.com/kolotree/EventModelingJobProcessing</RepositoryUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Abstractions\Abstractions.csproj" />
+    </ItemGroup>
+
+</Project>
