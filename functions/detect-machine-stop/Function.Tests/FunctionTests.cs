@@ -60,7 +60,7 @@ namespace Function.Tests
         }
         
         [Fact]
-        public async Task bad_request_returned_if_stoppage_is_already_detected()
+        public async Task success_returned_without_produced_machine_stopped_event_if_stoppage_is_already_detected()
         {
             _store.Given(
                 $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
@@ -74,7 +74,7 @@ namespace Function.Tests
                     StoppedAt = MachineStoppedTimestamp
                 }.ToHttpRequest());
 
-            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Item with the same ID already in store"));
+            functionResult.Should().Be(FunctionResult.Success);
             _store.ProducedEventEnvelopes.Should().BeEmpty();
         }
         

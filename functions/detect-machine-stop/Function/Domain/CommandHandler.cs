@@ -12,9 +12,15 @@ namespace Function.Domain
             _store = store;
         }
         
-        public Task Handle(Command c)
+        public async Task Handle(Command c)
         {
-            return _store.SaveChanges(MachineStoppage.NewOf(c));
+            try
+            {
+                await _store.SaveChanges(MachineStoppage.NewOf(c));
+            }
+            catch (VersionMismatchException)
+            {
+            }
         }
     }
 }
