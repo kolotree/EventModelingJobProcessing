@@ -1,0 +1,23 @@
+name: .NET
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build all functions
+      uses: docker://openfaas/faas-cli:latest-root
+      with: 
+        args: build -f ./src/functions/stack.yml --parallel 8
+    - name: Push new images
+      uses: docker://openfaas/faas-cli:latest-root
+      with: 
+        args: push -f ./src/functions/stack.yml --parallel 8
