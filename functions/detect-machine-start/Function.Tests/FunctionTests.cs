@@ -134,5 +134,25 @@ namespace Function.Tests
             functionResult.Should().Be(FunctionResult.Success);
             _store.ProducedEventEnvelopes.Should().BeEmpty();
         }
+        
+        [Fact]
+        public async Task bad_request_returned_if_start_time_is_before_stop_time()
+        {
+            _store.Given(
+                $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
+            
+            var functionResult = await  _functionHandler.Handle(
+                new
+                {
+                    FactoryId = "AlingConel",
+                    MachineId = "Machine1",
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStoppedTimestamp.AddSeconds(-1)
+                }.ToHttpRequest());
+
+            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: StartedAt"));
+            _store.ProducedEventEnvelopes.Should().BeEmpty();
+        }
     }
 }

@@ -17,9 +17,10 @@ namespace Function.Domain
             DateTime? startedAt)
         {
             FactoryId = factoryId ?? throw new ArgumentNullException(nameof(FactoryId));
-            MachineId = machineId ?? throw new ArgumentNullException(nameof(MachineId));;
-            LastStoppedAt = lastStoppedAt ?? throw new ArgumentNullException(nameof(LastStoppedAt));;
-            StartedAt = startedAt ?? throw new ArgumentNullException(nameof(StartedAt));;
+            MachineId = machineId ?? throw new ArgumentNullException(nameof(MachineId));
+            LastStoppedAt = lastStoppedAt ?? throw new ArgumentNullException(nameof(LastStoppedAt));
+            StartedAt = startedAt ?? throw new ArgumentNullException(nameof(StartedAt));
+            if (StartedAt < LastStoppedAt) throw new ArgumentNullException(nameof(StartedAt));
         }
         
         internal StreamId StoppageId => StreamId.AssembleFor<MachineStoppage>(
