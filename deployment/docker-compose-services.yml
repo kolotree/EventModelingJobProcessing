@@ -5,7 +5,7 @@ services:
     image: machine-job-processor:1.0
     build:
       context: ../
-      dockerfile: ./CommandSide/Processors/MachineJobProcessor/Dockerfile
+      dockerfile: ./processors/MachineJobProcessor/Dockerfile
     restart: unless-stopped
     environment:
       - 'EventStore__ConnectionString=tcp://admin:changeit@event-store:1113'
