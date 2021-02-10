@@ -6,7 +6,7 @@ functions:
   detect-machine-stop:
     lang: csharp-http-command
     handler: ./detect-machine-stop
-    image: culaja/detect-machine-stop:1.0
+    image: culaja/detect-machine-stop:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
 
