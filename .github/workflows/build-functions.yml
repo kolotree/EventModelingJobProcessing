@@ -1,4 +1,4 @@
-name: Build FaaS functions
+name: Build functions
 
 on:
   push:
@@ -23,8 +23,8 @@ jobs:
     - name: Build all functions
       uses: docker://openfaas/faas-cli:latest-root
       with: 
-        args: build --parallel 8
+        args: build -shrinkwrap
     - name: Push new images
       uses: docker://openfaas/faas-cli:latest-root
       with: 
-        args: push --parallel 8
+        args: push
