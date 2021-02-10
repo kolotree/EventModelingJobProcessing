@@ -16,7 +16,7 @@ jobs:
     - name: Pull csharp-http-command template
       uses: docker://openfaas/faas-cli:latest-root
       with: 
-        args: template pull https://github.com/kolotree/EventModelingJobProcessingFaasTemplates
+        args: template pull https://culaja:${{secrets.GITHUB_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
     - name: Build all functions
       uses: docker://openfaas/faas-cli:latest-root
       with: 
