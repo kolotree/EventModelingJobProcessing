@@ -2,9 +2,8 @@ name: Publish dotnet packages
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'src/core-packages/dotnet/**'
 
 jobs:
   build:
