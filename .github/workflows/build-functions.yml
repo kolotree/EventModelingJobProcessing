@@ -16,6 +16,8 @@ jobs:
     - name: Copy functions to root directory
       run: |
         cp -r src/functions/* ./
+    - name: Get faas-cli
+      run: curl -sLSf https://cli.openfaas.com | sudo sh
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
@@ -24,17 +26,15 @@ jobs:
       uses: docker://openfaas/faas-cli:latest-root
       with: 
         args: template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
-    - name: Build all functions
-      uses: docker://openfaas/faas-cli:latest-root
-      with: 
-        args: build
+    - name: Publish functions
+      run: >
+        faas-cli build
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v1
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.GITHUB_TOKEN }}
-    - name: Push new images
-      uses: docker://openfaas/faas-cli:latest-root
-      with: 
-        args: push
+    - name: Publish functions
+      run: >
+        faas-cli push
