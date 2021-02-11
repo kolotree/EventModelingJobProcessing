@@ -32,7 +32,7 @@ jobs:
     - name: Login to GitHub container registry
       run: > 
         echo ${{secrets.GITHUB_TOKEN}} | 
-        docker login ghcr.io --username 
+        docker login docker.pkg.github.com --username 
         ${{ github.repository_owner }} 
         --password-stdin
     - name: Publish functions
