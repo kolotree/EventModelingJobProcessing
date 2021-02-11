@@ -19,13 +19,10 @@ jobs:
       uses: docker/setup-qemu-action@v1
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
-    - name: Pull csharp-http-command template
-      uses: docker://openfaas/faas-cli:latest-root
-      with: 
-        args: template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
     - name: Build functions
       run: |
         cd ./src/functions
+        faas-cli template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
         faas-cli build
     - name: Login to GitHub container registry
       run: > 
