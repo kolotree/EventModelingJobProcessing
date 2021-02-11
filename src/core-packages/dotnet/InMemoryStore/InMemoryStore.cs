@@ -18,6 +18,7 @@ namespace JobProcessing.InMemoryStore
             }
             
             streamEvents.AddRange(newStreamEvents);
+            
             return this;
         }
 
