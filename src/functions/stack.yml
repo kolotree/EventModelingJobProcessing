@@ -12,7 +12,7 @@ functions:
   detect-machine-cycles:
     lang: csharp-http-command
     handler: ./detect-machine-cycles
-    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-cycles:1.0
+    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-cycles:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
   detect-machine-start:
