@@ -18,7 +18,7 @@ functions:
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start
-    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-start:1.0
+    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-start:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
   detect-machine-stop:
