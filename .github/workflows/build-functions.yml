@@ -24,7 +24,7 @@ jobs:
       with: 
         args: template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
     - name: Build functions
-      run: >
+      run: |
         cd ./src/functions
         faas-cli build
     - name: Login to GitHub container registry
@@ -34,7 +34,7 @@ jobs:
         ${{ github.repository_owner }} 
         --password-stdin
     - name: Publish functions
-      run: >
+      run: |
         cd ./src/functions
         faas-cli push
     - name: Login
@@ -42,7 +42,6 @@ jobs:
         echo ${{secrets.OPENFAAS_PASSWORD}} | 
         faas-cli login --gateway ${{secrets.OPENFAAS_URL}} --password-stdin
     - name: Deploy
-      run: >
+      run: |
         cd ./src/functions
-        OWNER="${{ github.repository_owner }}"
-        faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}
+        OWNER="${{ github.repository_owner }}" faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}
