@@ -27,7 +27,7 @@ namespace Function.Domain
                     JobStartTime)
                 : throw new JobStartTimeCantBeInFuture(JobStartTime, dateTimeProvider.CurrentUtcDateTime);
         
-        private sealed class JobStartTimeCantBeInFuture : ArgumentException
+        internal sealed class JobStartTimeCantBeInFuture : ArgumentException
         {
             public JobStartTimeCantBeInFuture(DateTime jobStartTime, DateTime currentTime)
                 : base($"Job start time can't be in the future: {jobStartTime}. (Current time: {currentTime})", nameof(JobStartTime))

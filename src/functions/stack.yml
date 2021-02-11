@@ -30,7 +30,7 @@ functions:
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
-    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/request-new-machine-job:1.0
+    image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/request-new-machine-job:1.1
     environment:
         EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
   

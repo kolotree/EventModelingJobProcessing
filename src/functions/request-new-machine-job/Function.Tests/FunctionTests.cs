@@ -72,7 +72,7 @@ namespace Function.Tests
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime.AddSeconds(1)
                 }.ToHttpRequest());
 
-            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: JobStartTime"));
+            functionResult.Should().Be(FunctionResult.BadRequestFailureWith($"Job start time can't be in the future: {StubDateTimeProvider.Today.CurrentUtcDateTime.AddSeconds(1)}. (Current time: {StubDateTimeProvider.Today.CurrentUtcDateTime}) (Parameter 'JobStartTime')"));
             _store.ProducedEventEnvelopes.Should().BeEmpty();
         }
         

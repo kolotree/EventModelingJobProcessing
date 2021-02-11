@@ -35,6 +35,7 @@ namespace Function
                 switch (ex)
                 {
                     case VersionMismatchException: return FunctionResult.BadRequestFailureWith("Item with the same ID already in store");
+                    case Command.JobStartTimeCantBeInFuture e: return FunctionResult.BadRequestFailureWith(e.Message);
                     case ArgumentException e: return FunctionResult.BadRequestFailureWith($"Invalid input: {e.ParamName}");
                     default: throw;
                 }
