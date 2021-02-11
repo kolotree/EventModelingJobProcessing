@@ -2,9 +2,8 @@ name: Build functions
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'src/functions/stack.yml'
 
 jobs:
   build:
