@@ -13,9 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: satackey/action-docker-layer-caching@v0.0.11
-    - name: Copy functions to root directory
-      run: |
-        cp -r src/functions/* ./
     - name: Get faas-cli
       run: curl -sLSf https://cli.openfaas.com | sudo sh
     - name: Set up QEMU
@@ -28,6 +25,7 @@ jobs:
         args: template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
     - name: Build functions
       run: >
+        cd ./src/functions
         faas-cli build
     - name: Login to GitHub container registry
       run: > 
@@ -37,6 +35,7 @@ jobs:
         --password-stdin
     - name: Publish functions
       run: >
+        cd ./src/functions
         faas-cli push
     - name: Login
       run: >
@@ -44,5 +43,6 @@ jobs:
         faas-cli login --gateway ${{secrets.OPENFAAS_URL}} --password-stdin
     - name: Deploy
       run: >
+        cd ./src/functions
         OWNER="${{ github.repository_owner }}"
         faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}
