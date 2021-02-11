@@ -1,27 +1,39 @@
-name: .NET
+name: Build functions
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths:
+      - 'src/functions/stack.yml'
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
-
+      
     steps:
     - uses: actions/checkout@v2
+    - name: Copy functions to root directory
+      run: |
+        cp -r src/functions/* ./
+    - name: Get faas-cli
+      run: curl -sLSf https://cli.openfaas.com | sudo sh
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
     - name: Pull csharp-http-command template
       uses: docker://openfaas/faas-cli:latest-root
       with: 
-        args: template pull https://culaja:${{secrets.GITHUB_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
-    - name: Build all functions
-      uses: docker://openfaas/faas-cli:latest-root
-      with: 
-        args: build -f ./src/functions/stack.yml --parallel 8
-    - name: Push new images
-      uses: docker://openfaas/faas-cli:latest-root
-      with: 
-        args: push -f ./src/functions/stack.yml --parallel 8
+        args: template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
+    - name: Build functions
+      run: >
+        faas-cli build
+    - name: Login to GitHub container registry
+      run: > 
+        echo ${{secrets.GITHUB_TOKEN}} | 
+        docker login docker.pkg.github.com --username 
+        ${{ github.repository_owner }} 
+        --password-stdin
+    - name: Publish functions
+      run: >
+        faas-cli push
