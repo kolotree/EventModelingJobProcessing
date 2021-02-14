@@ -1,4 +1,4 @@
-name: Build functions
+name: Build and publish functions
 
 on:
   push:
