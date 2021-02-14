@@ -1,0 +1,25 @@
+name: Build functions
+
+on:
+  push:
+    paths:
+      - 'deployment/production/functions-stack.yml'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+      
+    steps:
+    - uses: actions/checkout@v2
+    - uses: satackey/action-docker-layer-caching@v0.0.11
+    - name: Get faas-cli
+      run: curl -sLSf https://cli.openfaas.com | sudo sh
+    - name: Login to culaja.com openfaas
+      run: |
+        cd ./src/functions
+        echo ${{secrets.OPENFAAS_PASSWORD}} | faas-cli login --gateway ${{secrets.OPENFAAS_URL}} --password-stdin
+    - name: Deploy functions to culaja.com openfaas
+      run: |
+        cd ./src/functions
+        OWNER="${{ github.repository_owner }}" faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}

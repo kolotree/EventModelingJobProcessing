@@ -34,11 +34,3 @@ jobs:
       run: |
         cd ./src/functions
         faas-cli push
-    - name: Login
-      run: |
-        cd ./src/functions
-        echo ${{secrets.OPENFAAS_PASSWORD}} | faas-cli login --gateway ${{secrets.OPENFAAS_URL}} --password-stdin
-    - name: Deploy
-      run: |
-        cd ./src/functions
-        OWNER="${{ github.repository_owner }}" faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}
