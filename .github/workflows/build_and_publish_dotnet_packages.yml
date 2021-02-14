@@ -1,4 +1,4 @@
-name: Publish dotnet packages
+name: Build and publish dotnet packages
 
 on:
   push:
