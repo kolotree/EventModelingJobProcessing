@@ -13,4 +13,4 @@ WORKDIR /app
 
 COPY --from=build /app/Processor/out /app/
 
-ENTRYPOINT ["dotnet", "MachineJobProcessor.dll"]
+ENTRYPOINT ["dotnet", "Processor.dll"]
