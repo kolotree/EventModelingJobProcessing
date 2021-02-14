@@ -9,28 +9,37 @@ functions:
     image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/complete-machine-job:1.2
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
+    secrets:
+      - githubregistry
   detect-machine-cycles:
     lang: csharp-http-command
     handler: ./detect-machine-cycles
     image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-cycles:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
+    secrets:
+      - githubregistry
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start
     image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-start:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
+    secrets:
+      - githubregistry
   detect-machine-stop:
     lang: csharp-http-command
     handler: ./detect-machine-stop
     image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/detect-machine-stop:1.1
     environment:
       EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
+    secrets:
+      - githubregistry
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
     image: docker.pkg.github.com/kolotree/eventmodelingjobprocessing/request-new-machine-job:1.1
     environment:
         EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
- 
+    secrets:
+      - githubregistry
