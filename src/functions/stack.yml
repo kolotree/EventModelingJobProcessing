@@ -43,5 +43,5 @@ functions:
         EventStore_ConnectionString: esdb://node1.eventstore:2111?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
-    
+     
  
