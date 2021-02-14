@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: Machine jos processor deployment
+  name: machine-job-processor-deployment
   labels:
     app: machine-job-processor
 spec:
