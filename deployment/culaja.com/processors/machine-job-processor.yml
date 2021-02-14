@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Machine jos processor deployment
+  labels:
+    app: machine-job-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: machine-job-processor
+  template:
+    metadata:
+      labels:
+        app: machine-job-processor
+    spec:
+      containers:
+      - name: machine-job-processor
+        image: ghcr.io/kolotree/machine-job-processor:1.0
+        environment:
+      		EventStore__ConnectionString: esdb://admin:changeit@culaja.com:2111?tls=true&tlsVerifyCert=false
+    	secrets:
+      		- githubregistry
