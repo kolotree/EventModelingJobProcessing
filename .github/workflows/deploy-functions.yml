@@ -22,4 +22,4 @@ jobs:
       run: |
         cd ./src/functions
         faas-cli template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
-        OWNER="${{ github.repository_owner }}" faas-cli deploy -f ../../deployment/production/functions-stack.yml --gateway ${{secrets.OPENFAAS_URL}}
+        OWNER="${{ github.repository_owner }}" faas-cli deploy -f ../../deployment/culaja.com/functions-stack.yml --gateway ${{secrets.OPENFAAS_URL}}
