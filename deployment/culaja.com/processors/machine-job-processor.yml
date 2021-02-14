@@ -20,4 +20,4 @@ spec:
         environment:
           EventStore__ConnectionString: 'esdb://admin:changeit@culaja.com:2111?tls=true&tlsVerifyCert=false'
         secrets:
-      	  - githubregistry
+          - githubregistry
