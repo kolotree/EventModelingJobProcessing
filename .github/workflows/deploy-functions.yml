@@ -12,7 +12,6 @@ jobs:
       
     steps:
     - uses: actions/checkout@v2
-    - uses: satackey/action-docker-layer-caching@v0.0.11
     - name: Get faas-cli
       run: curl -sLSf https://cli.openfaas.com | sudo sh
     - name: Login to culaja.com openfaas
@@ -22,4 +21,5 @@ jobs:
     - name: Deploy functions to culaja.com openfaas
       run: |
         cd ./src/functions
-        OWNER="${{ github.repository_owner }}" faas-cli deploy --gateway ${{secrets.OPENFAAS_URL}}
+        faas-cli template pull https://culaja:${{secrets.FAAS_TEMPLATE_TOKEN}}@github.com/kolotree/EventModelingJobProcessingFaasTemplates
+        OWNER="${{ github.repository_owner }}" faas-cli deploy -f ../../deployment/production/functions-stack.yml --gateway ${{secrets.OPENFAAS_URL}}
