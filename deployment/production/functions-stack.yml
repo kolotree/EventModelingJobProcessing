@@ -43,5 +43,6 @@ functions:
         EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
+      
     
  
