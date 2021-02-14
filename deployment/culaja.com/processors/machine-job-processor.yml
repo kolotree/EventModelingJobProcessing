@@ -19,5 +19,5 @@ spec:
         image: ghcr.io/kolotree/machine-job-processor:1.0
         environment:
           EventStore__ConnectionString: 'esdb://admin:changeit@culaja.com:2111?tls=true&tlsVerifyCert=false'
-    	secrets:
+        secrets:
       	  - githubregistry
