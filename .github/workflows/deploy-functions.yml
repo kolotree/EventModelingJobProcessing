@@ -1,9 +1,9 @@
-name: Build functions
+name: Deploy functions to culaja.com
 
 on:
   push:
     paths:
-      - 'deployment/production/functions-stack.yml'
+      - 'deployment/culaja.com/functions-stack.yml'
 
 jobs:
   build:
