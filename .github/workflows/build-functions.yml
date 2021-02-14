@@ -26,7 +26,7 @@ jobs:
         faas-cli build
     - name: Login to GitHub container registry
       run: > 
-        echo ${{secrets.GITHUB_TOKEN}} | 
+        echo ${{secrets.PRIVATE_GITHUB_REGISTRY}} | 
         docker login ghcr.io --username 
         ${{ github.repository_owner }} 
         --password-stdin
