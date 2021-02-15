@@ -4,4 +4,4 @@ services:
     image: ghcr.io/kolotree/machine-job-processor:1.1
     build:
       context: machine-job-processor
-      
+       
