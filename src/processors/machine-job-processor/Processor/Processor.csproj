@@ -11,10 +11,4 @@
         <PackageReference Include="JobProcessing.Infrastructure" Version="1.0.6" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="Domain\MachineJobProcessorViewProjection.js">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
 </Project>
