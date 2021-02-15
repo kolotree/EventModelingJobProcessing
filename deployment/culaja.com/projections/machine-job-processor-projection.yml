@@ -10,7 +10,7 @@ spec:
         image: ghcr.io/kolotree/machine-job-processor-view-projection:1.0
         env:
           - name: EventStore_ConnectionString
-            value: "https://culaja:2111"
+            value: "https://culaja.com:2111"
           - name: EventStore_Credentials
             value: "admin:changeit"
           - name: Projection_Name
