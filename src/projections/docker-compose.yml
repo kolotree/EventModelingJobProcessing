@@ -4,4 +4,5 @@ services:
     image: ghcr.io/kolotree/machine-job-processor-view-projection:1.0
     build:
       context: machine-job-processor-view-projection
-      
+       
+ 
