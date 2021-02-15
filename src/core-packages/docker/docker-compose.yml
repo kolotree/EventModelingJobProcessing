@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   eventstore-projection-creator:
-    image: ghcr.io/kolotree/eventstore-projection-creator:1.1
+    image: ghcr.io/kolotree/eventstore-projection-creator:1.0
     build:
       context: eventstore-projection-creator
       

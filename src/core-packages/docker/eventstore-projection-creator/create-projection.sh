@@ -15,7 +15,7 @@ if [[ -z "${Projection_Name}" ]]; then
   exit 1
 fi
 
-RESULT=$(curl -k -i --data-binary  ./projection.js "${EventStore_ConnectionString}/projections/continuous?name=${Projection_Name}&type=js&enabled=true&emit=true&trackemittedstreams=true" -u "${EventStore_Credentials}")
+RESULT=$(curl -k -i --data-binary  "@./projection.js" "${EventStore_ConnectionString}/projections/continuous?name=${Projection_Name}&type=js&enabled=true&emit=true&trackemittedstreams=true" -u "${EventStore_Credentials}")
 
 if [[ ${RESULT} == *"HTTP/2 201"* ]]; then
   echo "[SUCCESS] Projection created."
