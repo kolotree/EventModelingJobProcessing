@@ -17,10 +17,10 @@ namespace JobProcessing.Infrastructure.EventStore
             _eventStorePersistentSubscriptionsClient = eventStorePersistentSubscriptionsClient;
         }
 
-        public static EventStoreBuilder NewUsing(
-            string eventStoreConnectionString)
+        public static EventStoreBuilder NewUsing(EventStoreConfiguration configuration)
         {
-            var settings = EventStoreClientSettings.Create(eventStoreConnectionString);
+            var settings = EventStoreClientSettings.Create(configuration.ConnectionString);
+            settings.DefaultCredentials = configuration.UserCredentials;
             var eventStoreClient = new EventStoreClient(settings);
             var eventStorePersistentSubscriptionsClient = new EventStorePersistentSubscriptionsClient(settings);
             return new EventStoreBuilder(
