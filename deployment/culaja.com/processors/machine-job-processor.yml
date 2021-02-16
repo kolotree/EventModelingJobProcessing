@@ -16,10 +16,12 @@ spec:
     spec:
       containers:
       - name: machine-job-processor
-        image: ghcr.io/kolotree/machine-job-processor:1.1
+        image: ghcr.io/kolotree/machine-job-processor:1.2
         env:
           - name: EventStore__ConnectionString
             value: "esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false"
+          - name: EventStore__Credentials
+            value: "admin:changeit"
       imagePullSecrets:
       - name: githubregistry
 
