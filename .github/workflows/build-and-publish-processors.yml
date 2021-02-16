@@ -27,7 +27,7 @@ jobs:
         docker login ghcr.io --username 
         ${{ github.repository_owner }} 
         --password-stdin
-    - name: Publish functions
+    - name: Publish processors
       run: |
         cd ./src/processors
         docker-compose push
