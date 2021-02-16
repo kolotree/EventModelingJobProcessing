@@ -40,7 +40,7 @@ functions:
     handler: ./request-new-machine-job
     image: ghcr.io/kolotree/request-new-machine-job:1.1
     environment:
-        EventStore_ConnectionString: eesdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
+        EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
       
