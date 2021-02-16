@@ -8,7 +8,7 @@ functions:
     handler: ./complete-machine-job
     image: ghcr.io/kolotree/complete-machine-job:1.2
     environment:
-      EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
+      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
   detect-machine-cycles:
@@ -16,7 +16,7 @@ functions:
     handler: ./detect-machine-cycles
     image: ghcr.io/kolotree/detect-machine-cycles:1.1
     environment:
-      EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
+      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
   detect-machine-start:
@@ -24,7 +24,7 @@ functions:
     handler: ./detect-machine-start
     image: ghcr.io/kolotree/detect-machine-start:1.1
     environment:
-      EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
+      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
   detect-machine-stop:
@@ -32,7 +32,7 @@ functions:
     handler: ./detect-machine-stop
     image: ghcr.io/kolotree/detect-machine-stop:1.1
     environment:
-      EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
+      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
   request-new-machine-job:
@@ -40,7 +40,7 @@ functions:
     handler: ./request-new-machine-job
     image: ghcr.io/kolotree/request-new-machine-job:1.1
     environment:
-        EventStore_ConnectionString: esdb://culaja.com:2111?tls=true&tlsVerifyCert=false
+        EventStore_ConnectionString: eesdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
       
