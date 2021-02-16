@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using JobProcessing.Abstractions;
