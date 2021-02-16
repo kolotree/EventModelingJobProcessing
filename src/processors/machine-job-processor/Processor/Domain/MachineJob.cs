@@ -1,7 +1,7 @@
 ﻿using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.Serialization;
 
-namespace MachineJobProcessor.Domain
+namespace Processor.Domain
 {
     internal sealed class MachineJob : Stream
     {

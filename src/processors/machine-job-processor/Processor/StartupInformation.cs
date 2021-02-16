@@ -1,10 +1,10 @@
 ﻿using System.Text;
 using JobProcessing.Abstractions;
-using MachineJobProcessor.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Processor.Domain;
 
-namespace MachineJobProcessor
+namespace Processor
 {
     internal static class StartupInformation
     {

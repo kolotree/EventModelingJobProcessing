@@ -2,12 +2,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using JobProcessing.Infrastructure.EventStore;
-using MachineJobProcessor.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Processor.Domain;
 
-namespace MachineJobProcessor
+namespace Processor
 {
     internal class Worker : BackgroundService
     {
@@ -30,14 +30,14 @@ namespace MachineJobProcessor
             }
             catch (Exception e)
             {
-                _logger.LogCritical(e, $"[{nameof(MachineJobProcessor)}] Unhandled exception.");
+                _logger.LogCritical(e, "Unhandled exception occurred while handling subscription");
                 Environment.Exit(-1);
             }
         }
 
         private async Task ProcessSubscription(CancellationToken stoppingToken)
         {
-            using var storeBuilder = EventStoreBuilder.NewUsing(_configuration.EventStoreConnectionString());
+            using var storeBuilder = EventStoreBuilder.NewUsing(_configuration.EventStoreConfiguration());
             var machineJobProcessorViewObserver = new MachineJobProcessorViewObserver(storeBuilder.NewStore());
             var persistedSubscriptionSource = storeBuilder.NewPersistedSubscriptionSource();
             
@@ -48,9 +48,9 @@ namespace MachineJobProcessor
             
             async Task HandleSingleViewChange(MachineJobProcessorView view)
             {
-                _logger.LogDebug($"[{nameof(MachineJobProcessor)}] Received new view: {view}.");
+                _logger.LogDebug("Received new view: {View}", view);
                 await machineJobProcessorViewObserver.ObserveChange(view);
-                _logger.LogDebug($"[{nameof(MachineJobProcessor)}] View successfully handled: {view}.");
+                _logger.LogDebug("View successfully handled: {View}", view);
             }
         }
     }

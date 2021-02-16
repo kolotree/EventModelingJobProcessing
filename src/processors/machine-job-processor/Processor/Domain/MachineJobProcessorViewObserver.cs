@@ -2,7 +2,7 @@
 using JobProcessing.Abstractions;
 using static System.Guid;
 
-namespace MachineJobProcessor.Domain
+namespace Processor.Domain
 {
     internal sealed class MachineJobProcessorViewObserver
     {

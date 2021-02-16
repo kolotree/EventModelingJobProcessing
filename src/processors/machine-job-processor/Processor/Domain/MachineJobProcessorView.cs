@@ -1,7 +1,7 @@
 ﻿using System;
 using JobProcessing.Abstractions;
 
-namespace MachineJobProcessor.Domain
+namespace Processor.Domain
 {
     // ReSharper disable once ClassNeverInstantiated.Global
     internal sealed class MachineJobProcessorView : IView

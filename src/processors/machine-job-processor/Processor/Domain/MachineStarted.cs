@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JobProcessing.Abstractions;
 
-namespace MachineJobProcessor.Domain
+namespace Processor.Domain
 {
     public sealed class MachineStarted : ValueObject, IEvent
     {
