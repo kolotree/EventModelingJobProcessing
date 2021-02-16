@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/kolotree/machine-job-processor:1.1
         env:
           - name: EventStore__ConnectionString
-            value: "esdb://admin:changeit@culaja.com:2111?tls=true&tlsVerifyCert=false"
+            value: "esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false"
       imagePullSecrets:
       - name: githubregistry
 
