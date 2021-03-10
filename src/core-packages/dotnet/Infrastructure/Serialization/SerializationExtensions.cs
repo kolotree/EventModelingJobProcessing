@@ -29,9 +29,9 @@ namespace JobProcessing.Infrastructure.Serialization
                 Formatting = Formatting.Indented
             });
 
-        private sealed class EventMetadataNamingStrategy : NamingStrategy
+        private sealed class EventMetadataNamingStrategy : CamelCaseNamingStrategy
         {
-            protected override string ResolvePropertyName(string name) => $"${name}";
+            protected override string ResolvePropertyName(string name) => $"${base.ResolvePropertyName(name)}";
         }
     }
 }
