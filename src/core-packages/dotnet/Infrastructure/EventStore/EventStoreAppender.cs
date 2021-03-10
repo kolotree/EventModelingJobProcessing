@@ -43,7 +43,8 @@ namespace JobProcessing.Infrastructure.EventStore
                     eventEnvelopes.Select(ee => new EventData(
                         Uuid.NewUuid(), 
                         ee.Type,
-                        UTF8.GetBytes(ee.Data))));
+                        UTF8.GetBytes(ee.Data),
+                        UTF8.GetBytes(ee.Metadata.Serialize()))));
 
                 switch (results.Status)
                 {
