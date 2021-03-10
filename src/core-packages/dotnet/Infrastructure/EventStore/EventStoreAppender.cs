@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using EventStore.Client;
 using JobProcessing.Abstractions;
+using JobProcessing.Infrastructure.Serialization;
+using static System.Text.Encoding;
 
 namespace JobProcessing.Infrastructure.EventStore
 {
@@ -24,8 +25,9 @@ namespace JobProcessing.Infrastructure.EventStore
             return resolvedEvents.Select(e => 
                 new EventEnvelope(
                     e.Event.EventType,
-                    Encoding.UTF8.GetString(e.Event.Data.Span),
-                    Encoding.UTF8.GetString(e.Event.Metadata.Span))).ToList();
+                    UTF8.GetString(e.Event.Data.Span),
+                    UTF8.GetString(e.Event.Metadata.Span).DeserializeEventMetadata() ?? EventMetadata.Empty()))
+                .ToList();
         }
 
         public async Task ConditionalAppendAsync(
@@ -41,7 +43,7 @@ namespace JobProcessing.Infrastructure.EventStore
                     eventEnvelopes.Select(ee => new EventData(
                         Uuid.NewUuid(), 
                         ee.Type,
-                        Encoding.UTF8.GetBytes(ee.Data))));
+                        UTF8.GetBytes(ee.Data))));
 
                 switch (results.Status)
                 {
@@ -67,7 +69,8 @@ namespace JobProcessing.Infrastructure.EventStore
                     streamId, StreamState.Any, eventEnvelopes.Select(ee => new EventData(
                         Uuid.NewUuid(), 
                         ee.Type,
-                        Encoding.UTF8.GetBytes(ee.Data))));
+                        UTF8.GetBytes(ee.Data),
+                        UTF8.GetBytes(ee.Metadata.Serialize()))));
             }
             
             return Task.CompletedTask;
