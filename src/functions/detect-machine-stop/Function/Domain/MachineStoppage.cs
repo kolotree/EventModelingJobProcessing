@@ -8,7 +8,7 @@ namespace Function.Domain
         public static MachineStoppage NewOf(Command c)
         {
             var machineStoppage = new MachineStoppage();
-            machineStoppage.ApplyChange(c.ToMachineStopped().ToEventEnvelope());
+            machineStoppage.ApplyChange(c.ToMachineStopped().ToEventEnvelopeUsing(c.Metadata));
             return machineStoppage;
         }
         
