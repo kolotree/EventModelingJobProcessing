@@ -7,10 +7,6 @@ functions:
     lang: csharp-http-command
     handler: ./complete-machine-job
     image: ghcr.io/kolotree/complete-machine-job:1.2
-  detect-machine-cycles:
-    lang: csharp-http-command
-    handler: ./detect-machine-cycles
-    image: ghcr.io/kolotree/detect-machine-cycles:1.1
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start

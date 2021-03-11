@@ -11,14 +11,6 @@ functions:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
       - githubregistry
-  detect-machine-cycles:
-    lang: csharp-http-command
-    handler: ./detect-machine-cycles
-    image: ghcr.io/kolotree/detect-machine-cycles:1.1
-    environment:
-      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
-    secrets:
-      - githubregistry
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start
