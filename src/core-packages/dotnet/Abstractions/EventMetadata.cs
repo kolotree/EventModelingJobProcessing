@@ -4,23 +4,23 @@ namespace JobProcessing.Abstractions
 {
     public sealed class EventMetadata : ValueObject
     {
-        public string? CorrelationId { get; }
-        public string? CausationId { get; }
+        public string CorrelationId { get; }
+        public string CausationId { get; }
 
-        public EventMetadata(
-            string? correlationId,
-            string? causationId)
+        private EventMetadata(
+            string correlationId,
+            string causationId)
         {
             CorrelationId = correlationId;
             CausationId = causationId;
         }
 
-        public static EventMetadata Empty() => new EventMetadata("", "");
+        public static EventMetadata From(ICommand command) => new(command.CorrelationId, command.Id);
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return CorrelationId ?? "";
-            yield return CausationId ?? "";
+            yield return CorrelationId;
+            yield return CausationId;
         }
 
         public override string ToString()

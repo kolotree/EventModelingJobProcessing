@@ -26,7 +26,8 @@ namespace JobProcessing.Infrastructure.EventStore
                 new EventEnvelope(
                     e.Event.EventType,
                     UTF8.GetString(e.Event.Data.Span),
-                    UTF8.GetString(e.Event.Metadata.Span).DeserializeEventMetadata() ?? EventMetadata.Empty()))
+                    UTF8.GetString(e.Event.Metadata.Span).DeserializeEventMetadata() ?? 
+                        throw new InvalidOperationException("Can't deserialize event without metadata")))
                 .ToList();
         }
 
