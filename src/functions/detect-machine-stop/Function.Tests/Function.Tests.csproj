@@ -10,7 +10,7 @@
 
     <ItemGroup>
         <PackageReference Include="FluentAssertions" Version="5.10.3" />
-        <PackageReference Include="JobProcessing.InMemoryStore" Version="1.0.9" />
+        <PackageReference Include="JobProcessing.InMemoryStore" Version="1.0.10" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
         <PackageReference Include="Moq" Version="4.16.0" />
         <PackageReference Include="xunit" Version="2.4.1" />

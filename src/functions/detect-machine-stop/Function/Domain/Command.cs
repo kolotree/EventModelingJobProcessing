@@ -9,8 +9,7 @@ namespace Function.Domain
         public string FactoryId { get; }
         public string MachineId { get; }
         public DateTime StoppedAt { get; }
-
-
+        
         public Command(
             CommandMetadata? metadata,
             string? factoryId,
