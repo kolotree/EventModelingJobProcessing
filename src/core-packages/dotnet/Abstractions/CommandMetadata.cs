@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace JobProcessing.Abstractions
 {
@@ -13,6 +14,12 @@ namespace JobProcessing.Abstractions
         {
             Id = id;
             CorrelationId = correlationId;
+        }
+
+        public static CommandMetadata GenerateNew()
+        {
+            var newGuid = Guid.NewGuid().ToString();
+            return new CommandMetadata(newGuid, newGuid);
         }
         
         protected override IEnumerable<object> GetEqualityComponents()
