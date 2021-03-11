@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Function.Domain;
+using Grpc.Core;
+using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.Serialization;
 using JobProcessing.InMemoryStore;
 using Xunit;
@@ -22,11 +24,26 @@ namespace Function.Tests
         }
         
         [Fact]
+        public async Task bad_request_returned_if_metadata_is_not_provided()
+        {
+            var functionResult = await  _functionHandler.Handle(
+                new
+                {
+                    FactoryId = "AlingConel",
+                    MachineId = "Machine1",
+                    JobId = Job1Id
+                }.ToHttpRequest());
+
+            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: Metadata"));
+        }
+        
+        [Fact]
         public async Task bad_request_returned_if_factory_id_is_not_provided()
         {
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     MachineId = "Machine1",
                     JobId = Job1Id
                 }.ToHttpRequest());
@@ -40,6 +57,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     JobId = Job1Id
                 }.ToHttpRequest());
@@ -53,6 +71,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1"
                 }.ToHttpRequest());
@@ -66,6 +85,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     JobId = Job1Id
@@ -77,18 +97,20 @@ namespace Function.Tests
         [Fact]
         public async Task success_returned_with_machine_job_completed_event_when_started_job_exists()
         {
-            _store.Given($"MachineJob-AlingConel|Machine1|{Job1Id}", new NewMachineJobStarted("AlingConel", "Machine1", Job1Id, Job1StartedTime).ToEventEnvelope());
-            
+            _store.Given($"MachineJob-AlingConel|Machine1|{Job1Id}", new NewMachineJobStarted("AlingConel", "Machine1", Job1Id, Job1StartedTime).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
+
+            var commandMetadata = CommandMetadata.GenerateNew();
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = commandMetadata,
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     JobId = Job1Id
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.Success);
-            _store.ProducedEventEnvelopes.Should().Contain(new MachineJobCompleted("AlingConel", "Machine1", Job1Id).ToEventEnvelope());
+            _store.ProducedEventEnvelopes.Should().Contain(new MachineJobCompleted("AlingConel", "Machine1", Job1Id).ToEventEnvelopeUsing(commandMetadata));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Function.Domain
 
 
         public Command(
-            CommandMetadata metadata,
+            CommandMetadata? metadata,
             string? factoryId,
             string? machineId,
             DateTime? stoppedAt)
