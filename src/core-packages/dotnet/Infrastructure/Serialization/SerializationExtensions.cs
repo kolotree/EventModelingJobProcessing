@@ -1,3 +1,5 @@
+using System;
+using EventStore.Client;
 using JobProcessing.Abstractions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -13,7 +15,7 @@ namespace JobProcessing.Infrastructure.Serialization
             new(
                 @event.GetType().Name,
                 JsonConvert.SerializeObject(@event),
-                EventMetadata.From(metadata));
+                EventMetadata.From(Uuid.NewUuid().ToString(), metadata));
 
         internal static string Serialize(this EventMetadata eventMetadata) =>
             JsonConvert.SerializeObject(eventMetadata, new JsonSerializerSettings

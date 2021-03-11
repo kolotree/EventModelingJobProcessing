@@ -69,7 +69,7 @@ namespace JobProcessing.Infrastructure.EventStore
             {
                 return _eventStoreClient.AppendToStreamAsync(
                     streamId, StreamState.Any, eventEnvelopes.Select(ee => new EventData(
-                        Uuid.NewUuid(), 
+                        Uuid.Parse(ee.Metadata.EventId), 
                         ee.Type,
                         UTF8.GetBytes(ee.Data),
                         UTF8.GetBytes(ee.Metadata.Serialize()))));

@@ -7,7 +7,7 @@
         <AssemblyName>JobProcessing.Infrastructure</AssemblyName>
         <RootNamespace>JobProcessing.Infrastructure</RootNamespace>
         <PackageId>JobProcessing.Infrastructure</PackageId>
-        <Version>1.0.14</Version>
+        <Version>1.0.15</Version>
         <Authors>Stanko Culaja</Authors>
         <RepositoryUrl>https://github.com/kolotree/EventModelingJobProcessing</RepositoryUrl>
     </PropertyGroup>
