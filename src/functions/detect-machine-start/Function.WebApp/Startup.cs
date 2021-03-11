@@ -1,4 +1,5 @@
 using System;
+using EventStore.Client;
 using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.EventStore;
 using Microsoft.AspNetCore.Builder;
@@ -22,13 +23,16 @@ namespace Function.WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             var store = EventStoreBuilder
                 .NewUsing(
-                    Environment.GetEnvironmentVariable("EventStore_ConnectionString") 
-                    ?? throw new ArgumentException("EventStore connection string is not provided through environment variable 'EventStore_ConnectionString'."))
+                    new EventStoreConfiguration(
+                        Environment.GetEnvironmentVariable("EventStore_ConnectionString")!,
+                        new UserCredentials(
+                            Environment.GetEnvironmentVariable("EventStore_UserName")!,
+                            Environment.GetEnvironmentVariable("EventStore_Password")!)))
                 .NewStore();
-            services.Add(new ServiceDescriptor(typeof(IStore), store));       
+            services.Add(new ServiceDescriptor(typeof(IStore), store));    
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

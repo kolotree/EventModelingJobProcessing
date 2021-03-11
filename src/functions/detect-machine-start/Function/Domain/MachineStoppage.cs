@@ -11,7 +11,7 @@ namespace Function.Domain
         {
             if (!_isStarted)
             {
-                ApplyChange(c.ToMachineStarted().ToEventEnvelope());
+                ApplyChange(c.ToMachineStarted().ToEventEnvelopeUsing(c.Metadata));
             }
         }
         

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Function.Domain;
+using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.Serialization;
 using JobProcessing.InMemoryStore;
 using Xunit;
@@ -22,11 +23,27 @@ namespace Function.Tests
         }
         
         [Fact]
+        public async Task bad_request_returned_if_metadata_is_not_provided()
+        {
+            var functionResult = await  _functionHandler.Handle(
+                new
+                {
+                    FactoryId = "AlingConel",
+                    MachineId = "Machine1",
+                    LastStoppedAt = MachineStoppedTimestamp,
+                    StartedAt = MachineStartedTimestamp
+                }.ToHttpRequest());
+
+            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: Metadata"));
+        }
+        
+        [Fact]
         public async Task bad_request_returned_if_factory_id_is_not_provided()
         {
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
                     StartedAt = MachineStartedTimestamp
@@ -41,6 +58,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     LastStoppedAt = MachineStoppedTimestamp,
                     StartedAt = MachineStartedTimestamp
@@ -55,6 +73,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     StartedAt = MachineStartedTimestamp
@@ -69,6 +88,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
@@ -83,6 +103,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
@@ -97,11 +118,13 @@ namespace Function.Tests
         {
             _store.Given(
                 $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
-                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
-            
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
+
+            var commandMetadata = CommandMetadata.GenerateNew(); 
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = commandMetadata,
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
@@ -109,7 +132,7 @@ namespace Function.Tests
                 }.ToHttpRequest());
 
             functionResult.Should().Be(FunctionResult.Success);
-            _store.ProducedEventEnvelopes.Should().Contain(new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelope());
+            _store.ProducedEventEnvelopes.Should().Contain(new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelopeUsing(commandMetadata));
         }
         
         [Fact]
@@ -117,14 +140,15 @@ namespace Function.Tests
         {
             _store.Given(
                 $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
-                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
             _store.Given(
                 $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
-                new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelope());
+                new MachineStarted("AlingConel", "Machine1", MachineStoppedTimestamp, MachineStartedTimestamp).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
@@ -140,11 +164,12 @@ namespace Function.Tests
         {
             _store.Given(
                 $"MachineStoppage-AlingConel|Machine1|{MachineStoppedTimestamp.Ticks}",
-                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelope());
+                new MachineStopped("AlingConel", "Machine1", MachineStoppedTimestamp).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "Machine1",
                     LastStoppedAt = MachineStoppedTimestamp,
