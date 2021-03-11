@@ -2,6 +2,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Function.Domain;
+using Grpc.Core;
+using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.Serialization;
 using JobProcessing.InMemoryStore;
 using Xunit;
@@ -17,6 +19,22 @@ namespace Function.Tests
         {
             _functionHandler = new(_store, StubDateTimeProvider.Today);
         }
+        [Fact]
+        public async Task error_returned_if_metadata_is_not_passed()
+        {
+            var functionResult = await  _functionHandler.Handle(
+                new
+                {
+                    FactoryId = "AlingConel",
+                    MachineId = "machine1",
+                    JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime
+                    
+                }.ToHttpRequest());
+
+            functionResult.Should().Be(FunctionResult.BadRequestFailureWith("Invalid input: Metadata"));
+            _store.ProducedEventEnvelopes.Should().BeEmpty();
+        }
+        
         
         [Fact]
         public async Task error_returned_if_factory_id_is_not_passed()
@@ -24,6 +42,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     MachineId = "machine1",
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime
                     
@@ -39,6 +58,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime
                 }.ToHttpRequest());
@@ -53,6 +73,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "machine1"
                 }.ToHttpRequest());
@@ -67,6 +88,7 @@ namespace Function.Tests
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "machine1",
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime.AddSeconds(1)
@@ -79,11 +101,12 @@ namespace Function.Tests
         [Fact]
         public async Task failure_returned_if_stream_with_same_id_exists()
         {
-            _store.Given($"NewMachineJobRequest-AlingConel|machine1|{StubDateTimeProvider.Today.CurrentUtcDateTime.Ticks}", new NewMachineJobRequested("AlingConel", "machine1", "SomeJobId", StubDateTimeProvider.Today.CurrentUtcDateTime).ToEventEnvelope());
+            _store.Given($"NewMachineJobRequest-AlingConel|machine1|{StubDateTimeProvider.Today.CurrentUtcDateTime.Ticks}", new NewMachineJobRequested("AlingConel", "machine1", "SomeJobId", StubDateTimeProvider.Today.CurrentUtcDateTime).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "machine1",
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime
@@ -98,11 +121,12 @@ namespace Function.Tests
         [Fact]
         public async Task success_returned_if_stream_with_same_id_doesnt_exist()
         {
-            _store.Given($"NewMachineJobRequest-AlingConel|machine1|{StubDateTimeProvider.Yesterday.CurrentUtcDateTime.Ticks}", new NewMachineJobRequested("AlingConel", "machine1", "SomeJobId", StubDateTimeProvider.Yesterday.CurrentUtcDateTime).ToEventEnvelope());
+            _store.Given($"NewMachineJobRequest-AlingConel|machine1|{StubDateTimeProvider.Yesterday.CurrentUtcDateTime.Ticks}", new NewMachineJobRequested("AlingConel", "machine1", "SomeJobId", StubDateTimeProvider.Yesterday.CurrentUtcDateTime).ToEventEnvelopeUsing(CommandMetadata.GenerateNew()));
             
             var functionResult = await  _functionHandler.Handle(
                 new
                 {
+                    Metadata = CommandMetadata.GenerateNew(),
                     FactoryId = "AlingConel",
                     MachineId = "machine1",
                     JobStartTime = StubDateTimeProvider.Today.CurrentUtcDateTime

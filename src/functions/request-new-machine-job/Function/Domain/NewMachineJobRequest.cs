@@ -8,7 +8,7 @@ namespace Function.Domain
         public static NewMachineJobRequest From(Command c, IDateTimeProvider dateTimeProvider)
         {
             var newMachineJobRequest = new NewMachineJobRequest();
-            newMachineJobRequest.ApplyChange(c.ToNewMachineJobRequestedUsing(dateTimeProvider).ToEventEnvelope());
+            newMachineJobRequest.ApplyChange(c.ToNewMachineJobRequestedUsing(dateTimeProvider).ToEventEnvelopeUsing(c.Metadata));
             return newMachineJobRequest;
         }
 
