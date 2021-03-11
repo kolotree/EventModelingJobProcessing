@@ -38,11 +38,9 @@ functions:
     handler: ./request-new-machine-job
     image: ghcr.io/kolotree/request-new-machine-job:2.0
     environment:
-        EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
-        EventStore_UserName: admin
+      EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
+      EventStore_UserName: admin
       EventStore_Password: changeit
     secrets:
       - githubregistry
       
-    
- 
