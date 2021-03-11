@@ -19,3 +19,4 @@ functions:
     lang: csharp-http-command
     handler: ./request-new-machine-job
     image: ghcr.io/kolotree/request-new-machine-job:2.0
+ 
