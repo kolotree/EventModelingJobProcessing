@@ -6,7 +6,7 @@ functions:
   complete-machine-job:
     lang: csharp-http-command
     handler: ./complete-machine-job
-    image: ghcr.io/kolotree/complete-machine-job:1.2
+    image: ghcr.io/kolotree/complete-machine-job:2.0
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
@@ -14,7 +14,7 @@ functions:
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start
-    image: ghcr.io/kolotree/detect-machine-start:1.1
+    image: ghcr.io/kolotree/detect-machine-start:2.0
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
@@ -22,7 +22,7 @@ functions:
   detect-machine-stop:
     lang: csharp-http-command
     handler: ./detect-machine-stop
-    image: ghcr.io/kolotree/detect-machine-stop:1.1
+    image: ghcr.io/kolotree/detect-machine-stop:2.0
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
@@ -30,7 +30,7 @@ functions:
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
-    image: ghcr.io/kolotree/request-new-machine-job:1.1
+    image: ghcr.io/kolotree/request-new-machine-job:2.0
     environment:
         EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
     secrets:
