@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   machine-job-processor:
-    image: ghcr.io/kolotree/machine-job-processor-view-projection:1.0
+    image: ghcr.io/kolotree/machine-job-processor-view-projection:1.1
     build:
       context: machine-job-processor-view-projection
        
