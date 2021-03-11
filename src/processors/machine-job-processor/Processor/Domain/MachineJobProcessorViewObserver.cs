@@ -20,7 +20,10 @@ namespace Processor.Domain
                 case nameof(MachineStarted):
                 case nameof(MachineJobCompleted):
                 case nameof(NewMachineJobRequested):
-                    await _startNewMachineJobHandler.Handle(new StartNewMachineJobCommand(view, NewGuid()));
+                    await _startNewMachineJobHandler.Handle(new StartNewMachineJobCommand(
+                        new CommandMetadata(view.LastAppliedEventId, view.LastAppliedEventCorrelationId),
+                        view, 
+                        NewGuid()));
                     break;
             }
         }

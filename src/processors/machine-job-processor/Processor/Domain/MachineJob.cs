@@ -11,7 +11,7 @@ namespace Processor.Domain
             if (optionalMachineJobStarted != null)
             {
                 var machineJob = new MachineJob();
-                machineJob.ApplyChange(optionalMachineJobStarted.ToEventEnvelope());
+                machineJob.ApplyChange(optionalMachineJobStarted.ToEventEnvelopeUsing(c.Metadata));
                 return machineJob;
             }
 

@@ -12,6 +12,8 @@ namespace Processor.Domain
         public string JobId { get; }
         public DateTime? RequestedJobTime { get; }
         public string LastAppliedEventType { get; }
+        public string LastAppliedEventId { get; }
+        public string LastAppliedEventCorrelationId { get; }
 
         public MachineJobProcessorView(
             string factoryId,
@@ -19,7 +21,9 @@ namespace Processor.Domain
             DateTime? machineStartedTime,
             string jobId,
             DateTime? requestedJobTime,
-            string lastAppliedEventType)
+            string lastAppliedEventType, 
+            string lastAppliedEventId,
+            string lastAppliedEventCorrelationId)
         {
             FactoryId = factoryId;
             MachineId = machineId;
@@ -27,6 +31,8 @@ namespace Processor.Domain
             JobId = jobId;
             RequestedJobTime = requestedJobTime;
             LastAppliedEventType = lastAppliedEventType;
+            LastAppliedEventId = lastAppliedEventId;
+            LastAppliedEventCorrelationId = lastAppliedEventCorrelationId;
         }
         
         public NewMachineJobStarted? ToOptionalNewMachineJobStartedUsing(Guid newJobGuid)
@@ -56,7 +62,7 @@ namespace Processor.Domain
 
         public override string ToString()
         {
-            return $"{nameof(FactoryId)}: {FactoryId}, {nameof(MachineId)}: {MachineId}, {nameof(MachineStartedTime)}: {MachineStartedTime}, {nameof(JobId)}: {JobId}, {nameof(RequestedJobTime)}: {RequestedJobTime}, {nameof(LastAppliedEventType)}: {LastAppliedEventType}";
+            return $"{nameof(FactoryId)}: {FactoryId}, {nameof(MachineId)}: {MachineId}, {nameof(MachineStartedTime)}: {MachineStartedTime}, {nameof(JobId)}: {JobId}, {nameof(RequestedJobTime)}: {RequestedJobTime}, {nameof(LastAppliedEventType)}: {LastAppliedEventType}, {nameof(LastAppliedEventId)}: {LastAppliedEventId}, {nameof(LastAppliedEventCorrelationId)}: {LastAppliedEventCorrelationId}";
         }
     }
 }
