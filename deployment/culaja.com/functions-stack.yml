@@ -43,4 +43,4 @@ functions:
       EventStore_Password: changeit
     secrets:
       - githubregistry
-      
+       
