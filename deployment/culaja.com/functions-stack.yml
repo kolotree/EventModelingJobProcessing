@@ -6,7 +6,7 @@ functions:
   complete-machine-job:
     lang: csharp-http-command
     handler: ./complete-machine-job
-    image: ghcr.io/kolotree/complete-machine-job:2.0
+    image: ghcr.io/kolotree/complete-machine-job:2.1
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
       EventStore_UserName: admin
@@ -16,7 +16,7 @@ functions:
   detect-machine-start:
     lang: csharp-http-command
     handler: ./detect-machine-start
-    image: ghcr.io/kolotree/detect-machine-start:2.0
+    image: ghcr.io/kolotree/detect-machine-start:2.1
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
       EventStore_UserName: admin
@@ -26,7 +26,7 @@ functions:
   detect-machine-stop:
     lang: csharp-http-command
     handler: ./detect-machine-stop
-    image: ghcr.io/kolotree/detect-machine-stop:2.0
+    image: ghcr.io/kolotree/detect-machine-stop:2.1
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
       EventStore_UserName: admin
@@ -36,7 +36,7 @@ functions:
   request-new-machine-job:
     lang: csharp-http-command
     handler: ./request-new-machine-job
-    image: ghcr.io/kolotree/request-new-machine-job:2.0
+    image: ghcr.io/kolotree/request-new-machine-job:2.1
     environment:
       EventStore_ConnectionString: esdb://culaja.com:2111,culaja.com:2112,culaja.com:2113?tls=true&tlsVerifyCert=false
       EventStore_UserName: admin
