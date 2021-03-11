@@ -7,7 +7,7 @@
         <AssemblyName>JobProcessing.InMemoryStore</AssemblyName>
         <RootNamespace>JobProcessing.InMemoryStore</RootNamespace>
         <PackageId>JobProcessing.InMemoryStore</PackageId>
-        <Version>1.0.6</Version>
+        <Version>1.0.7</Version>
         <Authors>Stanko Culaja</Authors>
         <RepositoryUrl>https://github.com/kolotree/EventModelingJobProcessing</RepositoryUrl>
     </PropertyGroup>

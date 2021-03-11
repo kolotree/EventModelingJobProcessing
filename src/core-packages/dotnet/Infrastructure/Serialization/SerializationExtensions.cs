@@ -9,11 +9,11 @@ namespace JobProcessing.Infrastructure.Serialization
         public static T Deserialize<T>(this EventEnvelope eventEnvelope) where T : IEvent => 
             JsonConvert.DeserializeObject<T>(eventEnvelope.Data);
 
-        public static EventEnvelope ToEventEnvelopeFrom(this IEvent @event, ICommand command) =>
+        public static EventEnvelope ToEventEnvelopeUsing(this IEvent @event, CommandMetadata metadata) =>
             new(
                 @event.GetType().Name,
                 JsonConvert.SerializeObject(@event),
-                EventMetadata.From(command));
+                EventMetadata.From(metadata));
 
         internal static string Serialize(this EventMetadata eventMetadata) =>
             JsonConvert.SerializeObject(eventMetadata, new JsonSerializerSettings

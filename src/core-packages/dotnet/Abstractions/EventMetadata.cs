@@ -15,7 +15,7 @@ namespace JobProcessing.Abstractions
             CausationId = causationId;
         }
 
-        public static EventMetadata From(ICommand command) => new(command.CorrelationId, command.Id);
+        public static EventMetadata From(CommandMetadata metadata) => new(metadata.CorrelationId, metadata.Id);
 
         protected override IEnumerable<object> GetEqualityComponents()
         {

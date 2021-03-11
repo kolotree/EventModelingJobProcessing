@@ -2,7 +2,6 @@
 {
     public interface ICommand
     {
-        string Id { get; }
-        string CorrelationId { get; }
+        CommandMetadata Metadata { get; }
     }
 }
