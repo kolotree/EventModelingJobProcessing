@@ -7,7 +7,7 @@ namespace JobProcessing.Abstractions
         public string CorrelationId { get; }
         public string CausationId { get; }
 
-        private EventMetadata(
+        public EventMetadata(
             string correlationId,
             string causationId)
         {
