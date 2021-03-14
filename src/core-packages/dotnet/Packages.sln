@@ -6,12 +6,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryStore", "InMemoryStore\InMemoryStore.csproj", "{FDA77A88-E63B-4E18-B2A2-959D93286FA5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{29CC37F0-8BAB-4B6A-90F3-8B04F48EFC12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSubscriptionTestApp", "Testing\ClientSubscriptionTestApp\ClientSubscriptionTestApp.csproj", "{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A} = {29CC37F0-8BAB-4B6A-90F3-8B04F48EFC12}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{086228DC-8D4F-40A8-9C3C-1A75014FA154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +31,9 @@ Global
 		{FDA77A88-E63B-4E18-B2A2-959D93286FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA77A88-E63B-4E18-B2A2-959D93286FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA77A88-E63B-4E18-B2A2-959D93286FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

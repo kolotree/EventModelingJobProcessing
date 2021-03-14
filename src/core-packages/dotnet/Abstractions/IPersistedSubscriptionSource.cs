@@ -9,18 +9,18 @@ namespace JobProcessing.Abstractions
     public interface IPersistedSubscriptionSource
     {
         Task SubscribeTo<T>(
-            SubscriptionRequest subscriptionRequest,
+            PersistedSubscriptionRequest persistedSubscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default);
     }
 
-    public sealed class SubscriptionRequest : ValueObject
+    public sealed class PersistedSubscriptionRequest : ValueObject
     {
         public string StreamName { get; }
         public string SubscriptionGroupName { get; }
         public long ProjectStartingFromEventPosition { get; }
 
-        public SubscriptionRequest(
+        public PersistedSubscriptionRequest(
             string streamName,
             string subscriptionGroupName,
             long projectStartingFromEventPosition)

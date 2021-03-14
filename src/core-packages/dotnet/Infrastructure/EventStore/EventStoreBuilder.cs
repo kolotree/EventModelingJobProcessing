@@ -34,6 +34,9 @@ namespace JobProcessing.Infrastructure.EventStore
             => new SubscriptionCreator(
                 _eventStorePersistentSubscriptionsClient,
                 new PersistedSubscriptionSource(_eventStorePersistentSubscriptionsClient));
+
+        public IClientSubscriptionSource NewClientSubscriptionSource()
+            => new ClientSubscriptionSource(_eventStoreClient);
         
         public void Dispose()
         {

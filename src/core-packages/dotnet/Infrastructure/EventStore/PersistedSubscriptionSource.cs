@@ -18,23 +18,23 @@ namespace JobProcessing.Infrastructure.EventStore
         }
 
         public Task SubscribeTo<T>(
-            SubscriptionRequest subscriptionRequest,
+            PersistedSubscriptionRequest persistedSubscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
-            return  SubscribeToStream(subscriptionRequest, viewHandler, cancellationToken);
+            return  SubscribeToStream(persistedSubscriptionRequest, viewHandler, cancellationToken);
         }
 
         private async Task SubscribeToStream<T>(
-            SubscriptionRequest subscriptionRequest,
+            PersistedSubscriptionRequest persistedSubscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
             Exception? optionalException = null;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             using var subscription = await _client.SubscribeAsync(
-                subscriptionRequest.StreamName,
-                subscriptionRequest.SubscriptionGroupName,
+                persistedSubscriptionRequest.StreamName,
+                persistedSubscriptionRequest.SubscriptionGroupName,
                 async (s, resolvedEvent, _, _) =>
                 {
                     if (resolvedEvent.IsResolved)

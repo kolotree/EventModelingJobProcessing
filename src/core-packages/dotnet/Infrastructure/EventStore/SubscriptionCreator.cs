@@ -20,15 +20,15 @@ namespace JobProcessing.Infrastructure.EventStore
         }
 
         public async Task SubscribeTo<T>(
-            SubscriptionRequest subscriptionRequest,
+            PersistedSubscriptionRequest persistedSubscriptionRequest,
             Func<T, Task> viewHandler,
             CancellationToken cancellationToken = default)
         {
-            await CreateSubscriptionFor(subscriptionRequest);
-            await _next.SubscribeTo(subscriptionRequest, viewHandler, cancellationToken);
+            await CreateSubscriptionFor(persistedSubscriptionRequest);
+            await _next.SubscribeTo(persistedSubscriptionRequest, viewHandler, cancellationToken);
         }
 
-        private async Task CreateSubscriptionFor(SubscriptionRequest request)
+        private async Task CreateSubscriptionFor(PersistedSubscriptionRequest request)
         {
             try
             {
