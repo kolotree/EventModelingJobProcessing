@@ -1,14 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstractions", "Abstractions\Abstractions.csproj", "{086228DC-8D4F-40A8-9C3C-1A75014FA154}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstractions", "Packs\Abstractions\Abstractions.csproj", "{086228DC-8D4F-40A8-9C3C-1A75014FA154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{6DDE111A-E765-42F0-B3BF-64E05A0F2A25}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Packs\Infrastructure\Infrastructure.csproj", "{6DDE111A-E765-42F0-B3BF-64E05A0F2A25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryStore", "InMemoryStore\InMemoryStore.csproj", "{FDA77A88-E63B-4E18-B2A2-959D93286FA5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryStore", "Packs\InMemoryStore\InMemoryStore.csproj", "{FDA77A88-E63B-4E18-B2A2-959D93286FA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{29CC37F0-8BAB-4B6A-90F3-8B04F48EFC12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSubscriptionTestApp", "Testing\ClientSubscriptionTestApp\ClientSubscriptionTestApp.csproj", "{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packs", "Packs", "{3FE74ED0-6D59-4FAC-9B19-F5DF4059C6DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9D0CABDE-6FC3-4D9C-A5CE-20DDA3923D4A} = {29CC37F0-8BAB-4B6A-90F3-8B04F48EFC12}
+		{086228DC-8D4F-40A8-9C3C-1A75014FA154} = {3FE74ED0-6D59-4FAC-9B19-F5DF4059C6DD}
+		{6DDE111A-E765-42F0-B3BF-64E05A0F2A25} = {3FE74ED0-6D59-4FAC-9B19-F5DF4059C6DD}
+		{FDA77A88-E63B-4E18-B2A2-959D93286FA5} = {3FE74ED0-6D59-4FAC-9B19-F5DF4059C6DD}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{086228DC-8D4F-40A8-9C3C-1A75014FA154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

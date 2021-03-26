@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Packs\Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
