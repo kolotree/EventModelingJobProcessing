@@ -18,7 +18,7 @@ namespace ClientSubscriptionTestApp
                     new UserCredentials("admin", "changeit")))
                 .NewClientSubscriptionSource()
                 .SubscribeUsing(
-                    new ClientSubscriptionRequest(24970, "MachineStopped", "MachineStarted"),
+                    new ClientSubscriptionRequest(GlobalPosition.Of(24970), "MachineStopped", "MachineStarted"),
                     (eventEnvelope, globalPosition) =>
                     {
                         Console.WriteLine($"{globalPosition}:{eventEnvelope.Data}, {eventEnvelope.Metadata}");

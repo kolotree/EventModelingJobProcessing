@@ -9,17 +9,17 @@ namespace JobProcessing.Abstractions
     {
         Task SubscribeUsing(
             ClientSubscriptionRequest clientSubscriptionRequest,
-            Func<EventEnvelope, ulong, Task> eventEnveloperHandler,
+            Func<EventEnvelope, GlobalPosition, Task> eventEnveloperHandler,
             CancellationToken cancellationToken = default);
     }
 
     public sealed class ClientSubscriptionRequest : ValueObject
     {
-        public ulong StartPosition { get; }
+        public GlobalPosition StartPosition { get; }
         public string[] EventTypes { get; }
 
         public ClientSubscriptionRequest(
-            ulong startPosition,
+            GlobalPosition startPosition,
             params string[] eventTypes)
         {
             StartPosition = startPosition;

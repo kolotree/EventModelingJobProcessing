@@ -19,13 +19,13 @@ namespace JobProcessing.Infrastructure.EventStore
         
         public async Task SubscribeUsing(
             ClientSubscriptionRequest clientSubscriptionRequest, 
-            Func<EventEnvelope, ulong, Task> eventEnveloperHandler,
+            Func<EventEnvelope, GlobalPosition, Task> eventEnveloperHandler,
             CancellationToken cancellationToken = default)
         {
             Exception? optionalException = null;
             var subscriptionDroppedCancellationTokenSource = new CancellationTokenSource();
             using var streamSubscription = await _eventStoreClient.SubscribeToAllAsync(
-                new Position(clientSubscriptionRequest.StartPosition, 0UL),
+                new Position(clientSubscriptionRequest.StartPosition.Part1, clientSubscriptionRequest.StartPosition.Part2),
                 async (_, resolvedEvent, _) =>
                 {
                     var eventEnvelope = new EventEnvelope(
@@ -33,7 +33,11 @@ namespace JobProcessing.Infrastructure.EventStore
                         Encoding.UTF8.GetString(resolvedEvent.Event.Data.Span),
                         Encoding.UTF8.GetString(resolvedEvent.Event.Metadata.Span).DeserializeEventMetadata()
                             ?? throw new InvalidOperationException($"Event metadata not provided: {resolvedEvent.Event.EventId}"));
-                    await eventEnveloperHandler(eventEnvelope, resolvedEvent.OriginalPosition!.Value.CommitPosition);
+                    await eventEnveloperHandler(
+                        eventEnvelope,
+                        GlobalPosition.Of(
+                            resolvedEvent.OriginalPosition!.Value.CommitPosition,
+                            resolvedEvent.OriginalPosition!.Value.PreparePosition));
                 },
                 false,
                 (_, _, exception) =>
