@@ -1,7 +1,4 @@
-﻿
-
-using MongoDB.Bson.Serialization.Attributes;
-using ViewStore.Abstractions;
+﻿using ViewStore.Abstractions;
 
 namespace Processor.Domain
 {

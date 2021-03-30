@@ -1,5 +1,4 @@
-﻿using EventStore.Client;
-using JobProcessing.Abstractions;
+﻿using JobProcessing.Abstractions;
 using ViewStore.Abstractions;
 
 namespace Processor

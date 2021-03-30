@@ -4,24 +4,46 @@ using EventStore.Client;
 using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.EventStore;
 using Microsoft.Extensions.Configuration;
+using MongoDB.Bson.Serialization;
+using Processor.Domain;
+using ViewStore.Abstractions;
+using ViewStore.MongoDb;
+// ReSharper disable NotResolvedInText
 
 namespace Processor
 {
     internal static class ConfigurationExtensions
     {
-        public static EventStoreConfiguration EventStoreConfiguration(this IConfiguration configuration) =>
+        public static IClientSubscriptionSource ClientSubscriptionSource(this IConfiguration configuration) =>
+            EventStoreBuilder
+                .NewUsing(configuration.EventStoreConfiguration())
+                .NewClientSubscriptionSource();
+        
+        public static IViewStore MongoDbViewStore(this IConfiguration configuration) =>
+            MongoDbViewStoreBuilder.New()
+                .WithConnectionDetails(
+                    configuration.MongoDb().ConnectionString,
+                    configuration.MongoDb().DatabaseName)
+                .WithCollectionName(configuration.MachineStatusViewModel())
+                .UseViewRegistrator(() =>
+                {
+                    BsonClassMap.RegisterClassMap<MachineStatusView>();
+                })
+                .Build();
+        
+        private static EventStoreConfiguration EventStoreConfiguration(this IConfiguration configuration) =>
             new(
                 configuration["EventStore:ConnectionString"] ?? throw new ArgumentNullException("EventStore:ConnectionString"),
                 new UserCredentials(
                     configuration["EventStore:Credentials"]?.Split(':').FirstOrDefault() ?? throw new ArgumentNullException("EventStore:Credentials"),
                     configuration["EventStore:Credentials"]?.Split(':').LastOrDefault() ?? throw new ArgumentNullException("EventStore:Credentials")));
 
-        public static MongoDbConfiguration MongoDb(this IConfiguration configuration) =>
-            new MongoDbConfiguration(
+        private static MongoDbConfiguration MongoDb(this IConfiguration configuration) =>
+            new(
                 configuration["MongoDb:ConnectionString"] ?? throw new ArgumentNullException("MongoDb:ConnectionString"),
                 configuration["MongoDb:DatabaseName"] ?? throw new ArgumentNullException("MongoDb:DatabaseName"));
 
-        public static string MachineStatusViewModel(this IConfiguration configuration) =>
+        private static string MachineStatusViewModel(this IConfiguration configuration) =>
             configuration["MachineStatusViewModel"] ?? throw new ArgumentNullException("MachineStatusViewModel");
     }
 

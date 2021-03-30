@@ -1,17 +1,15 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EventStore.Client;
 using JobProcessing.Abstractions;
-using JobProcessing.Infrastructure.EventStore;
 using JobProcessing.Infrastructure.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MongoDB.Driver;
 using Processor.Domain;
 using ViewStore.Abstractions;
-using ViewStore.MongoDb;
+
+// ReSharper disable MethodHasAsyncOverload
 
 namespace Processor
 {
@@ -43,12 +41,8 @@ namespace Processor
 
         private async Task ProcessSubscription(CancellationToken stoppingToken)
         {
-            using var storeBuilder = EventStoreBuilder.NewUsing(_configuration.EventStoreConfiguration());
-            var clientSubscriptionSource = storeBuilder.NewClientSubscriptionSource();
-            var viewStore = new MongoDbViewStore(
-                new MongoClient(_configuration.MongoDb().ConnectionString).GetDatabase(_configuration.MongoDb()
-                    .DatabaseName),
-                _configuration.MachineStatusViewModel());
+            var clientSubscriptionSource = _configuration.ClientSubscriptionSource();
+            var viewStore = _configuration.MongoDbViewStore();
 
             async Task TransformView(string viewId, GlobalPosition globalPosition, Action<MachineStatusView> transform)
             {
@@ -59,7 +53,6 @@ namespace Processor
                 
                 await viewStore.SaveAsync(machineStatusViewEnvelope);
             }
-            
 
             await clientSubscriptionSource.SubscribeUsing(
                 new ClientSubscriptionRequest(

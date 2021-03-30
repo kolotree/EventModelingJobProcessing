@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using JobProcessing.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Processor.Domain;
@@ -16,7 +15,7 @@ namespace Processor
             stringBuilder.AppendLine($"[{nameof(MachineStatusView)}] Starting worker ...");
             stringBuilder.AppendLine($"[{nameof(MachineStatusView)}] Version: {Version}");
             
-            logger.LogInformation(stringBuilder.ToString());
+            logger.LogInformation("{StartupInformation}", stringBuilder);
         }
     }
 }

@@ -1,7 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MongoDB.Bson.Serialization;
-using Processor.Domain;
 
 namespace Processor
 {
@@ -9,7 +7,6 @@ namespace Processor
     {
         public static void Main(string[] args)
         {
-            BsonClassMap.RegisterClassMap<MachineStatusView>();
             CreateHostBuilder(args).Build().Run();
         }
 
