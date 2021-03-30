@@ -1,6 +1,6 @@
 ﻿using ViewStore.Abstractions;
 
-namespace Processor.Domain
+namespace Projection.Domain
 {
     internal sealed class MachineStatusView : IView
     {

@@ -6,12 +6,12 @@ using JobProcessing.Infrastructure.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Processor.Domain;
+using Projection.Domain;
 using ViewStore.Abstractions;
 
 // ReSharper disable MethodHasAsyncOverload
 
-namespace Processor
+namespace Projection
 {
     internal class Worker : BackgroundService
     {

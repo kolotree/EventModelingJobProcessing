@@ -5,7 +5,6 @@
         <UserSecretsId>dotnet-MachineJobProcessor-0132CC65-0E55-454F-948A-B4AC76ACCDA3</UserSecretsId>
         <LangVersion>9</LangVersion>
         <Nullable>enable</Nullable>
-        <RootNamespace>Processor</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

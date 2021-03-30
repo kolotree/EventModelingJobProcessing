@@ -1,9 +1,9 @@
 ﻿using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Processor.Domain;
+using Projection.Domain;
 
-namespace Processor
+namespace Projection
 {
     internal static class StartupInformation
     {

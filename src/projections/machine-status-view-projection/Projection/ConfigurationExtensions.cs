@@ -5,12 +5,13 @@ using JobProcessing.Abstractions;
 using JobProcessing.Infrastructure.EventStore;
 using Microsoft.Extensions.Configuration;
 using MongoDB.Bson.Serialization;
-using Processor.Domain;
+using Projection.Domain;
 using ViewStore.Abstractions;
 using ViewStore.MongoDb;
+
 // ReSharper disable NotResolvedInText
 
-namespace Processor
+namespace Projection
 {
     internal static class ConfigurationExtensions
     {

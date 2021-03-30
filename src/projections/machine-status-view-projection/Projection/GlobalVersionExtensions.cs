@@ -1,7 +1,7 @@
 ﻿using JobProcessing.Abstractions;
 using ViewStore.Abstractions;
 
-namespace Processor
+namespace Projection
 {
     internal static class GlobalVersionExtensions
     {

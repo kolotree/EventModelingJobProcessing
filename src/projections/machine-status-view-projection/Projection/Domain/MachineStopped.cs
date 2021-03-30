@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using JobProcessing.Abstractions;
 
-namespace Processor.Domain
+namespace Projection.Domain
 {
     public sealed class MachineStopped : ValueObject, IEvent
     {
