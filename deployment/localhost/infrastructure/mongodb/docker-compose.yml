@@ -4,4 +4,7 @@ services:
     image: "mongo:latest"
     restart: unless-stopped
     ports:
-      - 27017:27017
+      - 27018:27017
+    environment:
+      - 'MONGO_INITDB_ROOT_USERNAME=kolotree'
+      - 'MONGO_INITDB_ROOT_PASSWORD=kolotree4532'
