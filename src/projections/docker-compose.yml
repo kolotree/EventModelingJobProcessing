@@ -5,7 +5,7 @@ services:
     build:
       context: machine-job-processor-view-projection
   machine-status-view-projection:
-    image: ghcr.io/kolotree/machine-status-view-projection:1.1
+    image: ghcr.io/kolotree/machine-status-view-projection:1.2
     build:
       context: machine-status-view-projection
       

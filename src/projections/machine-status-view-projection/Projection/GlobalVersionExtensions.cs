@@ -6,9 +6,12 @@ namespace Projection
     internal static class GlobalVersionExtensions
     {
         public static GlobalVersion ToGlobalVersion(this GlobalPosition position) =>
-            GlobalVersion.Of((long)position.Part1, (long)position.Part2);
+            GlobalVersion.FromUlong(position.Part1, position.Part2);
 
-        public static GlobalPosition ToGlobalPosition(this GlobalVersion globalVersion) => 
-            GlobalPosition.Of((ulong)globalVersion.Part1, (ulong)globalVersion.Part2);
+        public static GlobalPosition ToGlobalPosition(this GlobalVersion globalVersion)
+        {
+            var (part1, part2) = globalVersion.ToUlong();
+            return GlobalPosition.Of(part1, part2);
+        }
     }
 }

@@ -10,6 +10,6 @@
     <ItemGroup>
         <PackageReference Include="JobProcessing.Infrastructure" Version="1.1.1" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
-        <PackageReference Include="ViewStore.MongoDb" Version="1.2.0-alpha3" />
+        <PackageReference Include="ViewStore.MongoDb" Version="1.2.0-alpha4" />
     </ItemGroup>
 </Project>
